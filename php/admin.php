@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="../css/admin.css">
     <script src="../js/admin.js"></script>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
@@ -18,7 +18,6 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script defer src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
     <script defer src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
-
 </head>
 
 <body class="sb-nav-fixed">
@@ -64,6 +63,10 @@
                             Dashboard
                         </a>
                         <div class="sb-sidenav-menu-heading">Interface</div>
+                        <a class="nav-link" href="admin.php?nguoidung">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Người Dùng
+                        </a>
                         <a class="nav-link" href="admin.php?taikhoan">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Tài Khoản
@@ -88,6 +91,10 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Nhà Cung Cấp
                         </a>
+                        <a class="nav-link" href="admin.php?phanquyen">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Phân Quyền
+                        </a>
                         <a class="nav-link" href="admin.php?thongke">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Thống kê
@@ -101,58 +108,14 @@
             </nav>
         </div>
         <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid px-4">
-                    <h1 class="mt-4">Sản Phẩm</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item"><a href="admin.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Sản Phẩm</li>
-                    </ol>
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            Bảng sản phẩm
-                        </div>
-                        <div class="card-body">
-                            <table id="datatablesSimple" class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Mã sản phẩm</th>                   
-                                        <th>Tên sản phẩm</th>
-                                        <th>Giá</th>
-                                        <th>Số Lượng</th>
-                                        <th>Thể Loại</th>
-                                        <th>Hình ảnh</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    require_once 'sanpham.php';
-                                    require_once 'DatabaseConnection.php';
-                                    $sanpham = new Sanpham();
-                                    $sanpham->__construct();
-                                    echo $sanpham->getAll();
-                                    ?>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th>Mã sản phẩm</th>
-                                        <th>Thể Loại</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Giá</th>
-                                        <th>Số Lượng</th>
-                                        <th>Hình ảnh</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+            <?php
+            include ("load-interface.php")
+            ?>
         </div>
-        </main>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script src="../js/datatables-simple-demo.js"></script>
 </body>
 
