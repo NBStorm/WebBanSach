@@ -15,3 +15,97 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+document.getElementById('formAddTheLoai').addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (this.classList.contains('was-validated')) {
+        var id = document.getElementById('floatingValidationID').value;
+        var ten = document.getElementById('floatingValidationName').value;
+
+        var formData = new FormData();
+        formData.append('MaTL', id);
+        formData.append('TenTL', ten);
+        formData.append('action', 'them'); // Thêm hành động 'them' vào dữ liệu gửi đi
+
+        fetch('theloaixuly.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                if (data == true) {
+                    alert('Thêm thành công');
+                    location.reload();
+                } else {
+                    console.log(data);
+                    alert(data);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+});
+
+document.getElementById('formDeleteTheLoai').addEventListener('submit', function (event) {
+    event.preventDefault(); // Ngăn chặn gửi yêu cầu POST thông thường
+
+    var id = document.getElementById('recordId').value;
+
+    $.ajax({
+        url: 'theloaixuly.php', // Đường dẫn tới file xử lý trên server
+        type: 'POST',
+        data: {
+            recordId: id,
+            action: 'xoa'
+        }, // Truyền dữ liệu trực tiếp vào data
+        success: function (response) {
+            console.log(response)
+            if (response === 'success') {
+                alert("Xóa thành công")
+                location.reload();
+            } else {
+                alert('Error: Unable to delete the record.');
+            }
+        }
+    });
+
+});
+
+document.getElementById('formUpdateTheLoai').addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (this.classList.contains('was-validated')) {
+        var id = document.getElementById('updateID').value;
+        var ten = document.getElementById('updateName').value;
+
+        var formData = new FormData();
+        formData.append('MaTL', id);
+        formData.append('TenTL', ten);
+        formData.append('action', 'sua'); // Thêm hành động 'them' vào dữ liệu gửi đi
+
+        fetch('theloaixuly.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.text())
+            .then(data => {
+                if (data == true) {
+                    alert('Sửa thành công');
+                    location.reload();
+                } else {
+                    console.log(data);
+                    alert(data);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+});
+
+
+
+
+
+
+

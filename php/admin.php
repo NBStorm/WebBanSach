@@ -5,19 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/admin.css">
-    <script src="../js/admin.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-
-
-    <script defer src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script defer
-        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script defer src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
-    <script defer src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -110,13 +102,65 @@
         <div id="layoutSidenav_content">
             <?php
             include ("load-interface.php")
-            ?>
+                ?>
         </div>
 
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="../js/admin.js"></script>
     <script src="../js/datatables-simple-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    <script defer src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Gán sự kiện click cho phần tử cha chứa các nút "Delete"
+            $(document).on('click', '.delete', function () {
+                var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
+                var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
+                var name = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
+
+                // Đặt dữ liệu vào modal
+                $('#recordId').val(id);
+                $('#deleteName').text(name);
+            });
+
+            $(document).on('click', '.update', function () {
+                var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
+                var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
+                var name = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
+                console.log(id)
+                console.log(name)
+                // Đặt dữ liệu vào modal
+                $('#updateID').val(id);
+                $('#updateName').val(name);
+            });
+        });
+    </script>
+    <script>
+        (function () {
+            'use strict'
+
+            // Check if there are forms with the class 'needs-validation'
+            var forms = document.querySelectorAll('.needs-validation');
+
+            // If there are, then apply Bootstrap validation styles
+            if (forms.length > 0) {
+                Array.prototype.slice.call(forms)
+                    .forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
+
+                            form.classList.add('was-validated')
+                        }, false)
+                    })
+            }
+        })();
+    </script>
 </body>
 
 </html>

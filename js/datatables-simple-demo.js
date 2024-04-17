@@ -8,18 +8,20 @@ window.addEventListener('DOMContentLoaded', event => {
   }
 
   var selectElement = document.getElementById("dt-length-0");
+  if (selectElement) {
+    // Xóa các option hiện tại
+    selectElement.innerHTML = "";
 
-  // Xóa các option hiện tại
-  selectElement.innerHTML = "";
-
-  // Tạo và thêm các option mới
-  var optionValues = [5, 10, 15, 20];
-  for (var i = 0; i < optionValues.length; i++) {
-    var option = document.createElement("option");
-    option.value = optionValues[i];
-    option.text = optionValues[i];
-    selectElement.appendChild(option);
+    // Tạo và thêm các option mới
+    var optionValues = [5, 10, 15, 20];
+    for (var i = 0; i < optionValues.length; i++) {
+      var option = document.createElement("option");
+      option.value = optionValues[i];
+      option.text = optionValues[i];
+      selectElement.appendChild(option);
+    }
   }
+
 });
 
 

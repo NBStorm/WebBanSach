@@ -11,31 +11,38 @@ class TheLoai
         $this->db->connect();
     }
 
-    public function themSanPham($ten, $gia)
+    public function themTheLoai($ten)
     {
-        $sql = "INSERT INTO sanpham (ten, gia) VALUES (?, ?)";
+        $sql = "INSERT INTO theloai (TenTL) VALUES (?)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("si", $ten, $gia);
-        $stmt->execute();
+        $stmt->bind_param("s", $ten);
+        $success = $stmt->execute();
         $stmt->close();
+        $this->db->disconnect();
+        return $success;
     }
 
-    public function xoaSanPham($id)
+    public function xoaTheLoai($id)
     {
-        $sql = "DELETE FROM sanpham WHERE id = ?";
+        $sql = "DELETE FROM theloai WHERE MaTL = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        $result = $stmt->execute();
         $stmt->close();
+        $this->db->disconnect();
+        return $result; // Trả về kết quả của phương thức execute()
     }
 
-    public function suaSanPham($id, $ten, $gia)
+
+    public function suaTheLoai($id, $ten)
     {
-        $sql = "UPDATE sanpham SET ten = ?, gia = ? WHERE id = ?";
+        $sql = "UPDATE theloai SET TenTL = ? WHERE MaTL = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("sii", $ten, $gia, $id);
-        $stmt->execute();
+        $stmt->bind_param("si", $ten, $id);
+        $result=$stmt->execute();
         $stmt->close();
+        $this->db->disconnect();
+        return $result;
     }
 
     public function getAll()
@@ -44,18 +51,14 @@ class TheLoai
         $result = $this->db->query($sql);
 
         if ($result->num_rows > 0) {
-            $s = "";
+            $theLoaiArray = array(); // Tạo một mảng rỗng để chứa cặp id và tên
 
             while ($row = $result->fetch_assoc()) {
-                $s .= "<tr>
-                        <td>" . $row['MaTL'] . "</td>
-                        <td>" . $row['TenTL'] . "</td>
-                    </tr>";
+                $theLoaiArray[] = array('id' => $row['MaTL'], 'ten' => $row['TenTL']);
             }
-
-            return $s;
+            return $theLoaiArray;
         }
-
+        $this->db->disconnect();
         return "";
     }
 }

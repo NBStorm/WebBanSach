@@ -28,13 +28,11 @@ class DatabaseConnection
 
     public function query($sql)
     {
-        // Thực thi truy vấn sử dụng MySQLi
         return $this->conn->query($sql);
     }
 
     public function prepare($sql)
     {
-        // Chuẩn bị truy vấn sử dụng MySQLi
         return $this->conn->prepare($sql);
     }
 }

@@ -24,7 +24,7 @@ if (isset($_GET['sanpham'])) {
                 <table id='datatablesSimple' class='table table-striped'>
                     <thead>
                         <tr>
-                            <th>Mã sản phẩm</th>
+                            <th width=13%>Mã sản phẩm</th>
                             <th>Tên sản phẩm</th>
                             <th>Giá</th>
                             <th>Số Lượng</th>
@@ -70,21 +70,35 @@ if (isset($_GET['sanpham'])) {
                 <table id='datatablesSimple' class='table table-striped'>
                     <thead>
                         <tr>
-                            <th>Mã thể loại</th>
+                            <th width=12% style='text-align: center;'>Mã thể loại</th>
                             <th>Tên thể loại</th>
+                            <th style='width: 15%;text-align: -webkit-center;'>Chức năng</th>
                         </tr>
                     </thead>
                     <tbody>";
                         $theloai = new TheLoai();
-                        $theloai->__construct();
-                        echo $theloai->getAll();
-
+                        $theLoaiArray = $theloai->getAll();
+                        $s='';
+                        foreach ($theLoaiArray as $item)
+                        {
+                            $s .= "<tr>
+                                    <td width=12% style='text-align: center;'>" . $item['id'] . "</td>
+                                    <td>" . $item['ten'] . "</td>
+                                    <td style='text-align: center;'>
+                                        <a data-bs-target='#updateTheLoaiModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
+                                        <span style='margin: 0 10px'></span>
+                                        <a data-bs-target='#deleteTheLoaiModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    </td>
+                                </tr>";
+                        }
+                        echo $s;
                     echo "</tbody>
                     </tbody>
                     <tfoot>
                         <tr>
                             <th>Mã thể loại</th>
                             <th>Tên thể loại</th>
+                            <th>Chức năng</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -92,31 +106,104 @@ if (isset($_GET['sanpham'])) {
         </div>
         <div class='col-sm-6'>
             <button type='button' class='btn btn-success' data-bs-toggle='modal'
-                data-bs-target='#addEmployeeModal'>
-                Add new
+                data-bs-target='#addTheLoaiModal'>
+                <i class='fa-solid fa-circle-plus'></i>
+                Thêm thể loại mới
             </button>
         </div>
-        <div id='addEmployeeModal' class='modal fade'>
+        <div id='addTheLoaiModal' class='modal fade'>
             <div class='modal-dialog'>
                 <div class='modal-content'>
-                    <form>
+                    <form class='row g-3 needs-validation' novalidate id='formAddTheLoai'>
                         <div class='modal-header'>
-                            <h4 class='modal-title'>Add Employee</h4>
+                            <h4 class='modal-title'>Add Thể loại</h4>
                             <button type='button' class='btn-close' data-bs-dismiss='modal'
                                 aria-label='Close'></button>
                         </div>
                         <div class='modal-body'>
-                            add
+                        
+                            <div class='form-floating mb-3'>
+                                <input type='number' class='form-control' id='floatingValidationID' placeholder='<Mã thể loại' readonly> 
+                                <label for='floatingValidationID' class='form-label'>Mã thể loại</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class='form-floating mb-3'>
+                                <input type='text' class='form-control' id='floatingValidationName' placeholder='Tên thể loại' required>
+                                <label for='floatingValidationName' class='form-label' >Tên thể loại</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
                         </div>
                         <div class='modal-footer'>
                             <button type='button' class='btn btn-secondary'
-                                data-bs-dismiss='modal'>Close</button>
-                            <button type='button' class='btn btn-primary'>Save changes</button>
+                                data-bs-dismiss='modal'><i class='fa-solid fa-x'></i> Close</button>
+                            <button type='submit' class='btn btn-primary'><i class='fa-solid fa-check'></i> Save</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+        <div id='deleteTheLoaiModal' class='modal fade'>
+		    <div class='modal-dialog'>
+			    <div class='modal-content'>
+				    <form id='formDeleteTheLoai'>
+					    <div class='modal-header'>						
+						    <h5 class='modal-title'>Delete Thể loại</h4>
+						    <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+					    </div>
+					    <div class='modal-body'>					
+						    <p>Are you sure you want to delete thể loại <span id='deleteName'></span> ?</p>
+                            <input type='hidden' id='recordId' name='recordId'>
+						    <p class='text-warning'><large>This action cannot be undone.</large></p>
+					    </div>
+					    <div class='modal-footer'>
+						    <input type='button' class='btn btn-secondary' data-bs-dismiss='modal' value='Cancel'>
+						    <button type='submit' class='btn btn-danger'>Delete</button>
+					    </div>
+				    </form>
+			    </div>
+		    </div>
+	    </div>
+
+        <div id='updateTheLoaiModal' class='modal fade'>
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                    <form class='row g-3 needs-validation' novalidate id='formUpdateTheLoai'>
+                        <div class='modal-header'>
+                            <h4 class='modal-title'>Update Thể loại</h4>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body'>
+                            <div class='form-floating mb-3'>
+                                <input type='number' class='form-control' id='updateID' placeholder='<Mã thể loại' readonly> 
+                                <label for='updateID' class='form-label'>Mã thể loại</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class='form-floating mb-3'>
+                                <input type='text' class='form-control' id='updateName' placeholder='Tên thể loại' required>
+                                <label for='updateName' class='form-label' >Tên thể loại</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class='modal-footer'>
+                            <button type='button' class='btn btn-secondary'
+                                data-bs-dismiss='modal'><i class='fa-solid fa-x'></i> Close</button>
+                            <button type='submit' class='btn btn-primary'><i class='fa-solid fa-check'></i> Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>                     
+
     </div>
 </main>";
 }else if (isset($_GET['nguoidung'])) {
