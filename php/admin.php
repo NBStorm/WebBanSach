@@ -106,35 +106,72 @@
         </div>
 
     </div>
-    
+
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="../js/admin.js"></script>
     <script src="../js/datatables-simple-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
     <script defer src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
     <script defer src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
     <script>
         $(document).ready(function () {
             // Gán sự kiện click cho phần tử cha chứa các nút "Delete"
             $(document).on('click', '.delete', function () {
-                var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
-                var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
-                var name = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('theloai')) {
+                    var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
+                    var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
+                    var name = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
 
-                // Đặt dữ liệu vào modal
-                $('#recordId').val(id);
-                $('#deleteName').text(name);
+                    // Đặt dữ liệu vào modal
+                    $('#recordId').val(id);
+                    $('#deleteName').text(name);
+                }
+            });
+
+            $(document).on('click', '.delete', function () {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('nhacungcap')) {
+                    var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
+                    var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
+                    var name = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
+
+                    // Đặt dữ liệu vào modal
+                    $('#recordId').val(id);
+                    $('#deleteName').text(name);
+                }
             });
 
             $(document).on('click', '.update', function () {
-                var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
-                var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
-                var name = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
-                console.log(id)
-                console.log(name)
-                // Đặt dữ liệu vào modal
-                $('#updateID').val(id);
-                $('#updateName').val(name);
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('theloai')) {
+                    var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
+                    var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
+                    var name = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
+                    console.log(id)
+                    console.log(name)
+                    // Đặt dữ liệu vào modal
+                    $('#updateID').val(id);
+                    $('#updateName').val(name);
+                }
+            });
+
+            $(document).on('click', '.update', function () {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('nhacungcap')) {
+                    var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
+                    var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
+                    var name = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
+                    var sdt = row.find('td:nth-child(3)').text(); // Lấy dữ liệu từ cột thứ ba
+                    var diachi = row.find('td:nth-child(4)').text(); // Lấy dữ liệu từ cột thứ tư
+                    
+                    // Đặt dữ liệu vào modal
+                    $('#updateID').val(id);
+                    $('#updateName').val(name);
+                    $('#updatePN').val(sdt);
+                    $('#updateDiaChi').val(diachi);
+                }
             });
         });
     </script>

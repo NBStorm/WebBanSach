@@ -61,6 +61,17 @@ if (isset($_GET['sanpham'])) {
             <li class='breadcrumb-item'><a href='admin.php'>Dashboard</a></li>
             <li class='breadcrumb-item active'>Thể Loại</li>
         </ol>
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px'>
+                    <button type='button' class='btn btn-success' data-bs-toggle='modal'
+                        data-bs-target='#addTheLoaiModal'>
+                    <i class='fa-solid fa-circle-plus'></i>
+                        Thêm thể loại mới
+                    </button>
+                </div>  
+            </div>
+        </div>
         <div class='card mb-4'>
             <div class='card-header'>
                 <i class='fas fa-table me-1'></i>
@@ -96,7 +107,7 @@ if (isset($_GET['sanpham'])) {
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th>Mã thể loại</th>
+                            <th width=12% style='text-align: center;'>Mã thể loại</th>
                             <th>Tên thể loại</th>
                             <th>Chức năng</th>
                         </tr>
@@ -104,15 +115,8 @@ if (isset($_GET['sanpham'])) {
                 </table>
             </div>
         </div>
-        <div class='col-sm-6'>
-            <button type='button' class='btn btn-success' data-bs-toggle='modal'
-                data-bs-target='#addTheLoaiModal'>
-                <i class='fa-solid fa-circle-plus'></i>
-                Thêm thể loại mới
-            </button>
-        </div>
         <div id='addTheLoaiModal' class='modal fade'>
-            <div class='modal-dialog'>
+            <div class='modal-dialog modal-dialog-centered'>
                 <div class='modal-content'>
                     <form class='row g-3 needs-validation' novalidate id='formAddTheLoai'>
                         <div class='modal-header'>
@@ -121,7 +125,6 @@ if (isset($_GET['sanpham'])) {
                                 aria-label='Close'></button>
                         </div>
                         <div class='modal-body'>
-                        
                             <div class='form-floating mb-3'>
                                 <input type='number' class='form-control' id='floatingValidationID' placeholder='<Mã thể loại' readonly> 
                                 <label for='floatingValidationID' class='form-label'>Mã thể loại</label>
@@ -137,7 +140,7 @@ if (isset($_GET['sanpham'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class='modal-footer'>
+                        <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
                             <button type='button' class='btn btn-secondary'
                                 data-bs-dismiss='modal'><i class='fa-solid fa-x'></i> Close</button>
                             <button type='submit' class='btn btn-primary'><i class='fa-solid fa-check'></i> Save</button>
@@ -147,7 +150,7 @@ if (isset($_GET['sanpham'])) {
             </div>
         </div>
         <div id='deleteTheLoaiModal' class='modal fade'>
-		    <div class='modal-dialog'>
+		    <div class='modal-dialog modal-dialog-centered'>
 			    <div class='modal-content'>
 				    <form id='formDeleteTheLoai'>
 					    <div class='modal-header'>						
@@ -156,11 +159,11 @@ if (isset($_GET['sanpham'])) {
                                 aria-label='Close'></button>
 					    </div>
 					    <div class='modal-body'>					
-						    <p>Are you sure you want to delete thể loại <span id='deleteName'></span> ?</p>
+						    <p>Bạn có muốn xóa Thể loại <span id='deleteName'></span> ?</p>
                             <input type='hidden' id='recordId' name='recordId'>
 						    <p class='text-warning'><large>This action cannot be undone.</large></p>
 					    </div>
-					    <div class='modal-footer'>
+					    <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
 						    <input type='button' class='btn btn-secondary' data-bs-dismiss='modal' value='Cancel'>
 						    <button type='submit' class='btn btn-danger'>Delete</button>
 					    </div>
@@ -170,7 +173,7 @@ if (isset($_GET['sanpham'])) {
 	    </div>
 
         <div id='updateTheLoaiModal' class='modal fade'>
-            <div class='modal-dialog'>
+            <div class='modal-dialog modal-dialog-centered'>
                 <div class='modal-content'>
                     <form class='row g-3 needs-validation' novalidate id='formUpdateTheLoai'>
                         <div class='modal-header'>
@@ -194,7 +197,7 @@ if (isset($_GET['sanpham'])) {
                                 </div>
                             </div>
                         </div>
-                        <div class='modal-footer'>
+                        <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
                             <button type='button' class='btn btn-secondary'
                                 data-bs-dismiss='modal'><i class='fa-solid fa-x'></i> Close</button>
                             <button type='submit' class='btn btn-primary'><i class='fa-solid fa-check'></i> Save changes</button>
@@ -300,6 +303,17 @@ if (isset($_GET['sanpham'])) {
             <li class='breadcrumb-item'><a href='admin.php'>Dashboard</a></li>
             <li class='breadcrumb-item active'>Nhà Cung Cấp</li>
         </ol>
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px'>
+                    <button type='button' class='btn btn-success' data-bs-toggle='modal'
+                        data-bs-target='#addNhaCCModal'>
+                    <i class='fa-solid fa-circle-plus'></i>
+                        Thêm nhà cung cấp mới
+                    </button>
+                </div>  
+            </div>
+        </div>
         <div class='card mb-4'>
             <div class='card-header'>
                 <i class='fas fa-table me-1'></i>
@@ -309,27 +323,161 @@ if (isset($_GET['sanpham'])) {
                 <table id='datatablesSimple' class='table table-striped'>
                     <thead>
                         <tr>
-                            <th>Mã nhà cung cấp</th>
+                            <th style='text-align: left;'>Mã nhà cung cấp</th>
                             <th>Tên nhà cung cấp</th>
-                            <th>Số điện thoại</th>
+                            <th style='text-align: left;'>Số điện thoại</th>
                             <th>Địa chỉ</th>
+                            <th style='width: 4%;text-align: -webkit-center;'>Chức năng</th>
                         </tr>
                     </thead>
                     <tbody>";
                         $nhacungcap = new NhaCungCap();
-                        $nhacungcap->__construct();
-                        echo $nhacungcap->getAll();
-
+                        $nhaCungCapArray = $nhacungcap->getAll();
+                        $s='';
+                        foreach ($nhaCungCapArray as $item)
+                        {
+                            $s .= "<tr>
+                                    <td width=7% style='text-align: center;'>" . $item['id'] . "</td>
+                                    <td width=20%>" . $item['ten'] . "</td>
+                                    <td width=3% style='text-align: left;'>" . $item['sdt'] . "</td>
+                                    <td width=10% style='overflow: hidden;text-overflow: ellipsis;'>" . $item['diachi'] . "</td>
+                                    <td style='text-align: center;'>
+                                        <a data-bs-target='#updateNhaCCModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
+                                        <span style='margin: 0 10px'></span>
+                                        <a data-bs-target='#deleteNhaCCModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    </td>
+                                </tr>";
+                        }
+                        echo $s;
                     echo "</tbody>
                     <tfoot>
                         <tr>
-                            <th>Mã nhà cung cấp</th>
+                            <th style='text-align: left;'>Mã nhà cung cấp</th>
                             <th>Tên nhà cung cấp</th>
-                            <th>Số điện thoại</th>
+                            <th style='text-align: left;'>Số điện thoại</th>
                             <th>Địa chỉ</th>
+                            <th style='width: 4%;text-align: -webkit-center;'>Chức năng</th>
                         </tr>
                     </tfoot>
                 </table>
+            </div>
+        </div>
+        <div id='addNhaCCModal' class='modal fade'>
+            <div class='modal-dialog modal-dialog-centered'>
+                <div class='modal-content'>
+                    <form class='row g-3 needs-validation' novalidate id='formAddNhaCC'>
+                        <div class='modal-header'>
+                            <h4 class='modal-title'>Add Nhà cung cấp</h4>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body'>
+                            <div class='form-floating mb-3'>
+                                <input type='number' class='form-control' id='floatingValidationID' placeholder='<Mã nhà cung cấp' readonly> 
+                                <label for='floatingValidationID' class='form-label'>Mã nhà cung cấp</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class='form-floating mb-3'>
+                                <input type='text' class='form-control' id='floatingValidationName' placeholder='Tên nhà cung cấp' required>
+                                <label for='floatingValidationName' class='form-label' >Tên nhà cung cấp</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class='form-floating mb-3'>
+                                <input type='text' class='form-control' id='floatingValidationPN' placeholder='Số Điện Thoại' required>
+                                <label for='floatingValidationPN' class='form-label' >Số Điện Thoại</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class='form-floating mb-3'>
+                                <textarea class='form-control' id='floatingValidationDiaChi' placeholder='Địa Chỉ' required style='height: 100px'></textarea>
+                                <label for='floatingValidationDiaChi'>Địa Chỉ</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
+                            <button type='button' class='btn btn-secondary'
+                                data-bs-dismiss='modal'><i class='fa-solid fa-x'></i> Close</button>
+                            <button type='submit' class='btn btn-primary'><i class='fa-solid fa-check'></i> Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id='deleteNhaCCModal' class='modal fade'>
+		    <div class='modal-dialog modal-dialog-centered'>
+			    <div class='modal-content'>
+				    <form id='formDeleteNhaCC'>
+					    <div class='modal-header'>						
+						    <h5 class='modal-title'>Delete Nhà cung cấp</h4>
+						    <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+					    </div>
+					    <div class='modal-body'>					
+						    <p>Bạn có muốn xóa Nhà cung cấp <span id='deleteName'></span> ?</p>
+                            <input type='hidden' id='recordId' name='recordId'>
+						    <p class='text-warning'><large>This action cannot be undone.</large></p>
+					    </div>
+					    <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
+						    <input type='button' class='btn btn-secondary' data-bs-dismiss='modal' value='Cancel'>
+						    <button type='submit' class='btn btn-danger'>Delete</button>
+					    </div>
+				    </form>
+			    </div>
+		    </div>
+	    </div>
+        <div id='updateNhaCCModal' class='modal fade'>
+            <div class='modal-dialog modal-dialog-centered'>
+                <div class='modal-content'>
+                    <form class='row g-3 needs-validation' novalidate id='formUpdateNhaCC'>
+                        <div class='modal-header'>
+                            <h4 class='modal-title'>Update Nhà cung cấp</h4>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body'>
+                            <div class='form-floating mb-3'>
+                                <input type='number' class='form-control' id='updateID' placeholder='<Mã nhà cung cấp' readonly> 
+                                <label for='updateID' class='form-label'>Mã nhà cung cấp</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class='form-floating mb-3'>
+                                <input type='text' class='form-control' id='updateName' placeholder='Tên nhà cung cấp' required>
+                                <label for='updateName' class='form-label' >Tên nhà cung cấp</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                                <div class='form-floating mb-3'>
+                                <input type='text' class='form-control' id='updatePN' placeholder='Số Điện Thoại' required>
+                                <label for='updatePN' class='form-label' >Số Điện Thoại</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class='form-floating mb-3'>
+                                <textarea class='form-control' id='updateDiaChi' placeholder='Địa Chỉ' required style='height: 100px'></textarea>
+                                <label for='updateDiaChi'>Địa Chỉ</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
+                            <button type='button' class='btn btn-secondary'
+                                data-bs-dismiss='modal'><i class='fa-solid fa-x'></i> Close</button>
+                            <button type='submit' class='btn btn-primary'><i class='fa-solid fa-check'></i> Save changes</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

@@ -44,20 +44,14 @@ class NhaCungCap
         $result = $this->db->query($sql);
 
         if ($result->num_rows > 0) {
-            $s = "";
+            $theLoaiArray = array(); // Tạo một mảng rỗng để chứa cặp id và tên
 
             while ($row = $result->fetch_assoc()) {
-                $s .= "<tr>
-                        <td>" . $row['MaNCC'] . "</td>
-                        <td>" . $row['TenNCC'] . "</td>
-                        <td>" . $row['SDT'] . "</td>
-                        <td>" . $row['DiaChi'] . "</td>
-                    </tr>";
+                $theLoaiArray[] = array('id' => $row['MaNCC'], 'ten' => $row['TenNCC'], 'sdt' => $row['SDT'], 'diachi' => $row['DiaChi']);
             }
-
-            return $s;
+            return $theLoaiArray;
         }
-
+        $this->db->disconnect();
         return "";
     }
 }
