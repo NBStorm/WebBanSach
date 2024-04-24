@@ -321,3 +321,56 @@ body {
     padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
     color: var(--bs-card-color);
 }
+
+.container_hd {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 200px;
+    /* Chiều cao của scrollpane */
+    overflow: auto;
+    /* Thêm thanh cuộn nếu nội dung vượt quá kích thước */
+    margin: 10px auto;
+    /* Căn giữa scrollpane trong trang */
+    border: 1px solid #ccc;
+}
+
+#left {
+    background-color: #20c997;
+    width: 49%;
+    /* Chiều rộng của div bên trái */
+    height: 50%;
+    /* Chiều cao của div */
+}
+
+#right {
+    background-color: bisque;
+    width: 49%;
+    /* Chiều rộng của div bên phải */
+    height: 50%;
+    /* Chiều cao của div */
+}
+
+table {
+    width: 80%;
+    /* Chiều rộng của bảng */
+    margin: 20px auto;
+    /* Căn giữa bảng trong trang */
+    border-collapse: collapse;
+    /* Loại bỏ các khoảng trắng giữa các ô */
+}
+
+th,
+td {
+    border: 1px solid black;
+    /* Viền cho mỗi ô */
+    padding: 8px;
+    /* Khoảng cách giữa nội dung và viền */
+    text-align: left;
+    /* Căn lề trái cho nội dung */
+}
+
+th {
+    background-color: #f2f2f2;
+    /* Màu nền cho tiêu đề bảng */
+}

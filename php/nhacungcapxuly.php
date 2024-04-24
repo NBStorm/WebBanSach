@@ -1,7 +1,7 @@
 <?php
-require_once 'TheLoai.php'; // Đảm bảo rằng file này chứa class TheLoai với các method cần thiết
+require_once 'NhaCungCap.php'; 
 
-$theLoai = new TheLoai(); // Khởi tạo đối tượng TheLoai
+$nhaCungCap = new NhaCungCap(); // Khởi tạo đối tượng TheLoai
 
 // Kiểm tra phương thức POST để thực thi các hành động thêm, sửa, hoặc xóa
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -9,18 +9,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     switch ($action) {
         case 'them':
-            $ten = $_POST['TenTL'];
-            $theLoaiArray = $theLoai->getAll();
+            $ten = $_POST['TenNCC'];
+            $sdt = $_POST['SoDienThoai'];
+            $diachi = $_POST['DiaChi'];
+            $nhaCungCapArray = $nhaCungCap->getAll();
             $found=false;
-            foreach ($theLoaiArray as $item) {
+            foreach ($nhaCungCapArray as $item) {
                 if ($item['ten'] == $ten) {
-                    echo "Tên thể loại đã xuất hiện";
+                    echo "Nhà cung cấp đã xuất hiện";
                     $found = true;
                     break;
                 }
             }
             if (!$found) {
-                $result = $theLoai->themTheLoai($ten); // Gọi hàm themTheLoai và lưu trạng thái kết quả vào biến $result
+                $result = $nhaCungCap->themNhaCungCap($ten,$sdt,$diachi); // Gọi hàm themTheLoai và lưu trạng thái kết quả vào biến $result
                 if ($result) {
                     echo true; // Trả về kết quả true nếu thêm thành công
                 } else {
@@ -31,26 +33,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         case 'xoa':
             $id = $_POST['recordId'];
-            $result = $theLoai->xoaTheLoai((int) $id);
+            $result = $nhaCungCap->xoaNhaCungCap((int) $id);
             if ($result) {
                 echo "success";
             }
             break;
 
         case 'sua':
-            $id = $_POST['MaTL'];
-            $ten = $_POST['TenTL'];
-            $theLoaiArray = $theLoai->getAll();
+            $id = $_POST['MaNCC'];
+            $ten = $_POST['TenNCC'];
+            $sdt = $_POST['SoDienThoai'];
+            $diachi = $_POST['DiaChi'];
+            $nhaCungCapArray = $nhaCungCap->getAll();
             $found=false;
-            foreach ($theLoaiArray as $item) {
-                if ($item['ten'] == $ten &&($item['id']!=$id)) {
+            foreach ($nhaCungCapArray as $item) {
+                if (($item['ten'] == $ten) && ($item['id']!=$id)) {
                     echo "Tên thể loại đã xuất hiện";
                     $found = true;
                     break;
                 }
             }
             if (!$found) {
-                $result = $theLoai->suaTheLoai($id,$ten); 
+                $result = $nhaCungCap->suaNhaCungCap($id,$ten,$sdt,$diachi); 
                 if ($result) {
                     echo true; // Trả về kết quả true nếu thêm thành công
                 } else {

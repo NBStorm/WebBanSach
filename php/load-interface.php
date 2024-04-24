@@ -24,19 +24,36 @@ if (isset($_GET['sanpham'])) {
                 <table id='datatablesSimple' class='table table-striped'>
                     <thead>
                         <tr>
-                            <th width=13%>Mã sản phẩm</th>
+                            <th>Mã sản phẩm</th>
                             <th>Tên sản phẩm</th>
                             <th>Giá</th>
                             <th>Số Lượng</th>
                             <th>Thể Loại</th>
                             <th>Hình ảnh</th>
+                            <th>Chức năng</th>
                         </tr>
                     </thead>
                     <tbody>";
-                        $sanpham = new Sanpham();
-                        $sanpham->__construct();
-                        echo $sanpham->getAll();
-
+                        $sanpham = new SanPham();
+                        $sanPhamArray = $sanpham->getAll();
+                        $s='';
+                        foreach ($sanPhamArray as $item)
+                        {
+                            $s .= "<tr>
+                                    <td>" . $item['id'] . "</td>
+                                    <td>" . $item['ten'] . "</td>
+                                    <td>" . $item['dongia'] . "</td>
+                                    <td>" . $item['soluong'] . "</td>
+                                    <td>" . $item['tentl'] . "</td>
+                                    <td><img src='../img/".$item['hinhanh']."' width='100px' height='100px'></td>
+                                    <td style='text-align: center;'>
+                                        <a data-bs-target='#updateTheLoaiModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
+                                        <span style='margin: 0 10px'></span>
+                                        <a data-bs-target='#deleteTheLoaiModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    </td>
+                                </tr>";
+                        }
+                        echo $s;
                     echo "</tbody>
                     <tfoot>
                         <tr>
@@ -46,6 +63,7 @@ if (isset($_GET['sanpham'])) {
                             <th>Giá</th>
                             <th>Số Lượng</th>
                             <th>Hình ảnh</th>
+                            <th>Chức năng</th>
                         </tr>
                     </tfoot>
                 </table>
@@ -387,7 +405,7 @@ if (isset($_GET['sanpham'])) {
                                 </div>
                             </div>
                             <div class='form-floating mb-3'>
-                                <input type='text' class='form-control' id='floatingValidationPN' placeholder='Số Điện Thoại' required>
+                                <input type='int' class='form-control' id='floatingValidationPN' placeholder='Số Điện Thoại' required>
                                 <label for='floatingValidationPN' class='form-label' >Số Điện Thoại</label>
                                 <div class='valid-feedback'>
                                     Looks good!
@@ -490,6 +508,17 @@ if (isset($_GET['sanpham'])) {
             <li class='breadcrumb-item'><a href='admin.php'>Dashboard</a></li>
             <li class='breadcrumb-item active'>Hóa Đơn</li>
         </ol>
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px'>
+                    <button type='button' class='btn btn-success' data-bs-toggle='modal'
+                        data-bs-target='#addHoaDonModal'>
+                    <i class='fa-solid fa-circle-plus'></i>
+                        Thêm Hóa đơn mới
+                    </button>
+                </div>  
+            </div>
+        </div>
         <div class='card mb-4'>
             <div class='card-header'>
                 <i class='fas fa-table me-1'></i>
@@ -504,12 +533,29 @@ if (isset($_GET['sanpham'])) {
                             <th>Tên khách hàng</th>
                             <th>Tổng tiền</th>
                             <th>Ngày tạo</th>
+                            <th>Chức năng</th>
                         </tr>
                     </thead>
                     <tbody>";
-                        $hoadon = new HoaDon();
-                        $hoadon->__construct();
-                        echo $hoadon->getAll();
+                        $hoaDon = new HoaDon();
+                        $hoaDonArray = $hoaDon->getAll();
+                        $s='';
+                        foreach ($hoaDonArray as $item)
+                        {
+                            $s .= "<tr>
+                                    <td>" . $item['id'] . "</td>
+                                    <td>" . $item['tennv'] . "</td>
+                                    <td>" . $item['tenkh'] . "</td>
+                                    <td>" . $item['total'] . "</td>
+                                    <td>" . $item['date'] . "</td>
+                                    <td style='text-align: center;'>
+                                        <a data-bs-target='#updateNhaCCModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
+                                        <span style='margin: 0 10px'></span>
+                                        <a data-bs-target='#deleteNhaCCModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    </td>
+                                </tr>";
+                        }
+                        echo $s;
 
                     echo "</tbody>
                     <tfoot>
@@ -519,9 +565,70 @@ if (isset($_GET['sanpham'])) {
                             <th>Tên khách hàng</th>
                             <th>Tổng tiền</th>
                             <th>Ngày tạo</th>
+                            <th>Chức năng</th>
                         </tr>
                     </tfoot>
                 </table>
+            </div>
+        </div>
+        <div id='addHoaDonModal' class='modal fade'>
+            <div class='modal-dialog modal-xl'>
+                <div class='modal-content'>
+                    <form class='row g-3 needs-validation' novalidate id='formAddNhaCC'>
+                        <div class='modal-header'>
+                            <h4 class='modal-title'>Add Hóa Đơn</h4>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body'>
+                            <div class='container_hd'>
+                                <div id='left'>
+                                    <table style='border-collapse: collapse;'>
+                                        <thead>
+                                            <tr>
+                                                <th>Mã sản phẩm</th>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Giá</th>
+                                                <th>Số Lượng</th>
+                                                <th>Thể Loại</th>
+                                                <th>Hình ảnh</th>
+                                                <th>Chức năng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>";
+                                            $sanpham = new SanPham();
+                                            $sanPhamArray = $sanpham->getAll();
+                                            $s='';
+                                            foreach ($sanPhamArray as $item)
+                                            {
+                                                $s .= "<tr>
+                                                        <td>" . $item['id'] . "</td>
+                                                        <td>" . $item['ten'] . "</td>
+                                                        <td>" . $item['dongia'] . "</td>
+                                                        <td>" . $item['soluong'] . "</td>
+                                                        <td>" . $item['tentl'] . "</td>
+                                                        <td><img src='../img/".$item['hinhanh']."' width='100px' height='100px'></td>
+                                                        <td style='text-align: center;'>
+                                                            <a data-bs-target='#updateTheLoaiModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
+                                                            <span style='margin: 0 10px'></span>
+                                                            <a data-bs-target='#deleteTheLoaiModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                                        </td>
+                                                    </tr>";
+                                            }
+                                            echo $s;
+                                        echo "</tbody>
+                                    </table>
+                                </div>
+                                <div id='right' style='background-color: bisque';>b</div>
+                            </div>
+                        </div>
+                        <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
+                            <button type='button' class='btn btn-secondary'
+                                data-bs-dismiss='modal'><i class='fa-solid fa-x'></i> Close</button>
+                            <button type='submit' class='btn btn-primary'><i class='fa-solid fa-check'></i> Save</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

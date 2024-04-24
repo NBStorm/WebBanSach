@@ -43,7 +43,7 @@ class SanPham
         $sql = "SELECT * FROM sanpham,theloai WHERE sanpham.MaTL=theloai.MaTL";
         $result = $this->db->query($sql);
 
-        if ($result->num_rows > 0) {
+        /*if ($result->num_rows > 0) {
             $s = "";
 
             while ($row = $result->fetch_assoc()) {
@@ -58,7 +58,17 @@ class SanPham
             }
 
             return $s;
+        }*/
+        if ($result->num_rows > 0) {
+            $sanPhamArray = array(); // Tạo một mảng rỗng để chứa cặp id và tên
+
+            while ($row = $result->fetch_assoc()) {
+                $sanPhamArray[] = array('id' => $row['MaSP'], 'ten' => $row['TenSP'], 'dongia' => $row['DonGia'], 
+                                        'soluong' => $row['SoLuong'], 'tentl' => $row['TenTL'], 'hinhanh' => $row['HinhAnh']);
+            }
+            return $sanPhamArray;
         }
+        $this->db->disconnect();
 
         return "";
     }

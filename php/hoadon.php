@@ -46,21 +46,14 @@ class HoaDon
         $result = $this->db->query($sql);
 
         if ($result->num_rows > 0) {
-            $s = "";
+            $hoaDonArray = array();
 
             while ($row = $result->fetch_assoc()) {
-                $s .= "<tr>
-                        <td>" . $row['MaHD'] . "</td>
-                        <td>" . $row['TenNhanVien'] . "</td>
-                        <td>" . $row['TenKhachHang'] . "</td>
-                        <td>" . $row['TongTien'] . "</td>
-                        <td>" . $row['NgayTao'] . "</td>
-                    </tr>";
+                $hoaDonArray[] = array('id' => $row['MaHD'], 'tennv' => $row['TenNhanVien'], 'tenkh' => $row['TenKhachHang'], 'total' => $row['NgayTao'], 'date' => $row['TongTien']);
             }
-
-            return $s;
+            return $hoaDonArray;
         }
-
+        $this->db->disconnect();
         return "";
     }
 }
