@@ -164,7 +164,7 @@
                     var name = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
                     var sdt = row.find('td:nth-child(3)').text(); // Lấy dữ liệu từ cột thứ ba
                     var diachi = row.find('td:nth-child(4)').text(); // Lấy dữ liệu từ cột thứ tư
-                    
+
                     // Đặt dữ liệu vào modal
                     $('#updateID').val(id);
                     $('#updateName').val(name);
@@ -172,6 +172,24 @@
                     $('#updateDiaChi').val(diachi);
                 }
             });
+
+            $(document).ready(function () {
+                $('.imgHoverLink').hover(
+                    function (e) {
+                        // Hiển thị hình ảnh và đặt vị trí của nó dựa trên vị trí của chuột
+                        $(this).find('.imgHover').css({
+                            'top': e.pageY + 10 + 'px', // Vị trí Y của chuột + 10px
+                            'left': e.pageX + 10 + 'px' // Vị trí X của chuột + 10px
+                        }).show();
+                    },
+                    function () {
+                        // Ẩn hình ảnh khi không hover nữa
+                        $(this).find('.imgHover').hide();
+                    }
+                );
+            });
+
+
         });
     </script>
     <script>
@@ -197,6 +215,7 @@
             }
         })();
     </script>
+
 </body>
 
 </html>

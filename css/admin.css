@@ -326,36 +326,35 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 200px;
-    /* Chiều cao của scrollpane */
+}
+
+.scrollpane{
+    height: 300px;
     overflow: auto;
-    /* Thêm thanh cuộn nếu nội dung vượt quá kích thước */
-    margin: 10px auto;
-    /* Căn giữa scrollpane trong trang */
     border: 1px solid #ccc;
+    position: relative;
+    max-height: 100%;
 }
 
 #left {
-    background-color: #20c997;
-    width: 49%;
+    background-color: white;
+    width: 54%;
     /* Chiều rộng của div bên trái */
     height: 50%;
     /* Chiều cao của div */
 }
 
 #right {
-    background-color: bisque;
-    width: 49%;
+    background-color: white;
+    width: 44%;
     /* Chiều rộng của div bên phải */
     height: 50%;
     /* Chiều cao của div */
 }
 
 table {
-    width: 80%;
+    width: 100%;
     /* Chiều rộng của bảng */
-    margin: 20px auto;
-    /* Căn giữa bảng trong trang */
     border-collapse: collapse;
     /* Loại bỏ các khoảng trắng giữa các ô */
 }
@@ -371,6 +370,23 @@ td {
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: darkseagreen;
     /* Màu nền cho tiêu đề bảng */
+}
+
+.imgHover {
+    border-radius: 10px;
+    width: 150px;
+    display: none; /* Ẩn hình ảnh ban đầu */
+    position: fixed; /* Đặt vị trí cố định */
+    z-index: 999; /* Đảm bảo hình ảnh hiển thị trên tất cả các phần tử khác */
+}
+
+.imgHoverLink {
+    position: relative;
+    display: inline-block;
+}
+
+.selected {
+    background-color: #daf109; /* Màu nền mong muốn */
 }

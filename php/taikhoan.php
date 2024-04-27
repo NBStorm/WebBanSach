@@ -40,7 +40,7 @@ class TaiKhoan
 
     public function getAll()
     {
-        $sql = "SELECT * FROM taikhoan,nhomquyen WHERE taikhoan.MaNQ=nhomquyen.MaNQ  ";
+        $sql = "SELECT * FROM taikhoan,nhomquyen WHERE taikhoan.MaNQ=nhomquyen.MaNQ";
         $result = $this->db->query($sql);
 
         if ($result->num_rows > 0) {
@@ -58,6 +58,42 @@ class TaiKhoan
 
             return $s;
         }
+
+        return "";
+    }
+
+    public function getListKH()
+    {
+        $sql = "SELECT taikhoan.MaTK,nguoidung.HoTen FROM taikhoan,nguoidung where nguoidung.MaND=taikhoan.Username and taikhoan.MaNQ='2'";
+        $result = $this->db->query($sql);
+
+        if ($result->num_rows > 0) {
+            $khachHangArray = array(); // Tạo một mảng rỗng để chứa cặp id và tên
+
+            while ($row = $result->fetch_assoc()) {
+                $khachHangArray[] = array('id' => $row['MaTK'], 'ten' => $row['HoTen']);
+            }
+            return $khachHangArray;
+        }
+        $this->db->disconnect();
+
+        return "";
+    }
+
+    public function getListNV()
+    {
+        $sql = "SELECT taikhoan.MaTK,nguoidung.HoTen FROM taikhoan,nguoidung where nguoidung.MaND=taikhoan.Username and taikhoan.MaNQ!='2'";
+        $result = $this->db->query($sql);
+
+        if ($result->num_rows > 0) {
+            $nhanVienArray = array(); // Tạo một mảng rỗng để chứa cặp id và tên
+
+            while ($row = $result->fetch_assoc()) {
+                $nhanVienArray[] = array('id' => $row['MaTK'], 'ten' => $row['HoTen']);
+            }
+            return $nhanVienArray;
+        }
+        $this->db->disconnect();
 
         return "";
     }

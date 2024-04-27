@@ -533,6 +533,7 @@ if (isset($_GET['sanpham'])) {
                             <th>Tên khách hàng</th>
                             <th>Tổng tiền</th>
                             <th>Ngày tạo</th>
+                            <th>Trạng thái</th>
                             <th>Chức năng</th>
                         </tr>
                     </thead>
@@ -546,8 +547,9 @@ if (isset($_GET['sanpham'])) {
                                     <td>" . $item['id'] . "</td>
                                     <td>" . $item['tennv'] . "</td>
                                     <td>" . $item['tenkh'] . "</td>
-                                    <td>" . $item['total'] . "</td>
                                     <td>" . $item['date'] . "</td>
+                                    <td>" . $item['total'] . "</td>
+                                    <td>" . $item['trangthai'] . "</td>
                                     <td style='text-align: center;'>
                                         <a data-bs-target='#updateNhaCCModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
                                         <span style='margin: 0 10px'></span>
@@ -565,6 +567,7 @@ if (isset($_GET['sanpham'])) {
                             <th>Tên khách hàng</th>
                             <th>Tổng tiền</th>
                             <th>Ngày tạo</th>
+                            <th>Trạng thái</th>
                             <th>Chức năng</th>
                         </tr>
                     </tfoot>
@@ -574,58 +577,187 @@ if (isset($_GET['sanpham'])) {
         <div id='addHoaDonModal' class='modal fade'>
             <div class='modal-dialog modal-xl'>
                 <div class='modal-content'>
-                    <form class='row g-3 needs-validation' novalidate id='formAddNhaCC'>
+                    <form class='row g-3 needs-validation' novalidate id='formAddHD'>
                         <div class='modal-header'>
                             <h4 class='modal-title'>Add Hóa Đơn</h4>
                             <button type='button' class='btn-close' data-bs-dismiss='modal'
                                 aria-label='Close'></button>
                         </div>
-                        <div class='modal-body'>
+                        <div class='modal-body' style='margin-top:0%;'>
                             <div class='container_hd'>
                                 <div id='left'>
-                                    <table style='border-collapse: collapse;'>
-                                        <thead>
-                                            <tr>
-                                                <th>Mã sản phẩm</th>
-                                                <th>Tên sản phẩm</th>
-                                                <th>Giá</th>
-                                                <th>Số Lượng</th>
-                                                <th>Thể Loại</th>
-                                                <th>Hình ảnh</th>
-                                                <th>Chức năng</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>";
-                                            $sanpham = new SanPham();
-                                            $sanPhamArray = $sanpham->getAll();
-                                            $s='';
-                                            foreach ($sanPhamArray as $item)
-                                            {
-                                                $s .= "<tr>
-                                                        <td>" . $item['id'] . "</td>
-                                                        <td>" . $item['ten'] . "</td>
-                                                        <td>" . $item['dongia'] . "</td>
-                                                        <td>" . $item['soluong'] . "</td>
-                                                        <td>" . $item['tentl'] . "</td>
-                                                        <td><img src='../img/".$item['hinhanh']."' width='100px' height='100px'></td>
-                                                        <td style='text-align: center;'>
-                                                            <a data-bs-target='#updateTheLoaiModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
-                                                            <span style='margin: 0 10px'></span>
-                                                            <a data-bs-target='#deleteTheLoaiModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
-                                                        </td>
-                                                    </tr>";
-                                            }
-                                            echo $s;
-                                        echo "</tbody>
-                                    </table>
+                                    <div class='container'>
+                                        <div class='row'>
+                                            <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px;'>
+                                                <form class='col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3'>
+                                                    <input type='search' class='form-control form-control-dark' placeholder='Search...' aria-label='Search>'
+                                                </form>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                    <div class='scrollpane' id='tableSelectHD'>
+                                        <table style='border-collapse: collapse;'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã SP</th>
+                                                    <th>Tên SP</th>
+                                                    <th>Giá</th>
+                                                    <th>Số Lượng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>";
+                                                $sanpham = new SanPham();
+                                                $sanPhamArray = $sanpham->getAll();
+                                                $s='';
+                                                foreach ($sanPhamArray as $item)
+                                                {
+                                                    $s .= "<tr>
+                                                            <td>" . $item['id'] . "</td>
+                                                            <td>
+                                                                <div class='imgHoverLink'>
+                                                                    ". $item['ten'] ."
+                                                                    <img class='imgHover' src='../img/".$item['hinhanh']."'>
+                                                                </div>
+                                                            </td>
+                                                            <td>" . $item['dongia'] . "</td>
+                                                            <td>" . $item['soluong'] . "</td>
+                                                        </tr>";
+                                                }
+                                                echo $s;
+                                            echo "</tbody>
+                                        </table>
+                                    </div>
+                                    <div class='row g-2'>
+                                        <div class='col-md-3'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='idsp' placeholder='' value='' readonly>
+                                                <label for='idsp'>Mã SP</label>
+                                            </div>
+                                        </div>
+                                        <div class='col-md-9'>
+                                            <div class='form-floating'>
+                                                <input type='text' class='form-control' id='tensp' placeholder='' value='' readonly>
+                                                <label for='tensp'>Tên SP</label>
+                                            </div>            
+                                        </div>
+                                    </div>     
+                                    <div class='row g-2'>
+                                        <div class='col-md-4'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='giasp' placeholder='' value='' readonly>
+                                                <label for='giasp'>Giá SP</label>
+                                            </div>
+                                        </div>
+                                        <div class='col-md-3'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='slsp' placeholder='' value=''>
+                                                <label for='slsp'>Số lượng SP</label>
+                                            </div>            
+                                        </div>
+                                        <div class='col-md-3'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='total' placeholder='' value='' readonly>
+                                                <label for='total'>Tổng tiền</label>
+                                            </div>            
+                                        </div>
+                                        <div class='col-md-2'>
+                                            <button id='addButton' class='btn btn-primary mt-3'>Thêm</button>                  
+                                        </div>
+                                    </div>    
                                 </div>
-                                <div id='right' style='background-color: bisque';>b</div>
+                                <div id='right'>
+                                    <h5 align='center'>Thông tin chi tiết</h5>
+                                    <div class='row g-2'>
+                                        <div class='col-md-4'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='idhd' placeholder='' value='' readonly>
+                                                <label for='idhd'>Mã HĐ</label>
+                                            </div>
+                                        </div>
+                                        <div class='col-md-4'>
+                                            <div class='form-floating'>
+                                                <select class='form-select' aria-label='Default select example' id='namenv' style='height:58px;'>";
+                                                    $taikhoan = new TaiKhoan();
+                                                    $nhanVienArray = $taikhoan->getListNV();
+                                                    $s='';
+                                                    foreach ($nhanVienArray as $item)
+                                                    {
+                                                        $s .= "
+                                                            <option value='".$item['id']."'>".$item['ten']."</option>
+                                                        ";
+                                                    }
+                                                    echo $s;
+                                                echo "</select>
+                                                <label for='namenv'>Tên Nhân viên</label>
+                                            </div>            
+                                        </div>
+                                        <div class='col-md-4'>
+                                            <div class='form-floating'>
+                                                <select class='form-select' aria-label='Default select example' id='namekh' style='height:58px;'>";
+                                                    $taikhoan = new TaiKhoan();
+                                                    $nhanVienArray = $taikhoan->getListKH();
+                                                    $s='';
+                                                    foreach ($nhanVienArray as $item)
+                                                    {
+                                                        $s .= "
+                                                            <option value='".$item['id']."'>".$item['ten']."</option>
+                                                        ";
+                                                    }
+                                                    echo $s;
+                                                echo "</select>
+                                                <label for='namekh'>Tên Khách hàng</label>
+                                            </div>            
+                                        </div>
+                                    </div>     
+                                    <div class='row g-2'>
+                                        <div class='col-md-4'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='ngaytao' placeholder='' value='' readonly>
+                                                <label for='ngaytao'>Ngày tạo</label>
+                                            </div>
+                                        </div>
+                                        <div class='col-md-3'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='totalAll' placeholder='' value='' readonly>
+                                                <label for='totalAll'>Tổng tiền</label>
+                                            </div>            
+                                        </div>
+                                        <div class='col-md-5'>
+                                            <div class='form-floating'>
+                                                <select class='form-select' aria-label='Default select example' id='trangthai' style='height:58px;'>
+                                                    <option value='Đợi xác nhận'>Đợi xác nhận</option>
+                                                    <option value='Xác nhận'>Xác nhận</option>
+                                                    <option value='Đang giao'>Đang giao</option>
+                                                    <option value='Đã giao'>Đã giao</option>
+                                                </select>
+                                                <label for='trangthai'>Trạng thái</label>   
+                                            </div>        
+                                        </div>
+                                    </div>
+                                    <div class='scrollpane'>
+                                        <table id='productList' style='border-collapse: collapse;'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã SP</th>
+                                                    <th>Tên SP</th>
+                                                    <th>Giá</th>
+                                                    <th>Số Lượng</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>";
+                                                
+                                            echo "</tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
                             <button type='button' class='btn btn-secondary'
                                 data-bs-dismiss='modal'><i class='fa-solid fa-x'></i> Close</button>
-                            <button type='submit' class='btn btn-primary'><i class='fa-solid fa-check'></i> Save</button>
+                            <button type='submit' id='saveButton' class='btn btn-primary'><i class='fa-solid fa-check'></i> Save</button>
                         </div>
                     </form>
                 </div>

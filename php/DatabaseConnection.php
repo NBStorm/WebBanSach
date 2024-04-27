@@ -35,6 +35,19 @@ class DatabaseConnection
     {
         return $this->conn->prepare($sql);
     }
+
+    public function getLastInsertedId()
+    {
+        if ($this->conn === null) {
+            $this->connect();
+        }
+
+        // Lấy ID vừa tạo
+        $lastInsertedId = $this->conn->insert_id;
+
+        return $lastInsertedId;
+    }
+
 }
 
 ?>
