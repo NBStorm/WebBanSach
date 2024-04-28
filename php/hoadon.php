@@ -33,7 +33,7 @@ class HoaDon
         return $result;
     }
 
-    public function xoaSanPham($id)
+    public function xoaHoaDon($id)
     {
         $sql = "DELETE FROM sanpham WHERE id = ?";
         $stmt = $this->db->prepare($sql);
@@ -42,13 +42,54 @@ class HoaDon
         $stmt->close();
     }
 
-    public function suaSanPham($id, $ten, $gia)
+    public function suaHoaDon($idhd, $tennv, $tenkh, $ngaytao, $totalAll, $trangthai, $productList)
     {
-        $sql = "UPDATE sanpham SET ten = ?, gia = ? WHERE id = ?";
+        $sql = "UPDATE hoadon SET MaNV=?, MaKH=?, NgayTao=?,TongTien=?,TrangThai=? WHERE MaHD = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("sii", $ten, $gia, $id);
-        $stmt->execute();
+        $stmt->bind_param("iisisi", $tennv, $tenkh, $ngaytao, $totalAll, $trangthai, $idhd);
+        $result = $stmt->execute();
+
+        if ($result) {
+            $this->deleteCTHDByID($idhd);
+            forEach($productList as $product){
+                $this->insertCTHD($idhd,$product['idsp'], $product['slsp'], $product['giasp']);
+            }
+        } else {
+            echo "Có lỗi xảy ra khi thực hiện truy vấn UPDATE!";
+        }
         $stmt->close();
+        $this->db->disconnect();
+        return $result;
+    }
+
+    public function updateCTHD($idhd, $idsp, $soLuong, $gia)
+    {
+        $sql = "UPDATE chitiethoadon SET SoLuong = $soLuong, Gia = $gia WHERE MaHD = $idhd AND MaSP = $idsp";
+        // Thực hiện truy vấn SQL
+        $this->db->query($sql);
+    }
+
+    public function insertCTHD($idhd, $idsp, $soLuong, $gia)
+    {
+        $sql = "INSERT INTO chitiethoadon (MaHD, MaSP, SoLuong,Gia) VALUES (?,?,?,?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("iiii", $idhd, $idsp, $soLuong, $gia);
+        $stmt->execute();
+    }
+
+    public function deleteCTHDByID($idhd)
+    {
+        // Chuẩn bị câu lệnh SQL để xóa chi tiết hóa đơn
+        $sql = "DELETE FROM chitiethoadon WHERE MaHD = ?";
+
+        // Chuẩn bị và thực thi câu lệnh SQL
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $idhd);
+        $result = $stmt->execute();
+
+        // Đóng câu lệnh và trả về kết quả
+        $stmt->close();
+        return $result;
     }
 
     public function getAll()
@@ -67,6 +108,22 @@ class HoaDon
             return $hoaDonArray;
         }
         $this->db->disconnect();
+        return "";
+    }
+
+    public function getCTHD($id)
+    {
+        $sql = "SELECT sanpham.MaSP,TenSP,chitiethoadon.SoLuong,chitiethoadon.Gia from chitiethoadon,sanpham where  chitiethoadon.MaSP=sanpham.MaSP and MaHD=" . $id;
+        $result = $this->db->query($sql);
+
+        if ($result->num_rows > 0) {
+            $ctHoaDonArray = array();
+
+            while ($row = $result->fetch_assoc()) {
+                $ctHoaDonArray[] = array('id' => $row['MaSP'], 'tensp' => $row['TenSP'], 'soluong' => $row['SoLuong'], 'gia' => $row['Gia']);
+            }
+            return $ctHoaDonArray;
+        }
         return "";
     }
 }
