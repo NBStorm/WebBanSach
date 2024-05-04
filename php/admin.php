@@ -147,10 +147,20 @@
                 if (urlParams.has('hoadon')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
                     var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
-                    var id = row.find('td:nth-child(6)').text();
+                    var trangthai = row.find('td:nth-child(6)').text();
                     // Đặt dữ liệu vào modal
                     $('#recordId').val(id);
-                    $('#trangthai').val(id);
+                    $('#trangthai').val(trangthai);
+                }
+            });
+
+            $(document).on('click', '.delete', function () {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('phieunhap')) {
+                    var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
+                    var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
+                    // Đặt dữ liệu vào modal
+                    $('#recordId').val(id);
                 }
             });
 

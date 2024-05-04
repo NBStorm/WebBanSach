@@ -1,6 +1,6 @@
 <?php
 require_once 'DatabaseConnection.php';
-
+require_once 'SanPham.php';
 class HoaDon
 {
     private $db;
@@ -35,14 +35,17 @@ class HoaDon
 
     public function xoaHoaDon($id)
     {
-        $this->deleteCTHDByID($id);
-        $sql = "DELETE FROM hoadon WHERE MaHD = ?";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $result = $stmt->execute();
+        $check = $this->deleteCTHDByID($id);
+        if ($check) {
+            $sql = "DELETE FROM hoadon WHERE MaHD = ?";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $result = $stmt->execute();
+        }
         $stmt->close();
         $this->db->disconnect();
-        return $result;
+        return $result; // Trả về kết quả của phương thức execute()
+
     }
 
     public function suaHoaDon($idhd, $tennv, $tenkh, $ngaytao, $totalAll, $trangthai, $productList)

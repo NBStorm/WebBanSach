@@ -28,8 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         case 'xoa':
             $id = $_POST['recordId'];
-            $result = $hoaDon->xoaHoaDon((int) $id);
+            $result = $phieuNhap->xoaPhieuNhap((int) $id);
             if ($result) {
+                echo $result;
                 echo "success";
             }else{
                 echo $result;
@@ -42,10 +43,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $namekh = $_POST['namekh'];
             $ngaytao = $_POST['ngaytao'];
             $totalAll = $_POST['totalAll'];
-            $trangthai = $_POST['trangthai'];
             $productList = $_POST['productList'];
             $productAfter = $_POST['productAfter'];
-            $result = $hoaDon->suaHoaDon($idhd,$namenv, $namekh, $ngaytao, $totalAll, $trangthai, $productList); // Gọi hàm themTheLoai và lưu trạng thái kết quả vào biến $result
+            $result = $phieuNhap->suaPhieuNhap($idhd,$namenv, $namekh, $ngaytao, $totalAll, $productList); // Gọi hàm themTheLoai và lưu trạng thái kết quả vào biến $result
             $sanPham->updateSoLuong($productAfter);
             if ($result) {
                 echo true; // Trả về kết quả true nếu thêm thành công

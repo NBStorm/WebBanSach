@@ -29,10 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         case 'xoa':
             $id = $_POST['recordId'];
+            $array = $hoaDon->getCTHD($id);
+            foreach($array as $cthd){
+                $sanPham->updateSL($cthd['id'],$cthd['soluong']);
+            }
             $result = $hoaDon->xoaHoaDon((int) $id);
-            if ($result) {
-                echo "success";
-            }else{
+            if ($result===true) {
+                echo $result;
+            } else {
                 echo $result;
             }
             break;
@@ -46,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $trangthai = $_POST['trangthai'];
             $productList = $_POST['productList'];
             $productAfter = $_POST['productAfter'];
-            $result = $hoaDon->suaHoaDon($idhd,$namenv, $namekh, $ngaytao, $totalAll, $trangthai, $productList); // Gọi hàm themTheLoai và lưu trạng thái kết quả vào biến $result
+            $result = $hoaDon->suaHoaDon($idhd, $namenv, $namekh, $ngaytao, $totalAll, $trangthai, $productList); // Gọi hàm themTheLoai và lưu trạng thái kết quả vào biến $result
             $sanPham->updateSoLuong($productAfter);
             if ($result) {
                 echo true; // Trả về kết quả true nếu thêm thành công

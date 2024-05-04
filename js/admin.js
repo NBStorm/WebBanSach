@@ -586,7 +586,7 @@ if (urlParams.has('hoadon')) {
             var rows = tbody.getElementsByTagName('tr');
             // Khởi tạo biến để tính tổng
             var total = 0;
-            
+
             // Lặp qua từng hàng và tính tổng của cột "Tổng tiền"
             for (var i = 0; i < rows.length; i++) {
                 // Lấy ô cuối cùng trong hàng, chứa giá trị "Tổng tiền"
@@ -611,7 +611,7 @@ if (urlParams.has('hoadon')) {
             var rows = tbody.getElementsByTagName('tr');
             // Khởi tạo biến để tính tổng
             var total = 0;
-    
+
             // Lặp qua từng hàng và tính tổng của cột "Tổng tiền"
             for (var i = 0; i < rows.length; i++) {
                 total += parseInt(rows[i].cells[4].innerText);
@@ -725,7 +725,7 @@ if (urlParams.has('hoadon')) {
                 // Thêm dữ liệu hàng vào mảng productList
                 productAfter.push(rowData2);
             }
-        
+
             var data = {
                 namenv: namenv,
                 namekh: namekh,
@@ -794,10 +794,10 @@ if (urlParams.has('hoadon')) {
                 rowData2.idsp = row2.cells[0].innerText;
                 rowData2.slsp = parseInt(row2.cells[3].innerText);
 
-                
+
                 productAfter.push(rowData2);
             }
-            
+
             var data = {
                 idhd: idhd,
                 namenv: namenv,
@@ -833,7 +833,8 @@ if (urlParams.has('hoadon')) {
 
         var id = document.getElementById('recordId').value;
         var trangthai = document.getElementById('trangthai').value;
-        if(trangthai == 'Đợi xác nhận' || trangthai == 'Xác nhận'){
+
+        if (trangthai == 'Đợi xác nhận' || trangthai == 'Xác nhận') {
             $.ajax({
                 url: 'hoadonxuly.php', // Đường dẫn tới file xử lý trên server
                 type: 'POST',
@@ -843,15 +844,15 @@ if (urlParams.has('hoadon')) {
                 }, // Truyền dữ liệu trực tiếp vào data
                 success: function (response) {
                     console.log(response)
-                    if (response === 'success') {
+                    if (response) {
                         alert("Xóa thành công")
                         location.reload();
                     } else {
-                        alert('Error: Unable to delete the record.'+response);
+                        alert('Error: Unable to delete the record.' + response);
                     }
                 }
             });
-        }else{
+        } else {
             alert('Đơn hàng đã hoặc đang được giao')
         }
     });
@@ -1064,7 +1065,7 @@ if (urlParams.has('phieunhap')) {
 
                 // Giảm số lượng tương ứng trong tableSelectHD
                 var currentSelectQuantity = parseInt(selectedRow.getElementsByTagName('td')[3].innerText);
-                var newSelectQuantity = currentSelectQuantity - parseInt(slsp);
+                var newSelectQuantity = currentSelectQuantity + parseInt(slsp);
                 selectedRow.getElementsByTagName('td')[3].innerText = newSelectQuantity;
             } else {
                 // Nếu idsp chưa tồn tại, thêm hàng mới vào bảng
@@ -1073,7 +1074,7 @@ if (urlParams.has('phieunhap')) {
 
                 // Giảm số lượng tương ứng trong tableSelectHD
                 var currentSelectQuantity = parseInt(selectedRow.getElementsByTagName('td')[3].innerText);
-                var newSelectQuantity = currentSelectQuantity - parseInt(slsp);
+                var newSelectQuantity = currentSelectQuantity + parseInt(slsp);
                 selectedRow.getElementsByTagName('td')[3].innerText = newSelectQuantity;
             }
 
@@ -1222,7 +1223,7 @@ if (urlParams.has('phieunhap')) {
             var rows = tbody.getElementsByTagName('tr');
             // Khởi tạo biến để tính tổng
             var total = 0;
-            
+
             // Lặp qua từng hàng và tính tổng của cột "Tổng tiền"
             for (var i = 0; i < rows.length; i++) {
                 // Lấy ô cuối cùng trong hàng, chứa giá trị "Tổng tiền"
@@ -1247,7 +1248,7 @@ if (urlParams.has('phieunhap')) {
             var rows = tbody.getElementsByTagName('tr');
             // Khởi tạo biến để tính tổng
             var total = 0;
-    
+
             // Lặp qua từng hàng và tính tổng của cột "Tổng tiền"
             for (var i = 0; i < rows.length; i++) {
                 total += parseInt(rows[i].cells[4].innerText);
@@ -1360,7 +1361,7 @@ if (urlParams.has('phieunhap')) {
                 // Thêm dữ liệu hàng vào mảng productList
                 productAfter.push(rowData2);
             }
-        
+
             var data = {
                 namenv: namenv,
                 namekh: namekh,
@@ -1397,7 +1398,6 @@ if (urlParams.has('phieunhap')) {
             var namekh = $('#namekhupdate').val();
             var ngaytao = $('#ngaytaoupdate').val();
             var totalAll = parseInt($('#totalAllupdate').val());
-            var trangthai = $('#trangthaiupdate').val();
             var productList = [];
             var productAfter = [];
             // Truy cập tbody của bảng productList
@@ -1428,17 +1428,16 @@ if (urlParams.has('phieunhap')) {
                 rowData2.idsp = row2.cells[0].innerText;
                 rowData2.slsp = parseInt(row2.cells[3].innerText);
 
-                
+
                 productAfter.push(rowData2);
             }
-            
+
             var data = {
                 idhd: idhd,
                 namenv: namenv,
                 namekh: namekh,
                 ngaytao: ngaytao,
                 totalAll: totalAll,
-                trangthai: trangthai,
                 productList: productList,
                 productAfter: productAfter,
                 action: 'sua',
@@ -1446,7 +1445,7 @@ if (urlParams.has('phieunhap')) {
 
             $.ajax({
                 type: 'POST',
-                url: 'hoadonxuly.php',
+                url: 'phieunhapxuly.php',
                 data: data,
                 success: function (response) {
                     if (response) {
@@ -1466,28 +1465,24 @@ if (urlParams.has('phieunhap')) {
         event.preventDefault(); // Ngăn chặn gửi yêu cầu POST thông thường
 
         var id = document.getElementById('recordId').value;
-        var trangthai = document.getElementById('trangthai').value;
-        if(trangthai == 'Đợi xác nhận' || trangthai == 'Xác nhận'){
-            $.ajax({
-                url: 'hoadonxuly.php', // Đường dẫn tới file xử lý trên server
-                type: 'POST',
-                data: {
-                    recordId: id,
-                    action: 'xoa'
-                }, // Truyền dữ liệu trực tiếp vào data
-                success: function (response) {
-                    console.log(response)
-                    if (response === 'success') {
-                        alert("Xóa thành công")
-                        location.reload();
-                    } else {
-                        alert('Error: Unable to delete the record.'+response);
-                    }
+        console.log(id);
+        $.ajax({
+            url: 'phieunhapxuly.php', // Đường dẫn tới file xử lý trên server
+            type: 'POST',
+            data: {
+                recordId: id,
+                action: 'xoa'
+            }, // Truyền dữ liệu trực tiếp vào data
+            success: function (response) {
+                console.log(response)
+                if (response) {
+                    alert("Xóa thành công")
+                    location.reload();
+                } else {
+                    alert('Error: Unable to delete the record.' + response);
                 }
-            });
-        }else{
-            alert('Đơn hàng đã hoặc đang được giao')
-        }
+            }
+        });
     });
 }
 

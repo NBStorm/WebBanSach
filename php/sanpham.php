@@ -38,6 +38,17 @@ class SanPham
         $this->db->disconnect();
     }
 
+    public function updateSL($id, $sl)
+    {
+        $sql = "UPDATE sanpham SET SOLUONG=SOLUONG+? WHERE MaSP = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ii", $sl, $id);
+        $stmt->execute();
+        $stmt->close();
+        $this->db->disconnect();
+    }
+
+
     public function getAll()
     {
         $sql = "SELECT * FROM sanpham,theloai WHERE sanpham.MaTL=theloai.MaTL";

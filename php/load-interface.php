@@ -1053,7 +1053,7 @@ if (isset($_GET['sanpham'])) {
                 <div class='modal-content'>
                     <form class='row g-3 needs-validation' novalidate id='formAddPN'>
                         <div class='modal-header'>
-                            <h4 class='modal-title'>Add Hóa Đơn</h4>
+                            <h4 class='modal-title'>Add Phiếu Nhập</h4>
                             <button type='button' class='btn-close' data-bs-dismiss='modal'
                                 aria-label='Close'></button>
                         </div>
@@ -1416,7 +1416,7 @@ if (isset($_GET['sanpham'])) {
                                 aria-label='Close'></button>
 					    </div>
 					    <div class='modal-body'>					
-						    <p>Bạn có muốn xóa Phiếu nhậpnày ?</p>
+						    <p>Bạn có muốn xóa Phiếu nhập này ?</p>
                             <input type='hidden' id='recordId' name='recordId'>
 						    <p class='text-warning'><large>This action cannot be undone.</large></p>
 					    </div>

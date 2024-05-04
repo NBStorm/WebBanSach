@@ -35,21 +35,23 @@ class PhieuNhap
 
     public function xoaPhieuNhap($id)
     {
-        $this->deleteCTPNByID($id);
-        $sql = "DELETE FROM phieunhap WHERE MaPN = ?";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $result = $stmt->execute();
+        $check = $this->deleteCTPNByID($id);
+        if ($check) {
+            $sql = "DELETE FROM phieunhap WHERE MaPN = ?";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $result = $stmt->execute();
+        }
         $stmt->close();
         $this->db->disconnect();
         return $result;
     }
 
-    public function suaPhieuNhap($id, $tennv, $tenkh, $ngaytao, $totalAll, $trangthai, $productList)
+    public function suaPhieuNhap($id, $tennv, $tenkh, $ngaytao, $totalAll, $productList)
     {
-        $sql = "UPDATE hoadon SET MaTK=?, MaNCC=?, NgayTao=?,TongTien=? WHERE MaPN = ?";
+        $sql = "UPDATE phieunhap SET MaTK=?, MaNCC=?, NgayTao=?,TongTien=? WHERE MaPN = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("iisisi", $tennv, $tenkh, $ngaytao, $totalAll, $id);
+        $stmt->bind_param("iisii", $tennv, $tenkh, $ngaytao, $totalAll, $id);
         $result = $stmt->execute();
 
         if ($result) {
@@ -103,12 +105,12 @@ class PhieuNhap
         $result = $this->db->query($sql);
 
         if ($result->num_rows > 0) {
-            $hoaDonArray = array();
+            $phieunhapArray = array();
 
             while ($row = $result->fetch_assoc()) {
-                $hoaDonArray[] = array('id' => $row['MaPN'], 'tennv' => $row['HoTen'], 'tenncc' => $row['TenNCC'], 'total' => $row['TongTien'], 'date' => $row['NgayTao']);
+                $phieunhapArray[] = array('id' => $row['MaPN'], 'tennv' => $row['HoTen'], 'tenncc' => $row['TenNCC'], 'total' => $row['TongTien'], 'date' => $row['NgayTao']);
             }
-            return $hoaDonArray;
+            return $phieunhapArray;
         }
         $this->db->disconnect();
         return "";
