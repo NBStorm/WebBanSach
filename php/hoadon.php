@@ -35,11 +35,14 @@ class HoaDon
 
     public function xoaHoaDon($id)
     {
-        $sql = "DELETE FROM sanpham WHERE id = ?";
+        $this->deleteCTHDByID($id);
+        $sql = "DELETE FROM hoadon WHERE MaHD = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        $result = $stmt->execute();
         $stmt->close();
+        $this->db->disconnect();
+        return $result;
     }
 
     public function suaHoaDon($idhd, $tennv, $tenkh, $ngaytao, $totalAll, $trangthai, $productList)
@@ -51,8 +54,8 @@ class HoaDon
 
         if ($result) {
             $this->deleteCTHDByID($idhd);
-            forEach($productList as $product){
-                $this->insertCTHD($idhd,$product['idsp'], $product['slsp'], $product['giasp']);
+            foreach ($productList as $product) {
+                $this->insertCTHD($idhd, $product['idsp'], $product['slsp'], $product['giasp']);
             }
         } else {
             echo "Có lỗi xảy ra khi thực hiện truy vấn UPDATE!";

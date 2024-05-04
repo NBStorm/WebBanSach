@@ -142,7 +142,17 @@
                 }
             });
 
-
+            $(document).on('click', '.delete', function () {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('hoadon')) {
+                    var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
+                    var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
+                    var id = row.find('td:nth-child(6)').text();
+                    // Đặt dữ liệu vào modal
+                    $('#recordId').val(id);
+                    $('#trangthai').val(id);
+                }
+            });
 
             $(document).on('click', '.update', function () {
                 var urlParams = new URLSearchParams(window.location.search);
@@ -209,6 +219,68 @@
 
                     $.ajax({
                         url: 'get_cthd.php', // Tập tin PHP xử lý yêu cầu
+                        type: 'GET',
+                        data: { id: id },
+                        dataType: 'json',
+                        success: function (data) {
+                            $('#productListupdate tbody').empty();
+                            $.each(data, function (index, item) {
+                                // Tạo một chuỗi HTML cho mỗi dòng
+                                var dataString = `<tr>
+                                                    <td>${item.id}</td>
+                                                    <td>${item.tensp}</td>
+                                                    <td>${item.gia}</td>
+                                                    <td>${item.soluong}</td>
+                                                    <td>${parseInt(item.gia) * parseInt(item.soluong)}</td>
+                                                    <td><button onclick="deleteRow_update(this)">Xóa</button></td>
+                                                </tr>`;
+                                // Thêm chuỗi dữ liệu vào tbody của bảng
+                                $('#productListupdate tbody').append(dataString);
+                            });
+
+                        },
+                        error: function (xhr, status, error) {
+                            // Xử lý lỗi nếu có
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
+            });
+
+            $(document).on('click', '.update', function () {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('phieunhap')) {
+                    var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
+                    var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
+                    var namenv = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
+                    var namekh = row.find('td:nth-child(3)').text(); // Lấy dữ liệu từ cột thứ ba
+                    var tongtien = row.find('td:nth-child(4)').text(); // Lấy dữ liệu từ cột thứ tư
+                    var ngaytao = row.find('td:nth-child(5)').text();
+                    
+                    // Đặt dữ liệu vào modal
+                    $('#idhdupdate').val(id);
+                    // Lặp qua từng tùy chọn trong select với id là 'namekh'
+                    $('#namekhupdate option').each(function () {
+                        // Kiểm tra văn bản của tùy chọn hiện tại
+                        if ($(this).text() === namekh) {
+                            // Nếu văn bản của tùy chọn khớp với 'Nguyen D', chọn tùy chọn đó
+                            $(this).prop('selected', true);
+                            // Thoát khỏi vòng lặp vì đã tìm thấy tùy chọn khớp
+                            return false;
+                        }
+                    });
+                    $('#namenvupdate option').each(function () {
+                        if ($(this).text() === namenv) {
+                            $(this).prop('selected', true);
+                            return false;
+                        }
+                    });
+                    $('#totalAllupdate').val(tongtien);
+                    $('#ngaytaoupdate').val(ngaytao);
+                    
+
+                    $.ajax({
+                        url: 'get_ctpn.php', // Tập tin PHP xử lý yêu cầu
                         type: 'GET',
                         data: { id: id },
                         dataType: 'json',

@@ -952,6 +952,482 @@ if (isset($_GET['sanpham'])) {
                 </div>
             </div>
         </div>
+        <div id='deleteHoaDonModal' class='modal fade'>
+		    <div class='modal-dialog modal-dialog-centered'>
+			    <div class='modal-content'>
+				    <form id='formDeleteHD'>
+					    <div class='modal-header'>						
+						    <h5 class='modal-title'>Delete Thể loại</h4>
+						    <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+					    </div>
+					    <div class='modal-body'>					
+						    <p>Bạn có muốn xóa Hóa đơn này ?</p>
+                            <input type='hidden' id='recordId' name='recordId'>
+                            <input type='hidden' id='trangthai' name='trangthai'>
+						    <p class='text-warning'><large>This action cannot be undone.</large></p>
+					    </div>
+					    <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
+						    <input type='button' class='btn btn-secondary' data-bs-dismiss='modal' value='Cancel'>
+						    <button type='submit' class='btn btn-danger'>Delete</button>
+					    </div>  
+				    </form>
+			    </div>
+		    </div>
+	    </div>
+    </div>
+</main>";
+}else if (isset($_GET['phieunhap'])) {
+    echo "<main>
+    <div class='container-fluid px-4'>
+        <h1 class='mt-4'>Phiếu nhập</h1>
+        <ol class='breadcrumb mb-4'>
+            <li class='breadcrumb-item'><a href='admin.php'>Dashboard</a></li>
+            <li class='breadcrumb-item active'>Phiếu nhập</li>
+        </ol>
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px'>
+                    <button type='button' class='btn btn-success' data-bs-toggle='modal'
+                        data-bs-target='#addPhieuNhapModal'>
+                    <i class='fa-solid fa-circle-plus'></i>
+                        Thêm Phiếu nhập mới
+                    </button>
+                </div>  
+            </div>
+        </div>
+        <div class='card mb-4'>
+            <div class='card-header'>
+                <i class='fas fa-table me-1'></i>
+                Bảng phiếu nhập
+            </div>
+            <div class='card-body'>
+                <table id='datatablesSimple' class='table table-striped'>
+                    <thead>
+                        <tr>
+                            <th>Mã phiếu nhập</th>
+                            <th>Tên nhân viên</th>
+                            <th>Tên NCC</th>
+                            <th>Tổng tiền</th>
+                            <th>Ngày tạo</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>";
+                        $phieuNhap = new PhieuNhap();
+                        $phieuNhapArray = $phieuNhap->getAll();
+                        $s='';
+                        foreach ($phieuNhapArray as $item)
+                        {
+                            $s .= "<tr>
+                                    <td>" . $item['id'] . "</td>
+                                    <td>" . $item['tennv'] . "</td>
+                                    <td>" . $item['tenncc'] . "</td>
+                                    <td>" . $item['total'] . "</td>
+                                    <td>" . $item['date'] . "</td>
+                                    <td style='text-align: center;'>
+                                        <a data-bs-target='#updatePhieuNhapModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
+                                        <span style='margin: 0 10px'></span>
+                                        <a data-bs-target='#deletePhieuNhapModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    </td>
+                                </tr>";
+                        }
+                        echo $s;
+
+                    echo "</tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Mã phiếu nhập</th>
+                            <th>Tên nhân viên</th>
+                            <th>Tên NCC</th>
+                            <th>Tổng tiền</th>
+                            <th>Ngày tạo</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div id='addPhieuNhapModal' class='modal fade'>
+            <div class='modal-dialog modal-xl'>
+                <div class='modal-content'>
+                    <form class='row g-3 needs-validation' novalidate id='formAddPN'>
+                        <div class='modal-header'>
+                            <h4 class='modal-title'>Add Hóa Đơn</h4>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body' style='margin-top:0%;'>
+                            <div class='container_hd'>
+                                <div id='left'>
+                                    <div class='container'>
+                                        <div class='row'>
+                                            <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px;'>
+                                                <form class='col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3'>
+                                                    <input type='search' class='form-control form-control-dark' placeholder='Search...' aria-label='Search>'
+                                                </form>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                    <div class='scrollpane' id='tableSelectHD'>
+                                        <table style='border-collapse: collapse;'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã SP</th>
+                                                    <th>Tên SP</th>
+                                                    <th>Giá</th>
+                                                    <th>Số Lượng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>";
+                                                $sanpham = new SanPham();
+                                                $sanPhamArray = $sanpham->getAll();
+                                                $s='';
+                                                foreach ($sanPhamArray as $item)
+                                                {
+                                                    $s .= "<tr>
+                                                            <td>" . $item['id'] . "</td>
+                                                            <td>
+                                                                <div class='imgHoverLink'>
+                                                                    ". $item['ten'] ."
+                                                                    <img class='imgHover' src='../img/".$item['hinhanh']."'>
+                                                                </div>
+                                                            </td>
+                                                            <td>" . $item['dongia'] . "</td>
+                                                            <td>" . $item['soluong'] . "</td>
+                                                        </tr>";
+                                                }
+                                                echo $s;
+                                            echo "</tbody>
+                                        </table>
+                                    </div>
+                                    <div class='row g-2'>
+                                        <div class='col-md-3'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='idsp' placeholder='' value='' readonly>
+                                                <label for='idsp'>Mã SP</label>
+                                            </div>
+                                        </div>
+                                        <div class='col-md-9'>
+                                            <div class='form-floating'>
+                                                <input type='text' class='form-control' id='tensp' placeholder='' value='' readonly>
+                                                <label for='tensp'>Tên SP</label>
+                                            </div>            
+                                        </div>
+                                    </div>     
+                                    <div class='row g-2'>
+                                        <div class='col-md-4'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='giasp' placeholder='' value='' readonly>
+                                                <label for='giasp'>Giá SP</label>
+                                            </div>
+                                        </div>
+                                        <div class='col-md-3'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='slsp' placeholder='' value=''>
+                                                <label for='slsp'>Số lượng SP</label>
+                                            </div>            
+                                        </div>
+                                        <div class='col-md-3'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='total' placeholder='' value='' readonly>
+                                                <label for='total'>Tổng tiền</label>
+                                            </div>            
+                                        </div>
+                                        <div class='col-md-2'>
+                                            <button id='addButton' class='btn btn-primary mt-3'>Thêm</button>                  
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div id='right'>
+                                    <h5 align='center'>Thông tin chi tiết</h5>
+                                    <div class='row g-2'>
+                                        <div class='col-md-4'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='idhd' placeholder='' value='' readonly>
+                                                <label for='idhd'>Mã PN</label>
+                                            </div>
+                                        </div>
+                                        <div class='col-md-4'>
+                                            <div class='form-floating'>
+                                                <select class='form-select' aria-label='Default select example' id='namenv' style='height:58px;'>";
+                                                    $taikhoan = new TaiKhoan();
+                                                    $nhanVienArray = $taikhoan->getListNV();
+                                                    $s='';
+                                                    foreach ($nhanVienArray as $item)
+                                                    {
+                                                        $s .= "
+                                                            <option value='".$item['id']."'>".$item['ten']."</option>
+                                                        ";
+                                                    }
+                                                    echo $s;
+                                                echo "</select>
+                                                <label for='namenv'>Tên Nhân viên</label>
+                                            </div>            
+                                        </div>
+                                        <div class='col-md-4'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='ngaytao' placeholder='' value='' readonly>
+                                                <label for='ngaytao'>Ngày tạo</label>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>     
+                                    <div class='row g-2'>
+                                        <div class='col-md-9    '>
+                                            <div class='form-floating'>
+                                                <select class='form-select' aria-label='Default select example' id='namekh' style='height:58px;'>";
+                                                    $nhacungcap = new NhaCungCap();
+                                                    $nhaCungCapArray = $nhacungcap->getListNCC();
+                                                    $s='';
+                                                    foreach ($nhaCungCapArray as $item)
+                                                    {
+                                                        $s .= "
+                                                            <option value='".$item['id']."'>".$item['ten']."</option>
+                                                        ";
+                                                    }
+                                                    echo $s;
+                                                echo "</select>
+                                                <label for='namekh'>Tên Nhà cung cấp</label>
+                                            </div>            
+                                        </div>
+                                        <div class='col-md-3'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='totalAll' placeholder='' value='' readonly>
+                                                <label for='totalAll'>Tổng tiền</label>
+                                            </div>            
+                                        </div>
+                                    </div>
+                                    <div class='scrollpane'>
+                                        <table id='productList' style='border-collapse: collapse;'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã SP</th>
+                                                    <th>Tên SP</th>
+                                                    <th>Giá</th>
+                                                    <th>Số Lượng</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>";
+                                                
+                                            echo "</tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
+                            <button type='button' class='btn btn-secondary'
+                                data-bs-dismiss='modal'><i class='fa-solid fa-x'></i> Close</button>
+                            <button type='submit' id='saveButton' class='btn btn-primary'><i class='fa-solid fa-check'></i> Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id='updatePhieuNhapModal' class='modal fade'>
+            <div class='modal-dialog modal-xl'>
+                <div class='modal-content'>
+                    <form class='row g-3 needs-validation' novalidate id='formUpdateHD'>
+                        <div class='modal-header'>
+                            <h4 class='modal-title'>Add Hóa Đơn</h4>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body' style='margin-top:0%;'>
+                            <div class='container_hd'>
+                                <div id='left'>
+                                    <div class='container'>
+                                        <div class='row'>
+                                            <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px;'>
+                                                <form class='col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3'>
+                                                    <input type='search' class='form-control form-control-dark-update' placeholder='Search...' aria-label='Search>'
+                                                </form>
+                                            </div>  
+                                        </div>
+                                    </div>
+                                    <div class='scrollpane' id='tableSelectHD_update'>
+                                        <table style='border-collapse: collapse;'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã SP</th>
+                                                    <th>Tên SP</th>
+                                                    <th>Giá</th>
+                                                    <th>Số Lượng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>";
+                                                $sanpham = new SanPham();
+                                                $sanPhamArray = $sanpham->getAll();
+                                                $s='';
+                                                foreach ($sanPhamArray as $item)
+                                                {
+                                                    $s .= "<tr>
+                                                            <td>" . $item['id'] . "</td>
+                                                            <td>
+                                                                <div class='imgHoverLink'>
+                                                                    ". $item['ten'] ."
+                                                                    <img class='imgHover' src='../img/".$item['hinhanh']."'>
+                                                                </div>
+                                                            </td>
+                                                            <td>" . $item['dongia'] . "</td>
+                                                            <td>" . $item['soluong'] . "</td>
+                                                        </tr>";
+                                                }
+                                                echo $s;
+                                            echo "</tbody>
+                                        </table>
+                                    </div>
+                                    <div class='row g-2'>
+                                        <div class='col-md-3'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='idsp_update' placeholder='' value='' readonly>
+                                                <label for='idsp_update'>Mã SP</label>
+                                            </div>
+                                        </div>
+                                        <div class='col-md-9'>
+                                            <div class='form-floating'>
+                                                <input type='text' class='form-control' id='tensp_update' placeholder='' value='' readonly>
+                                                <label for='tensp_update'>Tên SP</label>
+                                            </div>            
+                                        </div>
+                                    </div>     
+                                    <div class='row g-2'>
+                                        <div class='col-md-4'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='giasp_update' placeholder='' value='' readonly>
+                                                <label for='giasp_update'>Giá SP</label>
+                                            </div>
+                                        </div>
+                                        <div class='col-md-3'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='slsp_update' placeholder='' value=''>
+                                                <label for='slsp_update'>Số lượng SP</label>
+                                            </div>            
+                                        </div>
+                                        <div class='col-md-3'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='total_update' placeholder='' value='' readonly>
+                                                <label for='total_update'>Tổng tiền</label>
+                                            </div>            
+                                        </div>
+                                        <div class='col-md-2'>
+                                            <button id='addButton_update' class='btn btn-primary mt-3'>Thêm</button>                  
+                                        </div>
+                                    </div>    
+                                </div>
+                                <div id='right'>
+                                    <h5 align='center'>Thông tin chi tiết</h5>
+                                    <div class='row g-2'>
+                                        <div class='col-md-4'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='idhdupdate' placeholder='' value='' readonly>
+                                                <label for='idhdupdate'>Mã PN</label>
+                                            </div>
+                                        </div>
+                                        <div class='col-md-4'>
+                                            <div class='form-floating'>
+                                                <select class='form-select' aria-label='Default select example' id='namenvupdate' style='height:58px;'>";
+                                                    $taikhoan = new TaiKhoan();
+                                                    $nhanVienArray = $taikhoan->getListNV();
+                                                    $s='';
+                                                    foreach ($nhanVienArray as $item)
+                                                    {
+                                                        $s .= "
+                                                            <option value='".$item['id']."'>".$item['ten']."</option>
+                                                        ";
+                                                    }
+                                                    echo $s;
+                                                echo "</select>
+                                                <label for='namenvupdate'>Tên Nhân viên</label>
+                                            </div>            
+                                        </div>
+                                        <div class='col-md-4'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='ngaytaoupdate' placeholder='' value='' readonly>
+                                                <label for='ngaytaoupdate'>Ngày tạo</label>
+                                            </div>
+                                        </div>
+                                    </div>     
+                                    <div class='row g-2'>
+                                        <div class='col-md-9'>
+                                            <div class='form-floating'>
+                                                <select class='form-select' aria-label='Default select example' id='namekhupdate' style='height:58px;'>";
+                                                    $nhacungcap = new NhaCungCap();
+                                                    $nhaCungCapArray = $nhacungcap->getListNCC();
+                                                    $s='';
+                                                    foreach ($nhaCungCapArray as $item)
+                                                    {
+                                                        $s .= "
+                                                            <option value='".$item['id']."'>".$item['ten']."</option>
+                                                        ";
+                                                    }
+                                                    echo $s;
+                                                echo "</select>
+                                                <label for='namekhupdate'>Tên nhà cung cấp</label>
+                                            </div>            
+                                        </div>
+                                        
+                                        <div class='col-md-3'>
+                                            <div class='form-floating'>
+                                                <input type='int' class='form-control' id='totalAllupdate' placeholder='' value='' readonly>
+                                                <label for='totalAllupdate'>Tổng tiền</label>
+                                            </div>            
+                                        </div>
+                                    </div>
+                                    <div class='scrollpane'>
+                                        <table id='productListupdate' style='border-collapse: collapse;'>
+                                            <thead>
+                                                <tr>
+                                                    <th>Mã SP</th>
+                                                    <th>Tên SP</th>
+                                                    <th>Giá</th>
+                                                    <th>Số Lượng</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>";
+                                                
+                                            echo "</tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
+                            <button type='button' class='btn btn-secondary'
+                                data-bs-dismiss='modal'><i class='fa-solid fa-x'></i> Close</button>
+                            <button type='submit' id='saveButton_update' class='btn btn-primary'><i class='fa-solid fa-check'></i> Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id='deletePhieuNhapModal' class='modal fade'>
+		    <div class='modal-dialog modal-dialog-centered'>
+			    <div class='modal-content'>
+				    <form id='formDeletePN'>
+					    <div class='modal-header'>						
+						    <h5 class='modal-title'>Delete Phiếu Nhập</h4>
+						    <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+					    </div>
+					    <div class='modal-body'>					
+						    <p>Bạn có muốn xóa Phiếu nhậpnày ?</p>
+                            <input type='hidden' id='recordId' name='recordId'>
+						    <p class='text-warning'><large>This action cannot be undone.</large></p>
+					    </div>
+					    <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
+						    <input type='button' class='btn btn-secondary' data-bs-dismiss='modal' value='Cancel'>
+						    <button type='submit' class='btn btn-danger'>Delete</button>
+					    </div>  
+				    </form>
+			    </div>
+		    </div>
+	    </div>                                            
     </div>
 </main>";
 }

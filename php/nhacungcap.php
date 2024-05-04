@@ -61,5 +61,23 @@ class NhaCungCap
         $this->db->disconnect();
         return "";
     }
+
+    public function getListNCC()
+    {
+        $sql = "SELECT MaNCC,TenNCC FROM nhacungcap";
+        $result = $this->db->query($sql);
+
+        if ($result->num_rows > 0) {
+            $nhaCungCapArray = array(); // Tạo một mảng rỗng để chứa cặp id và tên
+
+            while ($row = $result->fetch_assoc()) {
+                $nhaCungCapArray[] = array('id' => $row['MaNCC'], 'ten' => $row['TenNCC']);
+            }
+            return $nhaCungCapArray;
+        }
+        $this->db->disconnect();
+
+        return "";
+    }
 }
 ?>
