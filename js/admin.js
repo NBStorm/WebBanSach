@@ -1486,8 +1486,110 @@ if (urlParams.has('phieunhap')) {
     });
 }
 
+var urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('nguoidung')) {
+    document.getElementById('formAddND').addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (this.classList.contains('was-validated')) {
+            var id = document.getElementById('floatingValidationID').value;
+            var ten = document.getElementById('floatingValidationName').value;
+            var sdt = document.getElementById('floatingValidationPN').value;
+            var email = document.getElementById('floatingValidationEmail').value;
+            if (!validatePhoneNumber(sdt)) {
+                alert('Số điện thoại không hợp lệ');
+                return;
+            }
+            var formData = new FormData();
+            formData.append('MaND', id);
+            formData.append('HoTen', ten);
+            formData.append('SoDienThoai', sdt);
+            formData.append('Email', email);
+            formData.append('action', 'them'); // Thêm hành động 'them' vào dữ liệu gửi đi
 
+            fetch('nguoidungxuly.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => {
+                    if (data == true) {
+                        alert('Thêm thành công');
+                        location.reload();
+                    } else {
+                        console.log(data);
+                        alert(data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    });
 
+    document.getElementById('formDeleteND').addEventListener('submit', function (event) {
+        event.preventDefault(); // Ngăn chặn gửi yêu cầu POST thông thường
+
+        var id = document.getElementById('recordId').value;
+
+        $.ajax({
+            url: 'nguoidungxuly.php', // Đường dẫn tới file xử lý trên server
+            type: 'POST',
+            data: {
+                recordId: id,
+                action: 'xoa'
+            }, // Truyền dữ liệu trực tiếp vào data
+            success: function (response) {
+                console.log(response)
+                if (response === 'success') {
+                    alert("Xóa thành công")
+                    location.reload();
+                } else {
+                    alert('Error: Unable to delete the record.');
+                }
+            }
+        });
+
+    });
+    document.getElementById('formUpdateND').addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (this.classList.contains('was-validated')) {
+            var id = document.getElementById('updateID').value;
+            var ten = document.getElementById('updateName').value;
+            var sdt = document.getElementById('updatePN').value;
+            var email = document.getElementById('updateEmail').value;
+            if (!validatePhoneNumber(sdt)) {
+                alert('Số điện thoại không hợp lệ');
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append('MaND', id);
+            formData.append('HoTen', ten);
+            formData.append('SoDienThoai', sdt);
+            formData.append('Email', email);
+            formData.append('action', 'sua');// Thêm hành động 'them' vào dữ liệu gửi đi
+
+            fetch('nguoidungxuly.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => {
+                    if (data == true) {
+                        alert('Sửa thành công');
+                        location.reload();
+                    } else {
+                        console.log(data);
+                        alert(data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    });
+
+}
 
 
 

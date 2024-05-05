@@ -11,31 +11,37 @@ class NguoiDung
         $this->db->connect();
     }
 
-    public function themSanPham($ten, $gia)
+    public function themNguoiDung($ten,$sdt,$email,$id)
     {
-        $sql = "INSERT INTO sanpham (ten, gia) VALUES (?, ?)";
+        $sql = "INSERT INTO nguoidung (MaND,HoTen,SoDienThoai,Email) VALUES (?,?,?,?)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("si", $ten, $gia);
-        $stmt->execute();
+        $stmt->bind_param("ssss", $id, $ten,$sdt,$email);
+        $success = $stmt->execute();
         $stmt->close();
+        $this->db->disconnect();
+        return $success;
     }
 
-    public function xoaSanPham($id)
+    public function xoaNguoiDung($id)
     {
-        $sql = "DELETE FROM sanpham WHERE id = ?";
+        $sql = "DELETE FROM nguoidung WHERE MaND = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
+        $stmt->bind_param("s", $id);
+        $result = $stmt->execute();
         $stmt->close();
+        $this->db->disconnect();
+        return $result;
     }
 
-    public function suaSanPham($id, $ten, $gia)
+    public function suaNguoiDung($id, $ten, $sdt, $email)
     {
-        $sql = "UPDATE sanpham SET ten = ?, gia = ? WHERE id = ?";
+        $sql = "UPDATE nguoidung SET HoTen = ?, SoDienThoai=?, Email=? WHERE MaND = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("sii", $ten, $gia, $id);
-        $stmt->execute();
+        $stmt->bind_param("ssss", $ten,$sdt,$email, $id);
+        $result=$stmt->execute();
         $stmt->close();
+        $this->db->disconnect();
+        return $result;
     }
 
     public function getAll()
@@ -44,20 +50,14 @@ class NguoiDung
         $result = $this->db->query($sql);
 
         if ($result->num_rows > 0) {
-            $s = "";
+            $nguoiDungArray = array(); // Tạo một mảng rỗng để chứa cặp id và tên
 
             while ($row = $result->fetch_assoc()) {
-                $s .= "<tr>
-                        <td>" . $row['MaND'] . "</td>
-                        <td>" . $row['HoTen'] . "</td>
-                        <td>" . $row['SoDienThoai'] . "</td>
-                        <td>" . $row['Email'] . "</td>
-                    </tr>";
+                $nguoiDungArray[] = array('id' => $row['MaND'], 'ten' => $row['HoTen'], 'sdt' => $row['SoDienThoai'], 'email' => $row['Email']);
             }
-
-            return $s;
+            return $nguoiDungArray;
         }
-
+        $this->db->disconnect();
         return "";
     }
 }

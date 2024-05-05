@@ -235,6 +235,17 @@ if (isset($_GET['sanpham'])) {
             <li class='breadcrumb-item'><a href='admin.php'>Dashboard</a></li>
             <li class='breadcrumb-item active'>Người Dùng</li>
         </ol>
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px'>
+                    <button type='button' class='btn btn-success' data-bs-toggle='modal'
+                        data-bs-target='#addNguoiDungModal'>
+                    <i class='fa-solid fa-circle-plus'></i>
+                        Thêm người dùng mới
+                    </button>
+                </div>  
+            </div>
+        </div>
         <div class='card mb-4'>
             <div class='card-header'>
                 <i class='fas fa-table me-1'></i>
@@ -244,17 +255,32 @@ if (isset($_GET['sanpham'])) {
                 <table id='datatablesSimple' class='table table-striped'>
                     <thead>
                         <tr>
-                            <th>Mã người dùng</th>
+                            <th width=15% style='text-align: center;'>Mã người dùng</th>
                             <th>Họ tên</th>
-                            <th>Số điện thoại</th>
-                            <th>Email</th>
+                            <th width='13%'>Số điện thoại</th>
+                            <th width='25%'>Email</th>
+                            <th width='11%'>Chức năng</th>
                         </tr>
                     </thead>
                     <tbody>";
                         $nguoidung = new NguoiDung();
-                        $nguoidung->__construct();
-                        echo $nguoidung->getAll();
-
+                        $nguoiDungArray = $nguoidung->getAll();
+                        $s='';
+                        foreach ($nguoiDungArray as $item)
+                        {
+                            $s .= "<tr>
+                                    <td>" . $item['id'] . "</td>
+                                    <td>" . $item['ten'] . "</td>
+                                    <td>" . $item['sdt'] . "</td>
+                                    <td>" . $item['email'] . "</td>
+                                    <td style='text-align: center;'>
+                                        <a data-bs-target='#updateNguoiDungModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
+                                        <span style='margin: 0 10px'></span>
+                                        <a data-bs-target='#deleteNguoiDungModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    </td>
+                                </tr>";
+                        }
+                        echo $s;
                     echo "</tbody>
                     <tfoot>
                         <tr>
@@ -262,9 +288,129 @@ if (isset($_GET['sanpham'])) {
                             <th>Họ tên</th>
                             <th>Số điện thoại</th>
                             <th>Email</th>
+                            <th>Chức năng</th>
                         </tr>
                     </tfoot>
                 </table>
+            </div>
+        </div>
+        <div id='addNguoiDungModal' class='modal fade'>
+            <div class='modal-dialog modal-dialog-centered'>
+                <div class='modal-content'>
+                    <form class='row g-3 needs-validation' novalidate id='formAddND'>
+                        <div class='modal-header'>
+                            <h4 class='modal-title'>Add Người Dùng</h4>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body'>
+                            <div class='form-floating mb-3'>
+                                <input type='text' class='form-control' id='floatingValidationID' placeholder='<Mã thể loại'> 
+                                <label for='floatingValidationID' class='form-label'>Mã người dùng</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class='form-floating mb-3'>
+                                <input type='text' class='form-control' id='floatingValidationName' placeholder='Tên thể loại' required>
+                                <label for='floatingValidationName' class='form-label' >Họ tên</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class='form-floating mb-3'>
+                                <input type='number' class='form-control' id='floatingValidationPN' placeholder='Tên thể loại' required>
+                                <label for='floatingValidationPN' class='form-label' >Số điện thoại</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class='form-floating mb-3'>
+                                <input type='text' class='form-control' id='floatingValidationEmail' placeholder='Tên thể loại' required>
+                                <label for='floatingValidationEmail' class='form-label' >Email</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
+                            <button type='button' class='btn btn-secondary'
+                                data-bs-dismiss='modal'><i class='fa-solid fa-x'></i> Close</button>
+                            <button type='submit' class='btn btn-primary'><i class='fa-solid fa-check'></i> Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id='deleteNguoiDungModal' class='modal fade'>
+		    <div class='modal-dialog modal-dialog-centered'>
+			    <div class='modal-content'>
+				    <form id='formDeleteND'>
+					    <div class='modal-header'>						
+						    <h5 class='modal-title'>Delete Người Dùng</h4>
+						    <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+					    </div>
+					    <div class='modal-body'>					
+						    <p>Bạn có muốn xóa Người dùng <span id='deleteName'></span> ?</p>
+                            <input type='hidden' id='recordId' name='recordId'>
+						    <p class='text-warning'><large>This action cannot be undone.</large></p>
+					    </div>
+					    <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
+						    <input type='button' class='btn btn-secondary' data-bs-dismiss='modal' value='Cancel'>
+						    <button type='submit' class='btn btn-danger'>Delete</button>
+					    </div>
+				    </form>
+			    </div>
+		    </div>
+	    </div>
+
+        <div id='updateNguoiDungModal' class='modal fade'>
+            <div class='modal-dialog modal-dialog-centered'>
+                <div class='modal-content'>
+                    <form class='row g-3 needs-validation' novalidate id='formUpdateND'>
+                        <div class='modal-header'>
+                            <h4 class='modal-title'>Update Người dùng</h4>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body'>
+                            <div class='form-floating mb-3'>
+                                <input type='text' class='form-control' id='updateID' placeholder='<Mã thể loại' readonly> 
+                                <label for='updateID' class='form-label'>Mã người dùng</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class='form-floating mb-3'>
+                                <input type='text' class='form-control' id='updateName' placeholder='Tên thể loại' required>
+                                <label for='updateName' class='form-label' >Họ tên</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class='form-floating mb-3'>
+                                <input type='number' class='form-control' id='updatePN' placeholder='<Mã thể loại' readonly> 
+                                <label for='updatePN' class='form-label'>Số điện thoại</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                            <div class='form-floating mb-3'>
+                                <input type='text' class='form-control' id='updateEmail' placeholder='Tên thể loại' required>
+                                <label for='updateEmail' class='form-label' >Email</label>
+                                <div class='valid-feedback'>
+                                    Looks good!
+                                </div>
+                            </div>
+                        </div>
+                        <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
+                            <button type='button' class='btn btn-secondary'
+                                data-bs-dismiss='modal'><i class='fa-solid fa-x'></i> Close</button>
+                            <button type='submit' class='btn btn-primary'><i class='fa-solid fa-check'></i> Save changes</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
