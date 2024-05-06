@@ -1,7 +1,7 @@
 <?php
 require_once 'DatabaseConnection.php';
 
-class NguoiDung
+class NguoiDung 
 {
     private $db;
 
@@ -54,6 +54,55 @@ class NguoiDung
 
             while ($row = $result->fetch_assoc()) {
                 $nguoiDungArray[] = array('id' => $row['MaND'], 'ten' => $row['HoTen'], 'sdt' => $row['SoDienThoai'], 'email' => $row['Email']);
+            }
+            return $nguoiDungArray;
+        }
+        $this->db->disconnect();
+        return "";
+    }
+
+    public function getListCTK()
+    {
+        $sql = "SELECT nguoidung.*
+                FROM nguoidung
+                LEFT JOIN taikhoan ON nguoidung.MaND = taikhoan.Username
+                WHERE taikhoan.Username IS NULL;";
+
+        $result = $this->db->query($sql);
+
+        if ($result->num_rows > 0) {
+            $nguoiDungArray = array(); // Tạo một mảng rỗng để chứa cặp id và tên
+
+            while ($row = $result->fetch_assoc()) {
+                $nguoiDungArray[] = array('id' => $row['MaND'], 'ten' => $row['HoTen']);
+            }
+            return $nguoiDungArray;
+        }
+        $this->db->disconnect();
+        return "";
+    }
+
+    public function getListTK($id)
+    {
+        $sql = "SELECT nguoidung.*
+        FROM nguoidung
+        LEFT JOIN taikhoan ON nguoidung.MaND = taikhoan.Username
+        WHERE taikhoan.Username IS NULL
+        
+        UNION
+        
+        SELECT nguoidung.*
+        FROM nguoidung
+        INNER JOIN taikhoan ON nguoidung.MaND = taikhoan.Username
+        WHERE taikhoan.MaTK = $id;";
+
+        $result = $this->db->query($sql);
+
+        if ($result->num_rows > 0) {
+            $nguoiDungArray = array(); // Tạo một mảng rỗng để chứa cặp id và tên
+
+            while ($row = $result->fetch_assoc()) {
+                $nguoiDungArray[] = array('id' => $row['MaND'], 'ten' => $row['HoTen']);
             }
             return $nguoiDungArray;
         }

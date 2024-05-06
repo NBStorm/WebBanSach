@@ -148,7 +148,7 @@
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
                     var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
                     var name = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
-                    
+
                     // Đặt dữ liệu vào modal
                     $('#recordId').val(id);
                     $('#deleteName').text(name);
@@ -175,6 +175,19 @@
                     var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
                     // Đặt dữ liệu vào modal
                     $('#recordId').val(id);
+                }
+            });
+
+            $(document).on('click', '.delete', function () {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('taikhoan')) {
+                    var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
+                    var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
+                    var name = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
+
+                    // Đặt dữ liệu vào modal
+                    $('#recordId').val(id);
+                    $('#deleteName').text(name);
                 }
             });
 
@@ -223,6 +236,55 @@
                     $('#updateName').val(name);
                     $('#updatePN').val(sdt);
                     $('#updateEmail').val(email);
+                }
+            });
+
+            $(document).on('click', '.update', function () {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('taikhoan')) {
+                    var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
+                    var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
+                    var username = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
+                    var password = row.find('td:nth-child(3)').text(); // Lấy dữ liệu từ cột thứ ba
+                    var nq = row.find('td:nth-child(4)').text(); // Lấy dữ liệu từ cột thứ tư
+                    var ngaytao = row.find('td:nth-child(5)').text();
+
+                    // Đặt dữ liệu vào modal
+                    $('#updateId').val(id);
+
+                    $.ajax({
+                        url: 'get_nd.php', // Tập tin PHP xử lý yêu cầu
+                        type: 'GET',
+                        data: { id: id },
+                        dataType: 'json',
+                        success: function (data) {
+                            $('#updateND').empty();
+                            $.each(data, function (index, item) {
+                                var option = $('<option></option>'); // Tạo một tùy chọn mới
+                                option.attr('value', item['id']); // Đặt giá trị của tùy chọn
+                                option.text(item['ten']); // Đặt văn bản của tùy chọn
+                                $('#updateND').append(option);
+
+                                // Kiểm tra xem giá trị "ten" của tùy chọn có khớp với giá trị được chọn không
+                                if (item['id'] === username) {
+                                    option.prop('selected', true); // Chọn tùy chọn nếu khớp
+                                }
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            // Xử lý lỗi nếu có
+                            console.error(xhr.responseText);
+                        }
+                    });
+
+                    $('#updateNQ option').each(function () {
+                        if ($(this).text() === nq) {
+                            $(this).prop('selected', true);
+                            return false;
+                        }
+                    });
+                    $('#updatePass').val(password);
+                    $('#updateDate').val(ngaytao);
                 }
             });
 
@@ -297,7 +359,7 @@
                     var namekh = row.find('td:nth-child(3)').text(); // Lấy dữ liệu từ cột thứ ba
                     var tongtien = row.find('td:nth-child(4)').text(); // Lấy dữ liệu từ cột thứ tư
                     var ngaytao = row.find('td:nth-child(5)').text();
-                    
+
                     // Đặt dữ liệu vào modal
                     $('#idhdupdate').val(id);
                     // Lặp qua từng tùy chọn trong select với id là 'namekh'
@@ -318,7 +380,7 @@
                     });
                     $('#totalAllupdate').val(tongtien);
                     $('#ngaytaoupdate').val(ngaytao);
-                    
+
 
                     $.ajax({
                         url: 'get_ctpn.php', // Tập tin PHP xử lý yêu cầu

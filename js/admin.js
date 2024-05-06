@@ -1591,7 +1591,121 @@ if (urlParams.has('nguoidung')) {
 
 }
 
+var urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('taikhoan')) {
+    document.getElementById('formAddTK').addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (this.classList.contains('was-validated')) {
+            var id = document.getElementById('floatingValidationID').value;
+            var user = document.getElementById('floatingValidationUserName').value;
+            var pass = document.getElementById('floatingValidationPW').value;
+            var nq = document.getElementById('floatingValidationNQ').value;
+            var date = document.getElementById('floatingValidationDate').value;
+            
+            var formData = new FormData();
+            formData.append('MaTK', id);
+            formData.append('Username', user);
+            formData.append('Password', pass);
+            formData.append('NhomQuyen', nq);
+            formData.append('NgayTao', date);
+            formData.append('action', 'them'); // Thêm hành động 'them' vào dữ liệu gửi đi
 
+            fetch('taikhoanxuly.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => {
+                    if (data == true) {
+                        alert('Thêm thành công');
+                        location.reload();
+                    } else {
+                        console.log(data);
+                        alert(data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    });
+
+    document.getElementById('formDeleteTK').addEventListener('submit', function (event) {
+        event.preventDefault(); // Ngăn chặn gửi yêu cầu POST thông thường
+
+        var id = document.getElementById('recordId').value;
+
+        $.ajax({
+            url: 'taikhoanxuly.php', // Đường dẫn tới file xử lý trên server
+            type: 'POST',
+            data: {
+                recordId: id,
+                action: 'xoa'
+            }, // Truyền dữ liệu trực tiếp vào data
+            success: function (response) {
+                console.log(response)
+                if (response === 'success') {
+                    alert("Xóa thành công")
+                    location.reload();
+                } else {
+                    alert('Error: Unable to delete the record.');
+                }
+            }
+        });
+
+    });
+    document.getElementById('formUpdateTK').addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (this.classList.contains('was-validated')) {
+            var id = document.getElementById('updateId').value;
+            var user = document.getElementById('updateND').value;
+            var pass = document.getElementById('updatePass').value;
+            var nq = document.getElementById('updateNQ').value;
+            
+            
+            var formData = new FormData();
+            formData.append('MaTK', id);
+            formData.append('Username', user);
+            formData.append('Password', pass);
+            formData.append('NhomQuyen', nq);
+            formData.append('action', 'sua');// Thêm hành động 'them' vào dữ liệu gửi đi
+
+            fetch('taikhoanxuly.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    if (data == true) {
+                        alert('Sửa thành công');
+                        location.reload();
+                    } else {
+                        console.log(data);
+                        alert(data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    });
+
+    $(document).ready(function(){
+        $('#addTaiKhoanModal').on('shown.bs.modal', function () {
+            // Lấy thời gian hiện tại
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = String(now.getMonth() + 1).padStart(2, '0'); // Thêm số 0 phía trước nếu tháng < 10
+            var day = String(now.getDate()).padStart(2, '0'); // Thêm số 0 phía trước nếu ngày < 10
+            var currentDate = `${year}-${month}-${day}`;
+    
+            // Gán thời gian hiện tại cho trường nhập liệu "Ngày tạo"
+            document.getElementById('floatingValidationDate').value = currentDate;
+        });
+    });
+
+}
 
 
 

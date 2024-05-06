@@ -11,31 +11,37 @@ class TaiKhoan
         $this->db->connect();
     }
 
-    public function themSanPham($ten, $gia)
+    public function themTaiKhoan($user,$pass,$manq,$date)
     {
-        $sql = "INSERT INTO sanpham (ten, gia) VALUES (?, ?)";
+        $sql = "INSERT INTO taikhoan (Username,Password,MaNQ,NgayTao) VALUES (?,?,?,?)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("si", $ten, $gia);
-        $stmt->execute();
+        $stmt->bind_param("ssis", $user, $pass,$manq,$date);
+        $success = $stmt->execute();
         $stmt->close();
+        $this->db->disconnect();
+        return $success;
     }
 
-    public function xoaSanPham($id)
+    public function xoaTaiKhoan($id)
     {
-        $sql = "DELETE FROM sanpham WHERE id = ?";
+        $sql = "DELETE FROM taikhoan WHERE MaTK = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("i", $id);
-        $stmt->execute();
+        $result = $stmt->execute();
         $stmt->close();
+        $this->db->disconnect();
+        return $result;
     }
 
-    public function suaSanPham($id, $ten, $gia)
+    public function suaTaiKhoan($id,$user,$pass,$manq)
     {
-        $sql = "UPDATE sanpham SET ten = ?, gia = ? WHERE id = ?";
+        $sql = "UPDATE taikhoan SET Username = ?, Password=?, MaNQ=? WHERE MaTK = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("sii", $ten, $gia, $id);
-        $stmt->execute();
+        $stmt->bind_param("ssii", $user,$pass,$manq, $id);
+        $result=$stmt->execute();
         $stmt->close();
+        $this->db->disconnect();
+        return $result;
     }
 
     public function getAll()
@@ -44,21 +50,14 @@ class TaiKhoan
         $result = $this->db->query($sql);
 
         if ($result->num_rows > 0) {
-            $s = "";
+            $taiKhoanArray = array(); // Tạo một mảng rỗng để chứa cặp id và tên
 
             while ($row = $result->fetch_assoc()) {
-                $s .= "<tr>
-                        <td>" . $row['MaTK'] . "</td>
-                        <td>" . $row['Username'] . "</td>
-                        <td>" . $row['Password'] . "</td>
-                        <td>" . $row['TenNQ'] . "</td>
-                        <td>" . $row['NgayTao'] . "</td>
-                    </tr>";
+                $taiKhoanArray[] = array('id' => $row['MaTK'], 'user' => $row['Username'], 'pass' => $row['Password'], 'nnq' => $row['TenNQ'], 'date' => $row['NgayTao']);
             }
-
-            return $s;
+            return $taiKhoanArray;
         }
-
+        $this->db->disconnect();
         return "";
     }
 
