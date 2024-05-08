@@ -16,29 +16,25 @@
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="admin.php">Web Bán Sách</a>
         <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
-                class="fas fa-bars"></i></button>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
-                    aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
-                        class="fas fa-search"></i></button>
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
             </div>
         </form>
         <!-- Navbar-->
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#!">Settings</a></li>
                     <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+                    <li><a class="dropdown-item" href="../index.php">Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -100,8 +96,8 @@
         </div>
         <div id="layoutSidenav_content">
             <?php
-            include ("load-interface.php")
-                ?>
+            include("load-interface.php")
+            ?>
         </div>
 
     </div>
@@ -109,14 +105,14 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="../js/admin.js"></script>
     <script src="../js/datatables-simple-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script>
     <script defer src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
     <script defer src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Gán sự kiện click cho phần tử cha chứa các nút "Delete"
-            $(document).on('click', '.delete', function () {
+            $(document).on('click', '.delete', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('theloai')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -129,7 +125,7 @@
                 }
             });
 
-            $(document).on('click', '.delete', function () {
+            $(document).on('click', '.delete', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('nhacungcap')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -142,7 +138,7 @@
                 }
             });
 
-            $(document).on('click', '.delete', function () {
+            $(document).on('click', '.delete', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('nguoidung')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -156,7 +152,7 @@
             });
 
 
-            $(document).on('click', '.delete', function () {
+            $(document).on('click', '.delete', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('hoadon')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -168,7 +164,7 @@
                 }
             });
 
-            $(document).on('click', '.delete', function () {
+            $(document).on('click', '.delete', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('phieunhap')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -178,7 +174,7 @@
                 }
             });
 
-            $(document).on('click', '.delete', function () {
+            $(document).on('click', '.delete', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('taikhoan')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -191,7 +187,7 @@
                 }
             });
 
-            $(document).on('click', '.delete', function () {
+            $(document).on('click', '.delete', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('sanpham')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -204,7 +200,7 @@
                 }
             });
 
-            $(document).on('click', '.update', function () {
+            $(document).on('click', '.update', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('sanpham')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -216,9 +212,9 @@
                     var fileName = src.split('/').pop();
                     console.log(fileName);
 
-                    $('#updateSelectedFileName').text(''+fileName);
+                    $('#updateSelectedFileName').text('' + fileName);
 
-                    $('#updateTheLoai option').each(function () {
+                    $('#updateTheLoai option').each(function() {
                         if ($(this).text() === tl) {
                             $(this).prop('selected', true);
                             return false;
@@ -226,15 +222,15 @@
                     });
 
                     if (fileName != '') {
-                        document.getElementById('myImageUpdate').src = '../img/'+fileName;
+                        document.getElementById('myImageUpdate').src = '../img/' + fileName;
                         document.getElementById('myImageUpdate').classList.remove('d-none');
                         document.getElementById('delete-btn-update').classList.remove('d-none');
-                    }else{
+                    } else {
                         document.getElementById('myImageUpdate').classList.add('d-none');
                         document.getElementById('delete-btn-update').classList.add('d-none');
                     }
 
-                    
+
                     // Đặt dữ liệu vào modal
                     $('#updateId').val(id);
                     $('#updateName').val(name);
@@ -242,7 +238,7 @@
                 }
             });
 
-            $(document).on('click', '.update', function () {
+            $(document).on('click', '.update', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('theloai')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -256,7 +252,7 @@
                 }
             });
 
-            $(document).on('click', '.update', function () {
+            $(document).on('click', '.update', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('nhacungcap')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -273,7 +269,7 @@
                 }
             });
 
-            $(document).on('click', '.update', function () {
+            $(document).on('click', '.update', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('nguoidung')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -290,7 +286,7 @@
                 }
             });
 
-            $(document).on('click', '.update', function () {
+            $(document).on('click', '.update', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('taikhoan')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -306,29 +302,34 @@
                     $.ajax({
                         url: 'get_nd.php', // Tập tin PHP xử lý yêu cầu
                         type: 'GET',
-                        data: { id: id },
+                        data: {
+                            id: id
+                        },
                         dataType: 'json',
-                        success: function (data) {
+                        success: function(data) {
                             $('#updateND').empty();
-                            $.each(data, function (index, item) {
-                                var option = $('<option></option>'); // Tạo một tùy chọn mới
-                                option.attr('value', item['id']); // Đặt giá trị của tùy chọn
+                            $.each(data, function(index, item) {
+                                var option = $(
+                                    '<option></option>'); // Tạo một tùy chọn mới
+                                option.attr('value', item[
+                                    'id']); // Đặt giá trị của tùy chọn
                                 option.text(item['ten']); // Đặt văn bản của tùy chọn
                                 $('#updateND').append(option);
 
                                 // Kiểm tra xem giá trị "ten" của tùy chọn có khớp với giá trị được chọn không
                                 if (item['id'] === username) {
-                                    option.prop('selected', true); // Chọn tùy chọn nếu khớp
+                                    option.prop('selected',
+                                        true); // Chọn tùy chọn nếu khớp
                                 }
                             });
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             // Xử lý lỗi nếu có
                             console.error(xhr.responseText);
                         }
                     });
 
-                    $('#updateNQ option').each(function () {
+                    $('#updateNQ option').each(function() {
                         if ($(this).text() === nq) {
                             $(this).prop('selected', true);
                             return false;
@@ -339,7 +340,7 @@
                 }
             });
 
-            $(document).on('click', '.update', function () {
+            $(document).on('click', '.update', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('hoadon')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -352,7 +353,7 @@
                     // Đặt dữ liệu vào modal
                     $('#idhdupdate').val(id);
                     // Lặp qua từng tùy chọn trong select với id là 'namekh'
-                    $('#namekhupdate option').each(function () {
+                    $('#namekhupdate option').each(function() {
                         // Kiểm tra văn bản của tùy chọn hiện tại
                         if ($(this).text() === namekh) {
                             // Nếu văn bản của tùy chọn khớp với 'Nguyen D', chọn tùy chọn đó
@@ -361,7 +362,7 @@
                             return false;
                         }
                     });
-                    $('#namenvupdate option').each(function () {
+                    $('#namenvupdate option').each(function() {
                         if ($(this).text() === namenv) {
                             $(this).prop('selected', true);
                             return false;
@@ -374,11 +375,13 @@
                     $.ajax({
                         url: 'get_cthd.php', // Tập tin PHP xử lý yêu cầu
                         type: 'GET',
-                        data: { id: id },
+                        data: {
+                            id: id
+                        },
                         dataType: 'json',
-                        success: function (data) {
+                        success: function(data) {
                             $('#productListupdate tbody').empty();
-                            $.each(data, function (index, item) {
+                            $.each(data, function(index, item) {
                                 // Tạo một chuỗi HTML cho mỗi dòng
                                 var dataString = `<tr>
                                                     <td>${item.id}</td>
@@ -393,7 +396,7 @@
                             });
 
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             // Xử lý lỗi nếu có
                             console.error(xhr.responseText);
                         }
@@ -401,7 +404,7 @@
                 }
             });
 
-            $(document).on('click', '.update', function () {
+            $(document).on('click', '.update', function() {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('phieunhap')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -414,7 +417,7 @@
                     // Đặt dữ liệu vào modal
                     $('#idhdupdate').val(id);
                     // Lặp qua từng tùy chọn trong select với id là 'namekh'
-                    $('#namekhupdate option').each(function () {
+                    $('#namekhupdate option').each(function() {
                         // Kiểm tra văn bản của tùy chọn hiện tại
                         if ($(this).text() === namekh) {
                             // Nếu văn bản của tùy chọn khớp với 'Nguyen D', chọn tùy chọn đó
@@ -423,7 +426,7 @@
                             return false;
                         }
                     });
-                    $('#namenvupdate option').each(function () {
+                    $('#namenvupdate option').each(function() {
                         if ($(this).text() === namenv) {
                             $(this).prop('selected', true);
                             return false;
@@ -436,11 +439,13 @@
                     $.ajax({
                         url: 'get_ctpn.php', // Tập tin PHP xử lý yêu cầu
                         type: 'GET',
-                        data: { id: id },
+                        data: {
+                            id: id
+                        },
                         dataType: 'json',
-                        success: function (data) {
+                        success: function(data) {
                             $('#productListupdate tbody').empty();
-                            $.each(data, function (index, item) {
+                            $.each(data, function(index, item) {
                                 // Tạo một chuỗi HTML cho mỗi dòng
                                 var dataString = `<tr>
                                                     <td>${item.id}</td>
@@ -455,7 +460,7 @@
                             });
 
                         },
-                        error: function (xhr, status, error) {
+                        error: function(xhr, status, error) {
                             // Xử lý lỗi nếu có
                             console.error(xhr.responseText);
                         }
@@ -463,16 +468,16 @@
                 }
             });
 
-            $(document).ready(function () {
+            $(document).ready(function() {
                 $('.imgHoverLink').hover(
-                    function (e) {
+                    function(e) {
                         // Hiển thị hình ảnh và đặt vị trí của nó dựa trên vị trí của chuột
                         $(this).find('.imgHover').css({
                             'top': e.pageY + 10 + 'px', // Vị trí Y của chuột + 10px
                             'left': e.pageX + 10 + 'px' // Vị trí X của chuột + 10px
                         }).show();
                     },
-                    function () {
+                    function() {
                         // Ẩn hình ảnh khi không hover nữa
                         $(this).find('.imgHover').hide();
                     }
@@ -483,7 +488,7 @@
         });
     </script>
     <script>
-        (function () {
+        (function() {
             'use strict'
 
             // Check if there are forms with the class 'needs-validation'
@@ -492,8 +497,8 @@
             // If there are, then apply Bootstrap validation styles
             if (forms.length > 0) {
                 Array.prototype.slice.call(forms)
-                    .forEach(function (form) {
-                        form.addEventListener('submit', function (event) {
+                    .forEach(function(form) {
+                        form.addEventListener('submit', function(event) {
                             if (!form.checkValidity()) {
                                 event.preventDefault()
                                 event.stopPropagation()
