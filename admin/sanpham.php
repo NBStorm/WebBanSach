@@ -11,19 +11,37 @@ class SanPham
         $this->db->connect();
     }
 
-    public function themSanPham($ten, $gia)
+    public function themSanPham($ten, $gia, $tl, $sl, $hinhanh)
     {
-
+        $sql = "INSERT INTO sanpham (TenSP,DonGia,MaTL,SoLuong,HinhAnh) VALUES (?,?,?,?,?)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("siiis", $ten,$gia, $tl, $sl, $hinhanh);
+        $success = $stmt->execute();
+        $stmt->close();
+        $this->db->disconnect();
+        return $success;
     }
 
     public function xoaSanPham($id)
     {
-
+        $sql = "DELETE FROM sanpham WHERE MaSP = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $result = $stmt->execute();
+        $stmt->close();
+        $this->db->disconnect();
+        return $result;
     }
 
-    public function suaSanPham($id, $ten, $gia)
+    public function suaSanPham($id, $ten, $gia, $tl, $sl, $hinhanh)
     {
-
+        $sql = "UPDATE sanpham SET TenSP = ?, DonGia = ?, MaTL = ?, SoLuong = ?, HinhAnh = ? WHERE MaSP = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("siiisi", $ten,$gia, $tl, $sl, $hinhanh, $id);
+        $result=$stmt->execute();
+        $stmt->close();
+        $this->db->disconnect();
+        return $result;
     }
 
     public function updateSoLuong($productAfter)

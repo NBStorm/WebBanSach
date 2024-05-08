@@ -328,7 +328,7 @@ body {
     align-items: center;
 }
 
-.scrollpane{
+.scrollpane {
     height: 300px;
     overflow: auto;
     border: 1px solid #ccc;
@@ -377,9 +377,12 @@ th {
 .imgHover {
     border-radius: 10px;
     width: 150px;
-    display: none; /* Ẩn hình ảnh ban đầu */
-    position: fixed; /* Đặt vị trí cố định */
-    z-index: 999; /* Đảm bảo hình ảnh hiển thị trên tất cả các phần tử khác */
+    display: none;
+    /* Ẩn hình ảnh ban đầu */
+    position: fixed;
+    /* Đặt vị trí cố định */
+    z-index: 999;
+    /* Đảm bảo hình ảnh hiển thị trên tất cả các phần tử khác */
 }
 
 .imgHoverLink {
@@ -388,5 +391,19 @@ th {
 }
 
 .selected {
-    background-color: #daf109; /* Màu nền mong muốn */
+    background-color: #daf109;
+    /* Màu nền mong muốn */
+}
+
+.image-preview {
+    width: 100%;
+    max-height: 335px;
+}
+#delete-btn{
+    top: 11px; 
+    right: 8px; 
+}
+#delete-btn-update{
+    top: 11px; 
+    right: 8px; 
 }

@@ -1601,7 +1601,7 @@ if (urlParams.has('taikhoan')) {
             var pass = document.getElementById('floatingValidationPW').value;
             var nq = document.getElementById('floatingValidationNQ').value;
             var date = document.getElementById('floatingValidationDate').value;
-            
+
             var formData = new FormData();
             formData.append('MaTK', id);
             formData.append('Username', user);
@@ -1661,8 +1661,8 @@ if (urlParams.has('taikhoan')) {
             var user = document.getElementById('updateND').value;
             var pass = document.getElementById('updatePass').value;
             var nq = document.getElementById('updateNQ').value;
-            
-            
+
+
             var formData = new FormData();
             formData.append('MaTK', id);
             formData.append('Username', user);
@@ -1691,7 +1691,7 @@ if (urlParams.has('taikhoan')) {
         }
     });
 
-    $(document).ready(function(){
+    $(document).ready(function () {
         $('#addTaiKhoanModal').on('shown.bs.modal', function () {
             // Lấy thời gian hiện tại
             var now = new Date();
@@ -1699,7 +1699,7 @@ if (urlParams.has('taikhoan')) {
             var month = String(now.getMonth() + 1).padStart(2, '0'); // Thêm số 0 phía trước nếu tháng < 10
             var day = String(now.getDate()).padStart(2, '0'); // Thêm số 0 phía trước nếu ngày < 10
             var currentDate = `${year}-${month}-${day}`;
-    
+
             // Gán thời gian hiện tại cho trường nhập liệu "Ngày tạo"
             document.getElementById('floatingValidationDate').value = currentDate;
         });
@@ -1707,7 +1707,217 @@ if (urlParams.has('taikhoan')) {
 
 }
 
+var urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('sanpham')) {
+    document.getElementById('chooseFileButtonUpdate').addEventListener('click', function(event) {
+        event.preventDefault();
+        // Kích hoạt sự kiện click trên phần tử input file ẩn
+        document.getElementById('updateFileInput').click();
+    });
 
+    // Lắng nghe sự kiện change trên phần tử input file
+    document.getElementById('updateFileInput').addEventListener('change', function(event) {
+        event.preventDefault();
+        // Kiểm tra xem người dùng đã chọn tệp nào chưa
+        if (this.files.length > 0) {
+            // Lấy tên của tệp đã chọn
+            var fileName = this.files[0].name;
+        
+            // Hiển thị tên tệp đã chọn
+            document.getElementById('updateSelectedFileName').textContent = fileName;
+
+            // Lấy URL của tệp hình ảnh và gán cho phần tử <img>
+            var imageURL = URL.createObjectURL(this.files[0]);
+            document.getElementById('myImageUpdate').src = imageURL;
+            document.getElementById('myImageUpdate').classList.remove('d-none');
+
+            // Hiển thị nút "Xóa"
+            document.getElementById('delete-btn-update').classList.remove('d-none');
+        } else {
+            // Ẩn nút "Xóa" nếu không có tệp nào được chọn
+            document.getElementById('delete-btn-update').classList.add('d-none');
+        }
+    });
+
+    // Lắng nghe sự kiện click trên nút "Xóa"
+    document.getElementById('delete-btn-update').addEventListener('click', function(event) {
+        event.preventDefault();
+        // Xóa đường dẫn hình ảnh của phần tử <img> và ẩn nút "Xóa"
+        document.getElementById('myImageUpdate').src = '';
+        document.getElementById('myImageUpdate').classList.add('d-none');
+        this.classList.add('d-none');
+
+        // Đặt lại giá trị của phần tử input file
+        document.getElementById('updateFileInput').value = '';
+        // Xóa nội dung hiển thị tên tệp đã chọn
+        document.getElementById('updateSelectedFileName').textContent = '';
+    });
+
+    //add start
+    document.getElementById('chooseFileButton').addEventListener('click', function(event) {
+        event.preventDefault();
+        // Kích hoạt sự kiện click trên phần tử input file ẩn
+        document.getElementById('fileInput').click();
+    });
+
+    // Lắng nghe sự kiện change trên phần tử input file
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+        event.preventDefault();
+        // Kiểm tra xem người dùng đã chọn tệp nào chưa
+        if (this.files.length > 0) {
+            // Lấy tên của tệp đã chọn
+            var fileName = this.files[0].name;
+        
+            // Hiển thị tên tệp đã chọn
+            document.getElementById('selectedFileName').textContent = fileName;
+
+            // Lấy URL của tệp hình ảnh và gán cho phần tử <img>
+            var imageURL = URL.createObjectURL(this.files[0]);
+            document.getElementById('myImage').src = imageURL;
+            document.getElementById('myImage').classList.remove('d-none');
+
+            // Hiển thị nút "Xóa"
+            document.getElementById('delete-btn').classList.remove('d-none');
+        } else {
+            // Ẩn nút "Xóa" nếu không có tệp nào được chọn
+            document.getElementById('delete-btn').classList.add('d-none');
+        }
+    });
+
+    // Lắng nghe sự kiện click trên nút "Xóa"
+    document.getElementById('delete-btn').addEventListener('click', function(event) {
+        event.preventDefault();
+        // Xóa đường dẫn hình ảnh của phần tử <img> và ẩn nút "Xóa"
+        document.getElementById('myImage').src = '';
+        document.getElementById('myImage').classList.add('d-none');
+        this.classList.add('d-none');
+
+        // Đặt lại giá trị của phần tử input file
+        document.getElementById('fileInput').value = '';
+        // Xóa nội dung hiển thị tên tệp đã chọn
+        document.getElementById('selectedFileName').textContent = '';
+    });
+    //add end
+
+    document.getElementById('formAddSP').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var form = this;
+        //if (this.classList.contains('was-validated')) {
+        if (form.checkValidity()) {
+            var id = document.getElementById('floatingValidationID').value;
+            var ten = document.getElementById('floatingValidationName').value;
+            var gia = document.getElementById('floatingValidationGia').value;
+            var tl = document.getElementById('floatingValidationTheLoai').value;
+            var hinhanh = document.getElementById('fileInput').value;
+
+            const parts = hinhanh.split("\\");
+            const fileName = parts[parts.length - 1];
+            console.log(fileName);
+
+            if (!fileName.toLowerCase().endsWith('.jpg')) {
+                alert('Tệp không có định dạng JPG.');
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append('MaSP', id);
+            formData.append('TenSP', ten);
+            formData.append('DonGia', gia);
+            formData.append('TheLoai', tl);
+            formData.append('HinhAnh', fileName);
+            formData.append('action', 'them'); // Thêm hành động 'them' vào dữ liệu gửi đi
+
+            fetch('sanphamxuly.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => {
+                    if (data == true) {
+                        alert('Thêm thành công');
+                        location.reload();
+                    } else {
+                        console.log(data);
+                        alert(data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+        else {
+            alert('Vui lòng nhập tất cả các trường')
+        }
+    });
+
+    document.getElementById('formDeleteSP').addEventListener('submit', function (event) {
+        event.preventDefault(); // Ngăn chặn gửi yêu cầu POST thông thường
+
+        var id = document.getElementById('recordId').value;
+
+        $.ajax({
+            url: 'sanphamxuly.php', // Đường dẫn tới file xử lý trên server
+            type: 'POST',
+            data: {
+                recordId: id,
+                action: 'xoa'
+            }, // Truyền dữ liệu trực tiếp vào data
+            success: function (response) {
+                console.log(response)
+                if (response === 'success') {
+                    alert("Xóa thành công")
+                    location.reload();
+                } else {
+                    alert('Error: Unable to delete the record.');
+                }
+            }
+        });
+
+    });
+    document.getElementById('formUpdateSP').addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (this.classList.contains('was-validated')) {
+            var id = document.getElementById('updateId').value;
+            var ten = document.getElementById('updateName').value;
+            var gia = document.getElementById('updateGia').value;
+            var tl = document.getElementById('updateTheLoai').value;
+            var hinhanh = document.getElementById('updateSelectedFileName').textContent;
+
+            console.log('id '+id);
+            console.log('ten '+ten);
+            console.log('gia '+gia);
+            console.log('tl '+tl);
+            console.log('hinhanh '+hinhanh);
+        
+            var formData = new FormData();
+            formData.append('MaSP', id);
+            formData.append('TenSP', ten);
+            formData.append('DonGia', gia);
+            formData.append('TheLoai', tl);
+            formData.append('HinhAnh', hinhanh);
+            formData.append('action', 'sua');// Thêm hành động 'them' vào dữ liệu gửi đi
+
+            fetch('sanphamxuly.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    if (data == true) {
+                        alert('Sửa thành công');
+                        location.reload();
+                    } else {
+                        console.log(data);
+                        alert(data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    });
+}
 
 
 

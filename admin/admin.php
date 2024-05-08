@@ -82,13 +82,13 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Nhà Cung Cấp
                         </a>
-                        <a class="nav-link" href="admin.php?phanquyen">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Phân Quyền
-                        </a>
                         <a class="nav-link" href="admin.php?thongke">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Thống kê
+                        </a>
+                        <a class="nav-link" href="admin.php?nhomquyen">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Nhóm quyền
                         </a>
                     </div>
                 </div>
@@ -188,6 +188,57 @@
                     // Đặt dữ liệu vào modal
                     $('#recordId').val(id);
                     $('#deleteName').text(name);
+                }
+            });
+
+            $(document).on('click', '.delete', function () {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('sanpham')) {
+                    var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
+                    var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
+                    var name = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
+
+                    // Đặt dữ liệu vào modal
+                    $('#recordId').val(id);
+                    $('#deleteName').text(name);
+                }
+            });
+
+            $(document).on('click', '.update', function () {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('sanpham')) {
+                    var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
+                    var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
+                    var name = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
+                    var gia = row.find('td:nth-child(3)').text();
+                    var tl = row.find('td:nth-child(5)').text();
+                    var src = row.find('.product-image').attr('src');
+                    var fileName = src.split('/').pop();
+                    console.log(fileName);
+
+                    $('#updateSelectedFileName').text(''+fileName);
+
+                    $('#updateTheLoai option').each(function () {
+                        if ($(this).text() === tl) {
+                            $(this).prop('selected', true);
+                            return false;
+                        }
+                    });
+
+                    if (fileName != '') {
+                        document.getElementById('myImageUpdate').src = '../img/'+fileName;
+                        document.getElementById('myImageUpdate').classList.remove('d-none');
+                        document.getElementById('delete-btn-update').classList.remove('d-none');
+                    }else{
+                        document.getElementById('myImageUpdate').classList.add('d-none');
+                        document.getElementById('delete-btn-update').classList.add('d-none');
+                    }
+
+                    
+                    // Đặt dữ liệu vào modal
+                    $('#updateId').val(id);
+                    $('#updateName').val(name);
+                    $('#updateGia').val(gia);
                 }
             });
 
@@ -454,7 +505,7 @@
             }
         })();
     </script>
-
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css' rel='stylesheet'>
 </body>
 
 </html>

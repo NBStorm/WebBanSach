@@ -57,7 +57,7 @@ if (isset($_GET['sanpham'])) {
                                     <td>" . $item['dongia'] . "</td>
                                     <td>" . $item['soluong'] . "</td>
                                     <td>" . $item['tentl'] . "</td>
-                                    <td><img src='../img/".$item['hinhanh']."' width='100px' height='100px'></td>
+                                    <td><img class='product-image' src='../img/".$item['hinhanh']."' width='100px' height='100px'></td>
                                     <td style='text-align: center;'>
                                         <a data-bs-target='#updateSanPhamModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
                                         <span style='margin: 0 10px'></span>
@@ -82,7 +82,7 @@ if (isset($_GET['sanpham'])) {
             </div>
         </div>
         <div id='addSanPhamModal' class='modal fade'>
-            <div class='modal-dialog modal-dialog-centered'>
+            <div class='modal-dialog modal-lg'>
                 <div class='modal-content'>
                     <form class='row g-3 needs-validation' novalidate id='formAddSP'>
                         <div class='modal-header'>
@@ -90,19 +90,56 @@ if (isset($_GET['sanpham'])) {
                             <button type='button' class='btn-close' data-bs-dismiss='modal'
                                 aria-label='Close'></button>
                         </div>
-                        <div class='modal-body'>
-                            <div class='form-floating mb-3'>
-                                <input type='number' class='form-control' id='floatingValidationID' placeholder='<Mã thể loại' readonly> 
-                                <label for='floatingValidationID' class='form-label'>Mã thể loại</label>
-                                <div class='valid-feedback'>
-                                    Looks good!
+                        <div class='modal-body' style='margin-top:0px;'>
+                            <div class='container_hd' '>
+                                <div id='left' style='width:61%'>
+                                    <div class='form-floating mb-3'>
+                                        <input type='number' class='form-control' id='floatingValidationID' placeholder='<Mã sản phẩm' readonly> 
+                                        <label for='floatingValidationID' class='form-label'>Mã sản phẩm</label>
+                                        <div class='valid-feedback'>
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class='form-floating mb-3'>
+                                        <input type='text' class='form-control' id='floatingValidationName' placeholder='Tên sản phẩm' required>
+                                        <label for='floatingValidationName' class='form-label' >Tên sản phẩm</label>
+                                        <div class='valid-feedback'>
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class='form-floating mb-3'>
+                                        <input type='number' class='form-control' id='floatingValidationGia' placeholder='Giá' required>
+                                        <label for='floatingValidationGia' class='form-label' >Giá sản phẩm</label>
+                                        <div class='valid-feedback'>
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class='form-floating mb-3'>
+                                        <select class='form-select' aria-label='Default select example' id='floatingValidationTheLoai' style='height:58px;'>";
+                                        $theloai = new TheLoai();
+                                        $theLoaiArray = $theloai->getAll();
+                                        $s='';
+                                        foreach ($theLoaiArray as $item)
+                                        {
+                                            $s .= "
+                                                <option value='".$item['id']."'>".$item['ten']."</option>
+                                            ";
+                                        }
+                                        echo $s;
+                                        echo "</select>
+                                        <label for='floatingValidationTheLoai' class='form-label' >Thể loại</label>
+                                    </div>
+                                    <div class='mb-3'>
+                                        <input type='file' id='fileInput' style='display: none;'>
+                                        <button id='chooseFileButton'>Choose File</button>
+                                        <span id='selectedFileName'></span>
+                                        <button class='btn btn-danger btn-sm position-absolute top-1 end-1 mt-2 me-2 delete-btn d-none' id='delete-btn' aria-label='Delete'>
+                                            <i class='bi bi-x'></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class='form-floating mb-3'>
-                                <input type='text' class='form-control' id='floatingValidationName' placeholder='Tên thể loại' required>
-                                <label for='floatingValidationName' class='form-label' >Tên thể loại</label>
-                                <div class='valid-feedback'>
-                                    Looks good!
+                                <div id='right' style='width:37%'>
+                                    <img src='#' alt='Image Preview' class='image-preview d-none' id='myImage'>
                                 </div>
                             </div>
                         </div>
@@ -120,12 +157,12 @@ if (isset($_GET['sanpham'])) {
 			    <div class='modal-content'>
 				    <form id='formDeleteSP'>
 					    <div class='modal-header'>						
-						    <h5 class='modal-title'>Delete Thể loại</h4>
+						    <h5 class='modal-title'>Delete Sản phẩm</h4>
 						    <button type='button' class='btn-close' data-bs-dismiss='modal'
                                 aria-label='Close'></button>
 					    </div>
 					    <div class='modal-body'>					
-						    <p>Bạn có muốn xóa Thể loại <span id='deleteName'></span> ?</p>
+						    <p>Bạn có muốn xóa sản phẩm <span id='deleteName'></span> ?</p>
                             <input type='hidden' id='recordId' name='recordId'>
 						    <p class='text-warning'><large>This action cannot be undone.</large></p>
 					    </div>
@@ -139,27 +176,64 @@ if (isset($_GET['sanpham'])) {
 	    </div>
 
         <div id='updateSanPhamModal' class='modal fade'>
-            <div class='modal-dialog modal-dialog-centered'>
+            <div class='modal-dialog modal-lg'>
                 <div class='modal-content'>
                     <form class='row g-3 needs-validation' novalidate id='formUpdateSP'>
                         <div class='modal-header'>
-                            <h4 class='modal-title'>Update Thể loại</h4>
+                            <h4 class='modal-title'>Update Sản phẩm</h4>
                             <button type='button' class='btn-close' data-bs-dismiss='modal'
                                 aria-label='Close'></button>
                         </div>
                         <div class='modal-body'>
-                            <div class='form-floating mb-3'>
-                                <input type='number' class='form-control' id='updateID' placeholder='<Mã thể loại' readonly> 
-                                <label for='updateID' class='form-label'>Mã thể loại</label>
-                                <div class='valid-feedback'>
-                                    Looks good!
+                            <div class='container_hd' '>
+                                <div id='left' style='width:61%'>
+                                    <div class='form-floating mb-3'>
+                                        <input type='number' class='form-control' id='updateId' placeholder='<Mã sản phẩm' readonly> 
+                                        <label for='floatingValidationID' class='form-label'>Mã sản phẩm</label>
+                                        <div class='valid-feedback'>
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class='form-floating mb-3'>
+                                        <input type='text' class='form-control' id='updateName' placeholder='Tên sản phẩm' required>
+                                        <label for='updateName' class='form-label' >Tên sản phẩm</label>
+                                        <div class='valid-feedback'>
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class='form-floating mb-3'>
+                                        <input type='number' class='form-control' id='updateGia' placeholder='Giá' required>
+                                        <label for='updateGia' class='form-label' >Giá sản phẩm</label>
+                                        <div class='valid-feedback'>
+                                            Looks good!
+                                        </div>
+                                    </div>
+                                    <div class='form-floating mb-3'>
+                                        <select class='form-select' aria-label='Default select example' id='updateTheLoai' style='height:58px;'>";
+                                        $theloai = new TheLoai();
+                                        $theLoaiArray = $theloai->getAll();
+                                        $s='';
+                                        foreach ($theLoaiArray as $item)
+                                        {
+                                            $s .= "
+                                                <option value='".$item['id']."'>".$item['ten']."</option>
+                                            ";
+                                        }
+                                        echo $s;
+                                        echo "</select>
+                                        <label for='updateTheLoai' class='form-label' >Thể loại</label>
+                                    </div>
+                                    <div class='mb-3'>
+                                        <input type='file' id='updateFileInput' style='display: none;'>
+                                        <button id='chooseFileButtonUpdate'>Choose File</button>
+                                        <span id='updateSelectedFileName'></span>
+                                        <button class='btn btn-danger btn-sm position-absolute top-1 end-1 mt-2 me-2 delete-btn d-none' id='delete-btn-update' aria-label='Delete'>
+                                            <i class='bi bi-x'></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class='form-floating mb-3'>
-                                <input type='text' class='form-control' id='updateName' placeholder='Tên thể loại' required>
-                                <label for='updateName' class='form-label' >Tên thể loại</label>
-                                <div class='valid-feedback'>
-                                    Looks good!
+                                <div id='right' style='width:37%'>
+                                    <img src='#' alt='Image Preview' class='image-preview d-none' id='myImageUpdate'>
                                 </div>
                             </div>
                         </div>
@@ -1861,6 +1935,136 @@ if (isset($_GET['sanpham'])) {
 			    </div>
 		    </div>
 	    </div>                                            
+    </div>
+</main>";
+}else if (isset($_GET['nhomquyen'])) {
+    echo "<main>
+    <div class='container-fluid px-4'>
+        <h1 class='mt-4'>Nhóm quyền</h1>
+        <ol class='breadcrumb mb-4'>
+            <li class='breadcrumb-item'><a href='admin.php'>Dashboard</a></li>
+            <li class='breadcrumb-item active'>Nhóm quyền</li>
+        </ol>
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px'>
+                    <button type='button' class='btn btn-success' data-bs-toggle='modal'
+                        data-bs-target='#addNhomQuyenModal'>
+                    <i class='fa-solid fa-circle-plus'></i>
+                        Thêm nhóm quyền
+                    </button>
+                </div>  
+            </div>
+        </div>
+        <div class='card mb-4'>
+            <div class='card-header'>
+                <i class='fas fa-table me-1'></i>
+                Bảng nhóm quyền
+            </div>
+            <div class='card-body'>
+                <table id='datatablesSimple' class='table table-striped'>
+                    <thead>
+                        <tr>
+                            <th width=15% style='text-align: center;'>Mã nhóm quyền</th>
+                            <th>Tên nhóm quyền</th>
+                            <th style='width: 15%;text-align: -webkit-center;'>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>";
+                        $nhomQuyen = new NhomQuyen();
+                        $nhomQuyenArray = $nhomQuyen->getAll();
+                        $s='';
+                        foreach ($nhomQuyenArray as $item)
+                        {
+                            $s .= "<tr>
+                                    <td width=15% style='text-align: center;'>" . $item['id'] . "</td>
+                                    <td>" . $item['ten'] . "</td>
+                                    <td style='text-align: center;'>
+                                        <a data-bs-target='#updateNhomQuyenModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
+                                        <span style='margin: 0 10px'></span>
+                                        <a data-bs-target='#deleteNhomQuyenModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    </td>
+                                </tr>";
+                        }
+                        echo $s;
+                    echo "</tbody>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th width=15% style='text-align: center;'>Mã nhóm quyền</th>
+                            <th>Tên nhóm quyền</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div id='addNhomQuyenModal' class='modal fade'>
+            <div class='modal-dialog modal-xl'>
+                <div class='modal-content'>
+                    <form class='row g-3 needs-validation' novalidate id='formAddNQ'>
+                        <div class='modal-header'>
+                            <h4 class='modal-title'>Add Nhóm quyền</h4>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body'>
+                            
+                        </div>
+                        <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
+                            <button type='button' class='btn btn-secondary'
+                                data-bs-dismiss='modal'><i class='fa-solid fa-x'></i> Close</button>
+                            <button type='submit' class='btn btn-primary'><i class='fa-solid fa-check'></i> Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id='deleteNhomQuyenModal' class='modal fade'>
+		    <div class='modal-dialog modal-dialog-centered'>
+			    <div class='modal-content'>
+				    <form id='formDeleteNQ'>
+					    <div class='modal-header'>						
+						    <h5 class='modal-title'>Delete Nhóm quyền</h4>
+						    <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+					    </div>
+					    <div class='modal-body'>					
+						    <p>Bạn có muốn xóa Nhóm quyền <span id='deleteName'></span> ?</p>
+                            <input type='hidden' id='recordId' name='recordId'>
+						    <p class='text-warning'><large>This action cannot be undone.</large></p>
+					    </div>
+					    <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
+						    <input type='button' class='btn btn-secondary' data-bs-dismiss='modal' value='Cancel'>
+						    <button type='submit' class='btn btn-danger'>Delete</button>
+					    </div>
+				    </form>
+			    </div>
+		    </div>
+	    </div>
+
+        <div id='updateNhomQuyenModal' class='modal fade'>
+            <div class='modal-dialog modal-xl'>
+                <div class='modal-content'>
+                    <form class='row g-3 needs-validation' novalidate id='formUpdateNQ'>
+                        <div class='modal-header'>
+                            <h4 class='modal-title'>Update Nhóm quyền</h4>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal'
+                                aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body'>
+                            
+                        </div>
+                        <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
+                            <button type='button' class='btn btn-secondary'
+                                data-bs-dismiss='modal'><i class='fa-solid fa-x'></i> Close</button>
+                            <button type='submit' class='btn btn-primary'><i class='fa-solid fa-check'></i> Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>                     
+
     </div>
 </main>";
 }
