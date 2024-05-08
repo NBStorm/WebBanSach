@@ -11,15 +11,26 @@ class NhomQuyen
         $this->db->connect();
     }
 
-    public function themNhaCungCap($ten,$sdt,$diachi)
+    public function themNhomQuyen($ten,$ctquyen)
     {
-        $sql = "INSERT INTO nhacungcap (TenNCC,SDT,DiaChi) VALUES (?,?,?)";
+        $sql = "INSERT INTO nhomquyen (TenNQ) VALUES (?)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("sss", $ten,$sdt,$diachi);
-        $success = $stmt->execute();
+        $stmt->bind_param("s", $ten);
+        $result = $stmt->execute();
+        if ($result) {
+            $manq = $this->db->getLastInsertedId();
+            foreach ($ctquyen as $ct) {
+                $sql2 = "INSERT INTO chitietquyen (MaNQ, MaCN, HoatDong) VALUES (?,?,?)";
+                $stmt2 = $this->db->prepare($sql2);
+                $stmt2->bind_param("iis", $manq,$ct['idcn'],$ct['hd']);
+                $stmt2->execute();
+            }
+        } else {
+            echo "Có lỗi xảy ra khi thực hiện truy vấn INSERT!";
+        }
         $stmt->close();
         $this->db->disconnect();
-        return $success;
+        return $result;
     }
 
     public function xoaNhaCungCap($id)
@@ -59,6 +70,22 @@ class NhomQuyen
             return $nqArr;
         }
         $this->db->disconnect();
+        return "";
+    }
+
+    public function getCTQ($id)
+    {
+        $sql = "SELECT nhomquyen.MaNQ,chucnang.MaCN,chitietquyen.HoatDong FROM nhomquyen,chucnang,chitietquyen WHERE nhomquyen.MaNQ=chitietquyen.MaNQ and chucnang.MaCN=chitietquyen.MaCN and nhomquyen.MaNQ=" . $id;
+        $result = $this->db->query($sql);
+
+        if ($result->num_rows > 0) {
+            $ctqarr = array();
+
+            while ($row = $result->fetch_assoc()) {
+                $ctqarr[] = array('idnq' => $row['MaNQ'], 'idcn' => $row['MaCN'], 'hd' => $row['HoatDong']);
+            }
+            return $ctqarr;
+        }
         return "";
     }
 }

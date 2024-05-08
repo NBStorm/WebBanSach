@@ -16,18 +16,22 @@
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="admin.php">Web Bán Sách</a>
         <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
+                    aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
+                        class="fas fa-search"></i></button>
             </div>
         </form>
         <!-- Navbar-->
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#!">Settings</a></li>
                     <li><a class="dropdown-item" href="#!">Activity Log</a></li>
@@ -96,8 +100,8 @@
         </div>
         <div id="layoutSidenav_content">
             <?php
-            include("load-interface.php")
-            ?>
+            include ("load-interface.php")
+                ?>
         </div>
 
     </div>
@@ -110,9 +114,9 @@
     <script defer src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
     <script defer src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             // Gán sự kiện click cho phần tử cha chứa các nút "Delete"
-            $(document).on('click', '.delete', function() {
+            $(document).on('click', '.delete', function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('theloai')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -125,7 +129,7 @@
                 }
             });
 
-            $(document).on('click', '.delete', function() {
+            $(document).on('click', '.delete', function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('nhacungcap')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -138,7 +142,7 @@
                 }
             });
 
-            $(document).on('click', '.delete', function() {
+            $(document).on('click', '.delete', function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('nguoidung')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -152,7 +156,7 @@
             });
 
 
-            $(document).on('click', '.delete', function() {
+            $(document).on('click', '.delete', function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('hoadon')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -164,7 +168,7 @@
                 }
             });
 
-            $(document).on('click', '.delete', function() {
+            $(document).on('click', '.delete', function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('phieunhap')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -174,7 +178,7 @@
                 }
             });
 
-            $(document).on('click', '.delete', function() {
+            $(document).on('click', '.delete', function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('taikhoan')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -187,7 +191,7 @@
                 }
             });
 
-            $(document).on('click', '.delete', function() {
+            $(document).on('click', '.delete', function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('sanpham')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -200,7 +204,7 @@
                 }
             });
 
-            $(document).on('click', '.update', function() {
+            $(document).on('click', '.update', function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('sanpham')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -214,7 +218,7 @@
 
                     $('#updateSelectedFileName').text('' + fileName);
 
-                    $('#updateTheLoai option').each(function() {
+                    $('#updateTheLoai option').each(function () {
                         if ($(this).text() === tl) {
                             $(this).prop('selected', true);
                             return false;
@@ -238,7 +242,7 @@
                 }
             });
 
-            $(document).on('click', '.update', function() {
+            $(document).on('click', '.update', function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('theloai')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -252,7 +256,133 @@
                 }
             });
 
-            $(document).on('click', '.update', function() {
+            $(document).on('click', '.update', function () {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('nhomquyen')) {
+                    var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
+                    var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
+                    var name = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
+
+                    // Đặt dữ liệu vào modal
+                    $('#updateId').val(id);
+                    $('#updateName').val(name);
+
+                    $.ajax({
+                        url: 'get_ctq.php', // Tập tin PHP xử lý yêu cầu
+                        type: 'GET',
+                        data: {
+                            id: id
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            $.each(data, function (index, item) {
+                                console.log(item['idcn']);
+                                switch(item['idcn']){
+                                    case '1':
+                                        if(item['hd'] ==='Xem'){
+                                            document.getElementById('ucbXemTK').checked = true;
+                                        }if(item['hd'] ==='Thêm'){
+                                            document.getElementById('ucbThemTK').checked = true;
+                                        }if(item['hd'] ==='Sửa'){
+                                            document.getElementById('ucbSuaTK').checked = true;
+                                        }if(item['hd'] ==='Xóa'){
+                                            document.getElementById('ucbXoaTK').checked = true;
+                                        }
+                                        break;
+                                    case '2':
+                                        if(item['hd'] ==='Xem'){
+                                            document.getElementById('ucbXemNQ').checked = true;
+                                        }if(item['hd'] ==='Thêm'){
+                                            document.getElementById('ucbThemNQ').checked = true;
+                                        }if(item['hd'] ==='Sửa'){
+                                            document.getElementById('ucbSuaNQ').checked = true;
+                                        }if(item['hd'] ==='Xóa'){
+                                            document.getElementById('ucbXoaNQ').checked = true;
+                                        }
+                                        break;
+                                    case '3':
+                                        if(item['hd'] ==='Xem'){
+                                            document.getElementById('ucbXemSP').checked = true;
+                                        }if(item['hd'] ==='Thêm'){
+                                            document.getElementById('ucbThemSP').checked = true;
+                                        }if(item['hd'] ==='Sửa'){
+                                            document.getElementById('ucbSuaSP').checked = true;
+                                        }if(item['hd'] ==='Xóa'){
+                                            document.getElementById('ucbXoaSP').checked = true;
+                                        }
+                                        break;
+                                    case '4':
+                                        if(item['hd'] ==='Xem'){
+                                            document.getElementById('ucbXemPN').checked = true;
+                                        }if(item['hd'] ==='Thêm'){
+                                            document.getElementById('ucbThemPN').checked = true;
+                                        }if(item['hd'] ==='Sửa'){
+                                            document.getElementById('ucbSuaPN').checked = true;
+                                        }if(item['hd'] ==='Xóa'){
+                                            document.getElementById('ucbXoaPN').checked = true;
+                                        }
+                                        break;
+                                    case '5':
+                                        if(item['hd'] ==='Xem'){
+                                            document.getElementById('ucbXemHD').checked = true;
+                                        }if(item['hd'] ==='Thêm'){
+                                            document.getElementById('ucbThemHD').checked = true;
+                                        }if(item['hd'] ==='Sửa'){
+                                            document.getElementById('ucbSuaHD').checked = true;
+                                        }if(item['hd'] ==='Xóa'){
+                                            document.getElementById('ucbXoaHD').checked = true;
+                                        }
+                                        break;
+                                    case '6':
+                                        if(item['hd'] ==='Xem'){
+                                            document.getElementById('ucbXemNCC').checked = true;
+                                        }if(item['hd'] ==='Thêm'){
+                                            document.getElementById('ucbThemNCC').checked = true;
+                                        }if(item['hd'] ==='Sửa'){
+                                            document.getElementById('ucbSuaNCC').checked = true;
+                                        }if(item['hd'] ==='Xóa'){
+                                            document.getElementById('ucbXoaNCC').checked = true;
+                                        }
+                                        break;
+                                    case '7':
+                                        if(item['hd'] ==='Xem'){
+                                            document.getElementById('ucbXemND').checked = true;
+                                        }if(item['hd'] ==='Thêm'){
+                                            document.getElementById('ucbThemND').checked = true;
+                                        }if(item['hd'] ==='Sửa'){
+                                            document.getElementById('ucbSuaND').checked = true;
+                                        }if(item['hd'] ==='Xóa'){
+                                            document.getElementById('ucbXoaND').checked = true;
+                                        }
+                                        break;
+                                    case '8':
+                                        if(item['hd'] ==='Xem'){
+                                            document.getElementById('ucbXemTL').checked = true;
+                                        }if(item['hd'] ==='Thêm'){
+                                            document.getElementById('ucbThemTL').checked = true;
+                                        }if(item['hd'] ==='Sửa'){
+                                            document.getElementById('ucbSuaTL').checked = true;
+                                        }if(item['hd'] ==='Xóa'){
+                                            document.getElementById('ucbXoaTL').checked = true;
+                                        }
+                                        break;
+                                    case '9' :
+                                        if(item['hd'] ==='Xem'){
+                                            document.getElementById('ucbXemTKe').checked = true;
+                                        }
+                                        break;
+                                }
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            // Xử lý lỗi nếu có
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
+            });
+
+            $(document).on('click', '.update', function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('nhacungcap')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -269,7 +399,7 @@
                 }
             });
 
-            $(document).on('click', '.update', function() {
+            $(document).on('click', '.update', function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('nguoidung')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -286,7 +416,7 @@
                 }
             });
 
-            $(document).on('click', '.update', function() {
+            $(document).on('click', '.update', function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('taikhoan')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -306,9 +436,9 @@
                             id: id
                         },
                         dataType: 'json',
-                        success: function(data) {
+                        success: function (data) {
                             $('#updateND').empty();
-                            $.each(data, function(index, item) {
+                            $.each(data, function (index, item) {
                                 var option = $(
                                     '<option></option>'); // Tạo một tùy chọn mới
                                 option.attr('value', item[
@@ -323,13 +453,13 @@
                                 }
                             });
                         },
-                        error: function(xhr, status, error) {
+                        error: function (xhr, status, error) {
                             // Xử lý lỗi nếu có
                             console.error(xhr.responseText);
                         }
                     });
 
-                    $('#updateNQ option').each(function() {
+                    $('#updateNQ option').each(function () {
                         if ($(this).text() === nq) {
                             $(this).prop('selected', true);
                             return false;
@@ -340,7 +470,7 @@
                 }
             });
 
-            $(document).on('click', '.update', function() {
+            $(document).on('click', '.update', function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('hoadon')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -353,7 +483,7 @@
                     // Đặt dữ liệu vào modal
                     $('#idhdupdate').val(id);
                     // Lặp qua từng tùy chọn trong select với id là 'namekh'
-                    $('#namekhupdate option').each(function() {
+                    $('#namekhupdate option').each(function () {
                         // Kiểm tra văn bản của tùy chọn hiện tại
                         if ($(this).text() === namekh) {
                             // Nếu văn bản của tùy chọn khớp với 'Nguyen D', chọn tùy chọn đó
@@ -362,7 +492,7 @@
                             return false;
                         }
                     });
-                    $('#namenvupdate option').each(function() {
+                    $('#namenvupdate option').each(function () {
                         if ($(this).text() === namenv) {
                             $(this).prop('selected', true);
                             return false;
@@ -379,9 +509,9 @@
                             id: id
                         },
                         dataType: 'json',
-                        success: function(data) {
+                        success: function (data) {
                             $('#productListupdate tbody').empty();
-                            $.each(data, function(index, item) {
+                            $.each(data, function (index, item) {
                                 // Tạo một chuỗi HTML cho mỗi dòng
                                 var dataString = `<tr>
                                                     <td>${item.id}</td>
@@ -396,7 +526,7 @@
                             });
 
                         },
-                        error: function(xhr, status, error) {
+                        error: function (xhr, status, error) {
                             // Xử lý lỗi nếu có
                             console.error(xhr.responseText);
                         }
@@ -404,7 +534,7 @@
                 }
             });
 
-            $(document).on('click', '.update', function() {
+            $(document).on('click', '.update', function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('phieunhap')) {
                     var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
@@ -417,7 +547,7 @@
                     // Đặt dữ liệu vào modal
                     $('#idhdupdate').val(id);
                     // Lặp qua từng tùy chọn trong select với id là 'namekh'
-                    $('#namekhupdate option').each(function() {
+                    $('#namekhupdate option').each(function () {
                         // Kiểm tra văn bản của tùy chọn hiện tại
                         if ($(this).text() === namekh) {
                             // Nếu văn bản của tùy chọn khớp với 'Nguyen D', chọn tùy chọn đó
@@ -426,7 +556,7 @@
                             return false;
                         }
                     });
-                    $('#namenvupdate option').each(function() {
+                    $('#namenvupdate option').each(function () {
                         if ($(this).text() === namenv) {
                             $(this).prop('selected', true);
                             return false;
@@ -443,9 +573,9 @@
                             id: id
                         },
                         dataType: 'json',
-                        success: function(data) {
+                        success: function (data) {
                             $('#productListupdate tbody').empty();
-                            $.each(data, function(index, item) {
+                            $.each(data, function (index, item) {
                                 // Tạo một chuỗi HTML cho mỗi dòng
                                 var dataString = `<tr>
                                                     <td>${item.id}</td>
@@ -460,7 +590,7 @@
                             });
 
                         },
-                        error: function(xhr, status, error) {
+                        error: function (xhr, status, error) {
                             // Xử lý lỗi nếu có
                             console.error(xhr.responseText);
                         }
@@ -468,16 +598,16 @@
                 }
             });
 
-            $(document).ready(function() {
+            $(document).ready(function () {
                 $('.imgHoverLink').hover(
-                    function(e) {
+                    function (e) {
                         // Hiển thị hình ảnh và đặt vị trí của nó dựa trên vị trí của chuột
                         $(this).find('.imgHover').css({
                             'top': e.pageY + 10 + 'px', // Vị trí Y của chuột + 10px
                             'left': e.pageX + 10 + 'px' // Vị trí X của chuột + 10px
                         }).show();
                     },
-                    function() {
+                    function () {
                         // Ẩn hình ảnh khi không hover nữa
                         $(this).find('.imgHover').hide();
                     }
@@ -488,7 +618,7 @@
         });
     </script>
     <script>
-        (function() {
+        (function () {
             'use strict'
 
             // Check if there are forms with the class 'needs-validation'
@@ -497,8 +627,8 @@
             // If there are, then apply Bootstrap validation styles
             if (forms.length > 0) {
                 Array.prototype.slice.call(forms)
-                    .forEach(function(form) {
-                        form.addEventListener('submit', function(event) {
+                    .forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
                             if (!form.checkValidity()) {
                                 event.preventDefault()
                                 event.stopPropagation()

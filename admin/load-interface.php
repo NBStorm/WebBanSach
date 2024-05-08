@@ -7,6 +7,7 @@ require_once 'hoadon.php';
 require_once 'nhacungcap.php';
 require_once 'phieunhap.php';
 require_once 'nhomquyen.php';
+require_once 'chucnang.php';
 if (isset($_GET['sanpham'])) {
     echo "<main>
     <div class='container-fluid px-4'>
@@ -2007,22 +2008,186 @@ if (isset($_GET['sanpham'])) {
                             <button type='button' class='btn-close' data-bs-dismiss='modal'
                                 aria-label='Close'></button>
                         </div>
-                        <div class='modal-body'>
-                            <div class='container_hd' '>
-                                <div id='left' style='width:24%'>
-                                    <label>Chức năng</label>
-                                    <label>Sản phẩm</label>
-                                    <label>Tài khoản</label>
-                                    <label>Người dùng</label>
-                                    <label>Hóa Đơn</label>
-                                    <label>Phiếu Nhập</label>
-                                    <label>Thể Loại</label>
-                                    <label>Nhà cung cấp</label>
-                                    <label>Thống kê</label>
-                                    <label>Nhóm quyền</label>
+                        <div class='modal-body' style='margin-top:0px'>
+                            <div class='row g-2'>
+                                <div class='col-md-3'>
+                                    <div class='form-floating'>
+                                        <input type='int' class='form-control' id='idnq' placeholder='' value='' readonly>
+                                        <label for='idnq'>Mã nhóm quyền</label>
+                                    </div>
                                 </div>
-                                <div id='right' style='width:74%'>
+                                <div class='col-md-9'>
+                                    <div class='form-floating'>
+                                        <input type='text' class='form-control' id='tennq' placeholder='' value='' required>
+                                        <label for='tennq'>Tên nhóm quyền</label>
+                                    </div>            
+                                </div>
+                            </div>  
+                            <div class='container_hd' style='align-items:flex-start;'>
+                                <div id='left' style='width: 20%; display: flex; flex-direction: column;align-items: center;'>";
+                                    $chucNang =  new ChucNang();
+                                    $chucNangArray = $chucNang->getAll();
+                                    $s='';
+                                    foreach($chucNangArray as $item){
+                                        $s.="
+                                        <div class='box'>
+                                            <label id='" .$item['id']. "'>" .$item['ten']. "</label>
+                                        </div>";
+                                    }
+                                    echo $s;
+                                echo "</div>
+                                <div id='right' style='width: 78%; display: flex; flex-direction: column;'>
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXemTK' class='cbXemTK'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbThemTK' class='cbThemTK'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbSuaTK' class='cbSuaTK'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXoaTK' class='cbXoaTK'>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXemNQ' class='cbXemNQ'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbThemNQ' class='cbThemNQ'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbSuaNQ' class='cbSuaNQ'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXoaNQ' class='cbXoaNQ'>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between' id='sanpham'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXemSP' class='cbXemSP'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbThemSP' class='cbThemSP'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbSuaSP' class='cbSuaSP'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXoaSP' class='cbXoaSP'>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXemPN' class='cbXemPN'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbThemPN' class='cbThemPN'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbSuaPN' class='cbSuaPN'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXoaPN' class='cbXoaPN'>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXemHD' class='cbXemHD'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbThemHD' class='cbThemHD'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbSuaHD' class='cbSuaHD'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXoaHD' class='cbXoaHD'>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXemNCC' class='cbXemNCC'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbThemNCC' class='cbThemNCC'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbSuaNCC' class='cbSuaNCC'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXoaNCC' class='cbXoaNCC'>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXemND' class='cbXemND'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbThemND' class='cbThemND'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbSuaND' class='cbSuaND'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXoaND' class='cbXoaND'>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXemTL' class='cbXemTL'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbThemTL' class='cbThemTL'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbSuaTL' class='cbSuaTL'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXoaTL' class='cbXoaTL'>
+                                            Xóa
+                                        </label>
+                                    </div>
                                     
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXemTKe' class='cbXemTKe'>
+                                            Xem
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2068,7 +2233,187 @@ if (isset($_GET['sanpham'])) {
                                 aria-label='Close'></button>
                         </div>
                         <div class='modal-body'>
-                            
+                            <div class='row g-2'>
+                                <div class='col-md-3'>
+                                    <div class='form-floating'>
+                                        <input type='int' class='form-control' id='updateId' placeholder='' value='' readonly>
+                                        <label for='updateId'>Mã nhóm quyền</label>
+                                    </div>
+                                </div>
+                                <div class='col-md-9'>
+                                    <div class='form-floating'>
+                                        <input type='text' class='form-control' id='updateName' placeholder='' value='' required>
+                                        <label for='updateName'>Tên nhóm quyền</label>
+                                    </div>            
+                                </div>
+                            </div>  
+                            <div class='container_hd' style='align-items:flex-start;'>
+                                <div id='left' style='width: 20%; display: flex; flex-direction: column;align-items: center;'>";
+                                    $chucNang =  new ChucNang();
+                                    $chucNangArray = $chucNang->getAll();
+                                    $s='';
+                                    foreach($chucNangArray as $item){
+                                        $s.="
+                                        <div class='box'>
+                                            <label id='" .$item['id']. "'>" .$item['ten']. "</label>
+                                        </div>";
+                                    }
+                                    echo $s;
+                                echo "</div>
+                                <div id='right' style='width: 78%; display: flex; flex-direction: column;'>
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXemTK' class='ucbXemTK'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbThemTK' class='ucbThemTK'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbSuaTK' class='ucbSuaTK'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXoaTK' class='ucbXoaTK'>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXemNQ' class='ucbXemNQ'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbThemNQ' class='ucbThemNQ'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbSuaNQ' class='ucbSuaNQ'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXoaNQ' class='ucbXoaNQ'>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between' id='sanpham'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXemSP' class='ucbXemSP'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbThemSP' class='ucbThemSP'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbSuaSP' class='ucbSuaSP'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXoaSP' class='ucbXoaSP'>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXemPN' class='ucbXemPN'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbThemPN' class='ucbThemPN'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbSuaPN' class='ucbSuaPN'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXoaPN' class='ucbXoaPN'>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXemHD' class='ucbXemHD'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbThemHD' class='ucbThemHD'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbSuaHD' class='ucbSuaHD'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXoaHD' class='ucbXoaHD'>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXemNCC' class='ucbXemNCC'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbThemNCC' class='ucbThemNCC'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbSuaNCC' class='ucbSuaNCC'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXoaNCC' class='ucbXoaNCC'>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXemND' class='ucbXemND'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbThemND' class='ucbThemND'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbSuaND' class='ucbSuaND'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXoaND' class='ucbXoaND'>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXemTL' class='ucbXemTL'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbThemTL' class='ucbThemTL'>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbSuaTL' class='ucbSuaTL'>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXoaTL' class='ucbXoaTL'>
+                                            Xóa
+                                        </label>
+                                    </div>
+    
+                                    <div style='display: flex;justify-content: space-between'>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='ucbXemTKe' class='ucbXemTKe'>
+                                            Xem
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
                             <button type='button' class='btn btn-secondary'
