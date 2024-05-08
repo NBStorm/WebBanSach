@@ -6,7 +6,6 @@ require_once 'nguoidung.php';
 require_once 'hoadon.php';
 require_once 'nhacungcap.php';
 require_once 'phieunhap.php';
-require_once 'phanquyen.php';
 require_once 'nhomquyen.php';
 if (isset($_GET['sanpham'])) {
     echo "<main>
@@ -2009,7 +2008,23 @@ if (isset($_GET['sanpham'])) {
                                 aria-label='Close'></button>
                         </div>
                         <div class='modal-body'>
-                            
+                            <div class='container_hd' '>
+                                <div id='left' style='width:24%'>
+                                    <label>Chức năng</label>
+                                    <label>Sản phẩm</label>
+                                    <label>Tài khoản</label>
+                                    <label>Người dùng</label>
+                                    <label>Hóa Đơn</label>
+                                    <label>Phiếu Nhập</label>
+                                    <label>Thể Loại</label>
+                                    <label>Nhà cung cấp</label>
+                                    <label>Thống kê</label>
+                                    <label>Nhóm quyền</label>
+                                </div>
+                                <div id='right' style='width:74%'>
+                                    
+                                </div>
+                            </div>
                         </div>
                         <div class='modal-footer' style='margin-top:0%;padding-bottom:0%'>
                             <button type='button' class='btn btn-secondary'
