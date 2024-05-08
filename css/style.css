@@ -127,10 +127,10 @@ a:hover {
   padding-top: 4em;
   padding-bottom: 4em;
 }
-.padding-large {
+/* .padding-large {
   padding-top: 7em;
   padding-bottom: 7em;
-}
+} */
 .padding-xlarge {
   padding-top: 9.5em;
   padding-bottom: 9.5em;
@@ -1101,6 +1101,58 @@ figure.instagram-item img.insta-image {
 }
 .paging-navigation .pagination svg {
     width: 35px;
+}
+
+.disabled, .link {
+  padding: 3px 7px;
+  margin: 10px;
+  background: none;
+  border-radius: 3px;
+  border: 1px solid #232323;
+}
+
+.disabled {
+  cursor: default;
+}
+
+.link {
+  cursor: pointer;
+  color: blue;
+}
+
+.link:hover {
+  color: blue;
+}
+
+.current {
+  padding: 3px 7px;
+  margin: 10px;
+  border-radius: 3px;
+  border: 1px solid #000;
+  background: #d1d1d1;
+}
+
+.question {
+  font-weight: bold;
+  background-color: #FFF;
+  padding: 7px 0px 0px 15px;
+}
+
+.answer {
+  font-style: italic;
+  background-color: #FFF;
+  padding: 0px 0px 7px 15px;
+}
+
+#pagelink {
+  font-size: 12px;
+}
+
+#pagination {
+  width: 50%;
+  line-height: 30px;
+  border-radius: 3px;
+  min-height: 300px;
 }
 
 
