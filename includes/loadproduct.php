@@ -47,7 +47,7 @@ $output .= '
 while ($row = $result->fetch_assoc()) {
     // $output .= '<div class="question"><input type="hidden" id="rowcount" name="rowcount" value="' . $result->num_rows . '" />' . $row["question"] . '</div>';
     // $output .= '<div class="answer">' . $row["answer"] . '</div>';
-    $output .= "<div class='swiper-slide'>
+    $output .= "<div class='swiper-slide wi'>
                 <div class='product-card position-relative'>
                     <div class='image-holder'>
                         <img src='./img/" . $row['HinhAnh'] . "' alt='product-item' class='img-fluid'>
@@ -83,22 +83,22 @@ echo $output;
 $db->disconnect(); // Đóng kết nối CSDL
 ?>
 <script>
-function getresult(url) {
-    $('#loader-icon').show();
-    $.ajax({
-        url: url,
-        type: "GET",
-        data: {
-            rowcount: $("#rowcount").val()
-        },
-        success: function(data) {
-            $("#smart-watches").html(data); // Cập nhật toàn bộ nội dung trong container
-            $("#loader-icon").hide();
-            $(".swiper-slide").css({
-                "width": "270px",
-            });
-        },
-        error: function() {}
-    });
-}
+    function getresult(url) {
+        $('#loader-icon').show();
+        $.ajax({
+            url: url,
+            type: "GET",
+            data: {
+                rowcount: $("#rowcount").val()
+            },
+            success: function(data) {
+                $("#all-product").html(data); // Cập nhật toàn bộ nội dung trong container
+                $("#loader-icon").hide();
+                $(".wi").css({
+                    "width": "270px",
+                });
+            },
+            error: function() {}
+        });
+    }
 </script>
