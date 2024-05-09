@@ -1,4 +1,4 @@
-<section id="smart-watches" class="product-store padding-large position-relative">
+<section id="all-product" class="product-store padding-large position-relative">
     <?php
     include("./includes/loadproduct.php");
     ?>
