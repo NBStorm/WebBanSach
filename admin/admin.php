@@ -204,6 +204,19 @@
                 }
             });
 
+            $(document).on('click', '.delete', function () {
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('nhomquyen')) {
+                    var row = $(this).closest('tr'); // Lấy dòng chứa nút được nhấn
+                    var id = row.find('td:nth-child(1)').text(); // Lấy dữ liệu từ cột đầu tiên
+                    var name = row.find('td:nth-child(2)').text(); // Lấy dữ liệu từ cột thứ hai
+
+                    // Đặt dữ liệu vào modal
+                    $('#recordId').val(id);
+                    $('#deleteName').text(name);
+                }
+            });
+
             $(document).on('click', '.update', function () {
                 var urlParams = new URLSearchParams(window.location.search);
                 if (urlParams.has('sanpham')) {
@@ -266,7 +279,7 @@
                     // Đặt dữ liệu vào modal
                     $('#updateId').val(id);
                     $('#updateName').val(name);
-
+                    $('input[type="checkbox"]').prop('checked', false);
                     $.ajax({
                         url: 'get_ctq.php', // Tập tin PHP xử lý yêu cầu
                         type: 'GET',

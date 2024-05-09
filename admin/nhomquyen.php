@@ -11,7 +11,7 @@ class NhomQuyen
         $this->db->connect();
     }
 
-    public function themNhomQuyen($ten,$ctquyen)
+    public function themNhomQuyen($ten, $ctquyen)
     {
         $sql = "INSERT INTO nhomquyen (TenNQ) VALUES (?)";
         $stmt = $this->db->prepare($sql);
@@ -22,7 +22,7 @@ class NhomQuyen
             foreach ($ctquyen as $ct) {
                 $sql2 = "INSERT INTO chitietquyen (MaNQ, MaCN, HoatDong) VALUES (?,?,?)";
                 $stmt2 = $this->db->prepare($sql2);
-                $stmt2->bind_param("iis", $manq,$ct['idcn'],$ct['hd']);
+                $stmt2->bind_param("iis", $manq, $ct['idcn'], $ct['hd']);
                 $stmt2->execute();
             }
         } else {
@@ -33,26 +33,60 @@ class NhomQuyen
         return $result;
     }
 
-    public function xoaNhaCungCap($id)
+    public function xoaNhomQuyen($id)
     {
-        $sql = "DELETE FROM nhacungcap WHERE MaNCC = ?";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $result = $stmt->execute();
+        $check = $this->deleteCTQByID($id);
+        if ($check) {
+            $sql = "DELETE FROM nhomquyen WHERE MaNQ = ?";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bind_param("i", $id);
+            $result = $stmt->execute();
+        }
         $stmt->close();
         $this->db->disconnect();
-        return $result; // Trả về kết quả của phương thức execute()
+        return $result;
     }
 
 
-    public function suaNhaCungCap($id, $ten, $sdt, $diachi)
+    public function suaNhomQuyen($id, $ten, $ctq)
     {
-        $sql = "UPDATE nhacungcap SET TenNCC = ?, SDT=?, DiaChi=? WHERE MaNCC = ?";
+        $sql = "UPDATE nhomquyen SET TenNQ=? WHERE MaNQ = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("sssi", $ten,$sdt,$diachi, $id);
-        $result=$stmt->execute();
+        $stmt->bind_param("si", $ten, $id);
+        $result = $stmt->execute();
+        if ($result) {
+            $this->deleteCTQById($id);
+            foreach ($ctq as $ct) {
+                $this->insertCTQ($id, $ct['idcn'], $ct['hd']);
+            }
+        } else {
+            echo "Có lỗi xảy ra khi thực hiện truy vấn UPDATE!";
+        }
         $stmt->close();
         $this->db->disconnect();
+        return $result;
+    }
+
+    public function insertCTQ($idnq, $idcn, $hd)
+    {
+        $sql2 = "INSERT INTO chitietquyen (MaNQ, MaCN, HoatDong) VALUES (?,?,?)";
+        $stmt2 = $this->db->prepare($sql2);
+        $stmt2->bind_param("iis", $idnq, $idcn, $hd);
+        $stmt2->execute();
+    }
+
+    public function deleteCTQByID($id)
+    {
+        // Chuẩn bị câu lệnh SQL để xóa chi tiết hóa đơn
+        $sql = "DELETE FROM chitietquyen WHERE MaNQ = ?";
+
+        // Chuẩn bị và thực thi câu lệnh SQL
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $result = $stmt->execute();
+
+        // Đóng câu lệnh và trả về kết quả
+        $stmt->close();
         return $result;
     }
 

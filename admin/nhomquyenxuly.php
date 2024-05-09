@@ -23,11 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         case 'xoa':
             $id = $_POST['recordId'];
-            $array = $hoaDon->getCTHD($id);
-            foreach($array as $cthd){
-                $sanPham->updateSL($cthd['id'],$cthd['soluong']);
-            }
-            $result = $hoaDon->xoaHoaDon((int) $id);
+            
+            $result = $nhomQuyen->xoaNhomQuyen((int) $id);
             if ($result===true) {
                 echo $result;
             } else {
@@ -36,16 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             break;
 
         case 'sua':
-            $idhd = $_POST['idhd'];
-            $namenv = $_POST['namenv'];
-            $namekh = $_POST['namekh'];
-            $ngaytao = $_POST['ngaytao'];
-            $totalAll = $_POST['totalAll'];
-            $trangthai = $_POST['trangthai'];
-            $productList = $_POST['productList'];
-            $productAfter = $_POST['productAfter'];
-            $result = $hoaDon->suaHoaDon($idhd, $namenv, $namekh, $ngaytao, $totalAll, $trangthai, $productList); // Gọi hàm themTheLoai và lưu trạng thái kết quả vào biến $result
-            $sanPham->updateSoLuong($productAfter);
+            $id = $_POST['MaNQ'];
+            $ten = $_POST['TenNQ'];
+            $ctquyen = json_decode($_POST['chitietquyen'], true);
+            
+            $result = $nhomQuyen->suaNhomQuyen($id ,$ten, $ctquyen); // Gọi hàm themTheLoai và lưu trạng thái kết quả vào biến $result
             if ($result) {
                 echo true; // Trả về kết quả true nếu thêm thành công
             } else {
