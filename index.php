@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['logged_in'])) {
+    // Nếu không, bạn có thể gán giá trị mặc định cho biến session ở đây
+    $_SESSION['logged_in'] = false;
+}
+?>
 <!DOCTYPE html>
 <html>
 
@@ -120,28 +127,28 @@
     </svg>
 
     <?php
-    include("pages/search-popup.php");
-    include("pages/login-signup.php");
-    include("pages/cart.php");
-    include("pages/header.php");
-    include("pages/billboard.php");
-    include("pages/company-services.php");
-    include("pages/sale-products.php");
-    include("pages/products.php");
-    include("pages/sale.php");
-    include("pages/blog.php");
-    include("pages/testimonials.php");
-    include("pages/subscribe.php");
-    include("pages/instagram.php");
-    include("pages/footer.php");
+    include ("pages/search-popup.php");
+    include ("pages/login-signup.php");
+    include ("pages/cart.php");
+    include ("pages/header.php");
+    include ("pages/billboard.php");
+    include ("pages/company-services.php");
+    include ("pages/sale-products.php");
+    include ("pages/products.php");
+    include ("pages/sale.php");
+    include ("pages/blog.php");
+    include ("pages/testimonials.php");
+    include ("pages/subscribe.php");
+    include ("pages/instagram.php");
+    include ("pages/footer.php");
     ?>
 
-    </script>
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="js/plugins.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
+
 </body>
 
 </html>

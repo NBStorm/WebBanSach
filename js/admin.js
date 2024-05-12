@@ -2070,14 +2070,14 @@ if (urlParams.has('nhomquyen')) {
                 });
         }
     });
-    /*
-        document.getElementById('formDeleteTheLoai').addEventListener('submit', function (event) {
+    
+        document.getElementById('formDeleteNQ').addEventListener('submit', function (event) {
             event.preventDefault(); // Ngăn chặn gửi yêu cầu POST thông thường
     
             var id = document.getElementById('recordId').value;
     
             $.ajax({
-                url: 'theloaixuly.php', // Đường dẫn tới file xử lý trên server
+                url: 'nhomquyenxuly.php', // Đường dẫn tới file xử lý trên server
                 type: 'POST',
                 data: {
                     recordId: id,
@@ -2085,7 +2085,7 @@ if (urlParams.has('nhomquyen')) {
                 }, // Truyền dữ liệu trực tiếp vào data
                 success: function (response) {
                     console.log(response)
-                    if (response === 'success') {
+                    if (response) {
                         alert("Xóa thành công")
                         location.reload();
                     } else {
@@ -2094,12 +2094,12 @@ if (urlParams.has('nhomquyen')) {
                 }
             });
     
-        });*/
+        });
 
     document.getElementById('formUpdateNQ').addEventListener('submit', function (event) {
         event.preventDefault();
         if (this.checkValidity()) {
-            var id = document.getElementById('updateID').value;
+            var id = document.getElementById('updateId').value;
             var ten = document.getElementById('updateName').value;
 
             // Lấy tất cả các phần tử input là checkbox trong biểu mẫu
@@ -2117,103 +2117,103 @@ if (urlParams.has('nhomquyen')) {
             selectedValues.forEach(function (value) {
                 switch (value) {
                     case 'ucbXemTK'://1
-                        chitietquyen.push({ idcn: 1, hd: 'Xem' })
+                        chitietquyen.push({ idnq: id, idcn: 1, hd: 'Xem' })
                         break;
                     case 'ucbThemTK':
-                        chitietquyen.push({ idcn: 1, hd: 'Thêm' })
+                        chitietquyen.push({ idnq: id, idcn: 1, hd: 'Thêm' })
                         break;
                     case 'ucbSuaTK':
-                        chitietquyen.push({ idcn: 1, hd: 'Sửa' })
+                        chitietquyen.push({ idnq: id, idcn: 1, hd: 'Sửa' })
                         break;
                     case 'ucbXoaTK':
-                        chitietquyen.push({ idcn: 1, hd: 'Xóa' })
+                        chitietquyen.push({ idnq: id, idcn: 1, hd: 'Xóa' })
                         break;
                     case 'ucbXemNQ'://2
-                        chitietquyen.push({ idcn: 2, hd: 'Xem' })
+                        chitietquyen.push({ idnq: id, idcn: 2, hd: 'Xem' })
                         break;
                     case 'ucbThemNQ':
-                        chitietquyen.push({ idcn: 2, hd: 'Thêm' })
+                        chitietquyen.push({ idnq: id, idcn: 2, hd: 'Thêm' })
                         break;
                     case 'ucbSuaNQ':
-                        chitietquyen.push({ idcn: 2, hd: 'Sửa' })
+                        chitietquyen.push({ idnq: id, idcn: 2, hd: 'Sửa' })
                         break;
                     case 'ucbXoaNQ':
-                        chitietquyen.push({ idcn: 2, hd: 'Xóa' })
+                        chitietquyen.push({ idnq: id, idcn: 2, hd: 'Xóa' })
                         break;
                     case 'ucbXemSP'://3
-                        chitietquyen.push({ idcn: 3, hd: 'Xem' })
+                        chitietquyen.push({ idnq: id, idcn: 3, hd: 'Xem' })
                         break;
                     case 'ucbThemSP':
-                        chitietquyen.push({ idcn: 3, hd: 'Thêm' })
+                        chitietquyen.push({ idnq: id, idcn: 3, hd: 'Thêm' })
                         break;
                     case 'ucbSuaSP':
-                        chitietquyen.push({ idcn: 3, hd: 'Sửa' })
+                        chitietquyen.push({ idnq: id, idcn: 3, hd: 'Sửa' })
                         break;
                     case 'ucbXoaSP':
-                        chitietquyen.push({ idcn: 3, hd: 'Xóa' })
+                        chitietquyen.push({ idnq: id, idcn: 3, hd: 'Xóa' })
                         break;
                     case 'ucbXemPN'://4
-                        chitietquyen.push({ idcn: 4, hd: 'Xem' })
+                        chitietquyen.push({ idnq: id, idcn: 4, hd: 'Xem' })
                         break;
                     case 'ucbThemPN':
-                        chitietquyen.push({ idcn: 4, hd: 'Thêm' })
+                        chitietquyen.push({ idnq: id, idcn: 4, hd: 'Thêm' })
                         break;
                     case 'ucbSuaPN':
-                        chitietquyen.push({ idcn: 4, hd: 'Sửa' })
+                        chitietquyen.push({ idnq: id, idcn: 4, hd: 'Sửa' })
                         break;
                     case 'ucbXoaPN':
-                        chitietquyen.push({ idcn: 4, hd: 'Xóa' })
+                        chitietquyen.push({ idnq: id, idcn: 4, hd: 'Xóa' })
                         break;
                     case 'ucbXemHD'://5
-                        chitietquyen.push({ idcn: 5, hd: 'Xem' })
+                        chitietquyen.push({ idnq: id, idcn: 5, hd: 'Xem' })
                         break;
                     case 'ucbThemHD':
-                        chitietquyen.push({ idcn: 5, hd: 'Thêm' })
+                        chitietquyen.push({ idnq: id, idcn: 5, hd: 'Thêm' })
                         break;
                     case 'ucbSuaHD':
-                        chitietquyen.push({ idcn: 5, hd: 'Sửa' })
+                        chitietquyen.push({ idnq: id, idcn: 5, hd: 'Sửa' })
                         break;
                     case 'ucbXoaHD':
-                        chitietquyen.push({ idcn: 5, hd: 'Xóa' })
+                        chitietquyen.push({ idnq: id, idcn: 5, hd: 'Xóa' })
                         break;
                     case 'ucbXemNCC'://6
-                        chitietquyen.push({ idcn: 6, hd: 'Xem' })
+                        chitietquyen.push({ idnq: id, idcn: 6, hd: 'Xem' })
                         break;
                     case 'ucbThemNCC':
-                        chitietquyen.push({ idcn: 6, hd: 'Thêm' })
+                        chitietquyen.push({ idnq: id, idcn: 6, hd: 'Thêm' })
                         break;
                     case 'ucbSuaNCC':
-                        chitietquyen.push({ idcn: 6, hd: 'Xóa' })
+                        chitietquyen.push({ idnq: id, idcn: 6, hd: 'Sửa' })
                         break;
                     case 'ucbXoaNCC':
-                        chitietquyen.push({ idcn: 6, hd: 'Xóa' })
+                        chitietquyen.push({ idnq: id, idcn: 6, hd: 'Xóa' })
                         break;
                     case 'ucbXemND'://7
-                        chitietquyen.push({ idcn: 7, hd: 'Xem' })
+                        chitietquyen.push({ idnq: id, idcn: 7, hd: 'Xem' })
                         break;
                     case 'ucbThemND':
-                        chitietquyen.push({ idcn: 7, hd: 'Thêm' })
+                        chitietquyen.push({ idnq: id, idcn: 7, hd: 'Thêm' })
                         break;
                     case 'ucbSuaND':
-                        chitietquyen.push({ idcn: 7, hd: 'Sửa' })
+                        chitietquyen.push({ idnq: id, idcn: 7, hd: 'Sửa' })
                         break;
                     case 'ucbXoaND':
-                        chitietquyen.push({ idcn: 7, hd: 'Xóa' })
+                        chitietquyen.push({ idnq: id, idcn: 7, hd: 'Xóa' })
                         break;
                     case 'ucbXemTL'://8
-                        chitietquyen.push({ idcn: 8, hd: 'Xem' })
+                        chitietquyen.push({ idnq: id, idcn: 8, hd: 'Xem' })
                         break;
                     case 'ucbThemTL':
-                        chitietquyen.push({ idcn: 8, hd: 'Thêm' })
+                        chitietquyen.push({ idnq: id, idcn: 8, hd: 'Thêm' })
                         break;
                     case 'ucbSuaTL':
-                        chitietquyen.push({ idcn: 8, hd: 'Sửa' })
+                        chitietquyen.push({ idnq: id, idcn: 8, hd: 'Sửa' })
                         break;
                     case 'ucbXoaTL':
-                        chitietquyen.push({ idcn: 8, hd: 'Xóa' })
+                        chitietquyen.push({ idnq: id, idcn: 8, hd: 'Xóa' })
                         break;
                     case 'ucbXemTKe':
-                        chitietquyen.push({ idcn: 9, hd: 'Xem' })
+                        chitietquyen.push({ idnq: id, idcn: 9, hd: 'Xem' })
                         break;
                     default:
                 }

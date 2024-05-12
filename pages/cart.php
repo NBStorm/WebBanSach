@@ -4,21 +4,18 @@
         <div class="modal-content">
             <div class="modal-header border-bottom-0">
                 <h5 class="modal-title" id="exampleModalLabel">
-                    Your Shopping Cart
+                    Giỏ hàng
                 </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
                 <table class="table table-image">
                     <thead>
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col">Product</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Qty</th>
-                            <th scope="col">Total</th>
+                            <th scope="col">Tên sản phẩm</th>
+                            <th scope="col">Giá</th>
+                            <th scope="col">Số Lượng</th>
+                            <th scope="col">Tổng cộng</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -43,9 +40,8 @@
                     <h5>Total: <span class="price text-success">89$</span></h5>
                 </div>
             </div>
-            <div class="modal-footer border-top-0 d-flex justify-content-between">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Checkout</button>
+            <div class="modal-footer border-top-0" style="display: flex;">
+                <button type="button" class="btn btn-success">Thanh toán</button>
             </div>
         </div>
     </div>
