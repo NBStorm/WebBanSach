@@ -23,7 +23,6 @@ class DatabaseConnection
     public function disconnect()
     {
         $this->conn = null;
-        //echo "Ngắt kết nối CSDL thành công!";
     }
 
     public function query($sql)

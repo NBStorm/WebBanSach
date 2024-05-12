@@ -11,11 +11,11 @@ class TaiKhoan
         $this->db->connect();
     }
 
-    public function themTaiKhoan($user,$pass,$manq,$date)
+    public function themTaiKhoan($user, $pass, $manq, $date)
     {
         $sql = "INSERT INTO taikhoan (Username,Password,MaNQ,NgayTao) VALUES (?,?,?,?)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("ssis", $user, $pass,$manq,$date);
+        $stmt->bind_param("ssis", $user, $pass, $manq, $date);
         $success = $stmt->execute();
         $stmt->close();
         $this->db->disconnect();
@@ -33,12 +33,12 @@ class TaiKhoan
         return $result;
     }
 
-    public function suaTaiKhoan($id,$user,$pass,$manq)
+    public function suaTaiKhoan($id, $user, $pass, $manq)
     {
         $sql = "UPDATE taikhoan SET Username = ?, Password=?, MaNQ=? WHERE MaTK = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("ssii", $user,$pass,$manq, $id);
-        $result=$stmt->execute();
+        $stmt->bind_param("ssii", $user, $pass, $manq, $id);
+        $result = $stmt->execute();
         $stmt->close();
         $this->db->disconnect();
         return $result;
@@ -95,6 +95,33 @@ class TaiKhoan
         $this->db->disconnect();
 
         return "";
+    }
+    public function logIn($username, $password)
+    {
+        $sql = 'SELECT * FROM taikhoan WHERE UserName = ? AND Password = ?';
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ss", $username, $password);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows > 0) {
+            session_start(); // Bắt đầu session
+            $_SESSION['logged_in'] = true;
+
+            if ($row = $result->fetch_assoc()) {
+                $_SESSION['MaNQ'] = $row['MaNQ']; // Lưu quyền người dùng vào session (nếu cần)
+                $_SESSION['Username'] = $row['Username'];
+            }
+
+            $response = array();
+            if ($_SESSION['MaNQ'] == 2) {
+                $response[] = array("quyen" => $_SESSION['MaNQ'], "redirect" => "index.php", "trangthai" => true);
+            } elseif ($_SESSION['MaNQ'] != 2) {
+                $response[] = array("quyen" => $_SESSION['MaNQ'], "redirect" => "admin/admin.php", "trangthai" => true);
+            }
+            return $response;
+        } else {
+            return false;
+        }
     }
 }
 ?>

@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (isset($_SESSION['MaNQ']) && $_SESSION['MaNQ'] == 2) {
+    header("Location: khongcoquyen.php"); // Chuyển hướng đến trang "khongcoquyen.php"
+    exit;
+}
+?>
 <html lang="en">
 
 <head>
@@ -38,7 +45,7 @@
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="../index.php">Logout</a></li>
+                    <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -48,12 +55,7 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="admin.php">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Dashboard
-                        </a>
-                        <div class="sb-sidenav-menu-heading">Interface</div>
+                        <div class="sb-sidenav-menu-heading">Chức năng</div>
                         <a class="nav-link" href="admin.php?nguoidung">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Người Dùng
@@ -94,7 +96,9 @@
                 </div>
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
-                    Admin
+                    <?php
+                    echo $_SESSION['Username'];
+                    ?>
                 </div>
             </nav>
         </div>
@@ -108,6 +112,8 @@
 
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="../js/admin.js"></script>
+    <script src="../js/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/datatables-simple-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
@@ -290,97 +296,97 @@
                         success: function (data) {
                             $.each(data, function (index, item) {
                                 console.log(item['idcn']);
-                                switch(item['idcn']){
+                                switch (item['idcn']) {
                                     case '1':
-                                        if(item['hd'] ==='Xem'){
+                                        if (item['hd'] === 'Xem') {
                                             document.getElementById('ucbXemTK').checked = true;
-                                        }if(item['hd'] ==='Thêm'){
+                                        } if (item['hd'] === 'Thêm') {
                                             document.getElementById('ucbThemTK').checked = true;
-                                        }if(item['hd'] ==='Sửa'){
+                                        } if (item['hd'] === 'Sửa') {
                                             document.getElementById('ucbSuaTK').checked = true;
-                                        }if(item['hd'] ==='Xóa'){
+                                        } if (item['hd'] === 'Xóa') {
                                             document.getElementById('ucbXoaTK').checked = true;
                                         }
                                         break;
                                     case '2':
-                                        if(item['hd'] ==='Xem'){
+                                        if (item['hd'] === 'Xem') {
                                             document.getElementById('ucbXemNQ').checked = true;
-                                        }if(item['hd'] ==='Thêm'){
+                                        } if (item['hd'] === 'Thêm') {
                                             document.getElementById('ucbThemNQ').checked = true;
-                                        }if(item['hd'] ==='Sửa'){
+                                        } if (item['hd'] === 'Sửa') {
                                             document.getElementById('ucbSuaNQ').checked = true;
-                                        }if(item['hd'] ==='Xóa'){
+                                        } if (item['hd'] === 'Xóa') {
                                             document.getElementById('ucbXoaNQ').checked = true;
                                         }
                                         break;
                                     case '3':
-                                        if(item['hd'] ==='Xem'){
+                                        if (item['hd'] === 'Xem') {
                                             document.getElementById('ucbXemSP').checked = true;
-                                        }if(item['hd'] ==='Thêm'){
+                                        } if (item['hd'] === 'Thêm') {
                                             document.getElementById('ucbThemSP').checked = true;
-                                        }if(item['hd'] ==='Sửa'){
+                                        } if (item['hd'] === 'Sửa') {
                                             document.getElementById('ucbSuaSP').checked = true;
-                                        }if(item['hd'] ==='Xóa'){
+                                        } if (item['hd'] === 'Xóa') {
                                             document.getElementById('ucbXoaSP').checked = true;
                                         }
                                         break;
                                     case '4':
-                                        if(item['hd'] ==='Xem'){
+                                        if (item['hd'] === 'Xem') {
                                             document.getElementById('ucbXemPN').checked = true;
-                                        }if(item['hd'] ==='Thêm'){
+                                        } if (item['hd'] === 'Thêm') {
                                             document.getElementById('ucbThemPN').checked = true;
-                                        }if(item['hd'] ==='Sửa'){
+                                        } if (item['hd'] === 'Sửa') {
                                             document.getElementById('ucbSuaPN').checked = true;
-                                        }if(item['hd'] ==='Xóa'){
+                                        } if (item['hd'] === 'Xóa') {
                                             document.getElementById('ucbXoaPN').checked = true;
                                         }
                                         break;
                                     case '5':
-                                        if(item['hd'] ==='Xem'){
+                                        if (item['hd'] === 'Xem') {
                                             document.getElementById('ucbXemHD').checked = true;
-                                        }if(item['hd'] ==='Thêm'){
+                                        } if (item['hd'] === 'Thêm') {
                                             document.getElementById('ucbThemHD').checked = true;
-                                        }if(item['hd'] ==='Sửa'){
+                                        } if (item['hd'] === 'Sửa') {
                                             document.getElementById('ucbSuaHD').checked = true;
-                                        }if(item['hd'] ==='Xóa'){
+                                        } if (item['hd'] === 'Xóa') {
                                             document.getElementById('ucbXoaHD').checked = true;
                                         }
                                         break;
                                     case '6':
-                                        if(item['hd'] ==='Xem'){
+                                        if (item['hd'] === 'Xem') {
                                             document.getElementById('ucbXemNCC').checked = true;
-                                        }if(item['hd'] ==='Thêm'){
+                                        } if (item['hd'] === 'Thêm') {
                                             document.getElementById('ucbThemNCC').checked = true;
-                                        }if(item['hd'] ==='Sửa'){
+                                        } if (item['hd'] === 'Sửa') {
                                             document.getElementById('ucbSuaNCC').checked = true;
-                                        }if(item['hd'] ==='Xóa'){
+                                        } if (item['hd'] === 'Xóa') {
                                             document.getElementById('ucbXoaNCC').checked = true;
                                         }
                                         break;
                                     case '7':
-                                        if(item['hd'] ==='Xem'){
+                                        if (item['hd'] === 'Xem') {
                                             document.getElementById('ucbXemND').checked = true;
-                                        }if(item['hd'] ==='Thêm'){
+                                        } if (item['hd'] === 'Thêm') {
                                             document.getElementById('ucbThemND').checked = true;
-                                        }if(item['hd'] ==='Sửa'){
+                                        } if (item['hd'] === 'Sửa') {
                                             document.getElementById('ucbSuaND').checked = true;
-                                        }if(item['hd'] ==='Xóa'){
+                                        } if (item['hd'] === 'Xóa') {
                                             document.getElementById('ucbXoaND').checked = true;
                                         }
                                         break;
                                     case '8':
-                                        if(item['hd'] ==='Xem'){
+                                        if (item['hd'] === 'Xem') {
                                             document.getElementById('ucbXemTL').checked = true;
-                                        }if(item['hd'] ==='Thêm'){
+                                        } if (item['hd'] === 'Thêm') {
                                             document.getElementById('ucbThemTL').checked = true;
-                                        }if(item['hd'] ==='Sửa'){
+                                        } if (item['hd'] === 'Sửa') {
                                             document.getElementById('ucbSuaTL').checked = true;
-                                        }if(item['hd'] ==='Xóa'){
+                                        } if (item['hd'] === 'Xóa') {
                                             document.getElementById('ucbXoaTL').checked = true;
                                         }
                                         break;
-                                    case '9' :
-                                        if(item['hd'] ==='Xem'){
+                                    case '9':
+                                        if (item['hd'] === 'Xem') {
                                             document.getElementById('ucbXemTKe').checked = true;
                                         }
                                         break;
@@ -654,6 +660,11 @@
         })();
     </script>
     <link href='https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css' rel='stylesheet'>
+    <script>
+        console.log(<?php echo json_encode($_SESSION['logged_in']); ?>);
+        console.log(<?php echo json_encode($_SESSION['Username']); ?>);
+        console.log(<?php echo json_encode($_SESSION['MaNQ']); ?>);
+    </script>
 </body>
 
 </html>
