@@ -1,7 +1,7 @@
 <header id="header" class="site-header header-scrolled position-fixed text-black bg-light">
     <nav id="header-nav" class="navbar navbar-expand-lg px-3 mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" href="admin/admin.php">
+            <a class="navbar-brand" href="index.php">
                 <img src="images/main-logo.png" class="logo">
             </a>
             <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas"
@@ -85,16 +85,27 @@
                                     
                                     if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
                                         // Nếu người dùng đã đăng nhập, hiển thị tên người đăng nhập
-                                        echo '<li class="pe-3">Xin chào, ' . $_SESSION['Username'] . '</li>';
-                                        echo '<li class="pe-3"><a href="./admin/logout.php">Logout</a></li>'; // Liên kết đến trang logout.php để đăng xuất
+                                        echo "
+                                        <li class='nav-item dropdown'>
+                                            <a class='nav-link me-4 dropdown-toggle link-dark' data-bs-toggle='dropdown' href='#'
+                                                role='button' aria-expanded='false'>Xin chào, " . $_SESSION['Username'] . "</a>
+                                            <ul class='dropdown-menu'>
+                                                <li>
+                                                    <a href='thongtincanhan.php' class='dropdown-item'>Thông tin cá nhân</a>
+                                                </li>
+                                                <li>
+                                                    <a href='./admin/logout.php' class='dropdown-item'>Logout</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        ";
                                     } else {
                                         // Nếu người dùng chưa đăng nhập, hiển thị liên kết đăng nhập
                                         echo '<li class="pe-3"><a href="#" onclick="addModalLoginSignup()"><svg class="user"><use xlink:href="#user"></use></svg></a></li>';
                                     }
                                     ?>
-                                    <li>
-                                        <a href="#" onclick="addModalCart()" data-toggle="modal"
-                                            data-target="#cartModal">
+                                    <li class="pe-3">
+                                        <a href="#" onclick="addModalCart()">
                                             <svg class="cart">
                                                 <use xlink:href="#cart"></use>
                                             </svg>
