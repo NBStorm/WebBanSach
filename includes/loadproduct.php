@@ -3,8 +3,7 @@ require_once("DatabaseConnection.php");
 require_once("pagination.class.php");
 
 $perPage = new PerPage();
-$sql = "SELECT * FROM sanpham
-";
+$sql = "SELECT * FROM sanpham";
 $paginationlink = "includes/loadproduct.php?page=";
 $page = 1;
 
@@ -36,13 +35,13 @@ $output .= '
 <div class="container">
     <div class="row">
         <div class="display-header d-flex justify-content-between pb-3">
-            <h2 class="display-7 text-dark text-uppercase">Smart Watches</h2>
+            <h2 class="display-7 text-dark text-uppercase">Tất cả sách</h2>
             <div class="btn-right">
                 <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
             </div>
         </div>
         <div class="swiper product-watch-swiper">
-            <div class="swiper-wrapper" id="pagination">';
+            <div class="swiper-wrapper">';
 
 while ($row = $result->fetch_assoc()) {
     // $output .= '<div class="question"><input type="hidden" id="rowcount" name="rowcount" value="' . $result->num_rows . '" />' . $row["question"] . '</div>';
