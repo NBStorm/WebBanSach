@@ -1,4 +1,4 @@
-<section id="mobile-products" class="product-store position-relative padding-large no-padding-top">
+<section id="rs-search" class="product-store position-relative padding-large no-padding-top">
     <div class="container">
         <div class="row">
             <div class="display-header d-flex justify-content-between pb-3">

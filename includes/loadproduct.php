@@ -3,8 +3,7 @@ require_once("DatabaseConnection.php");
 require_once("pagination.class.php");
 
 $perPage = new PerPage();
-$sql = "SELECT * FROM sanpham
-";
+$sql = "SELECT * FROM sanpham";
 $paginationlink = "includes/loadproduct.php?page=";
 $page = 1;
 
@@ -42,7 +41,7 @@ $output .= '
             </div>
         </div>
         <div class="swiper product-watch-swiper">
-            <div class="swiper-wrapper" id="pagination">';
+            <div class="swiper-wrapper">';
 
 while ($row = $result->fetch_assoc()) {
     // $output .= '<div class="question"><input type="hidden" id="rowcount" name="rowcount" value="' . $result->num_rows . '" />' . $row["question"] . '</div>';
