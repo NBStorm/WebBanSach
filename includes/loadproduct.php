@@ -50,7 +50,7 @@ while ($row = $result->fetch_assoc()) {
                     </div>
                     <div class='cart-concern position-absolute'>
                         <div class='cart-button d-flex'>
-                            <button onclick='addProductToCart(\"{$row['TenSP']}\", {$row['DonGia']}, \"{$row['HinhAnh']}\")' class='btn btn-medium btn-black'>Add to Cart<svg class='cart-outline'>
+                            <button onclick='addProductToCart(\"{$row['MaSP']}\",\"{$row['TenSP']}\", {$row['DonGia']}, \"{$row['HinhAnh']}\")' class='btn btn-medium btn-black'>Add to Cart<svg class='cart-outline'>
                                     <use xlink:href='#cart-outline'></use>
                                 </svg></button>
                         </div>
