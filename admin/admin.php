@@ -1,4 +1,5 @@
 <?php
+require 'nhomquyen.php';
 session_start();
 if (!isset($_SESSION['MaNQ'])) {
     header("Location: khongcoquyen.php"); // Chuyển hướng đến trang "khongcoquyen.php"
@@ -8,6 +9,42 @@ if (isset($_SESSION['MaNQ']) && $_SESSION['MaNQ'] == 2) {
     header("Location: khongcoquyen.php"); // Chuyển hướng đến trang "khongcoquyen.php"
     exit;
 }
+
+if (isset($_SESSION['MaNQ'])) {
+    $id = $_SESSION['MaNQ'];
+
+    $cacMaChucNangTruyCap = array();
+
+    $nhomQuyen = new NhomQuyen();
+    $quyenArray = $nhomQuyen->getCTQ($id);
+
+    $quyenChucNang = array(
+        'taikhoan' => 1,
+        'nhomquyen' => 2,
+        'sanpham' => 3,
+        'phieunhap' => 4,
+        'hoadon' => 5,
+        'nhacungcap' => 6,
+        'nguoidung' => 7,
+        'theloai' => 8,
+        'thongke' => 9
+    );
+
+    if (!empty($quyenArray)) {
+
+        foreach ($quyenArray as $quyen) {
+            $cacMaChucNangTruyCap[] = $quyen['idcn'];
+        }
+    } else {
+        echo "Không có quyền chức năng nào được tìm thấy cho nhóm quyền có mã là $id";
+    }
+
+}
+function coQuyenTruyCap($chucNang, $cacMaChucNangTruyCap, $quyenChucNang)
+{
+    return isset($quyenChucNang[$chucNang]) && in_array($quyenChucNang[$chucNang], $cacMaChucNangTruyCap);
+}
+
 ?>
 <html lang="en">
 
@@ -60,42 +97,78 @@ if (isset($_SESSION['MaNQ']) && $_SESSION['MaNQ'] == 2) {
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Chức năng</div>
-                        <a class="nav-link" href="admin.php?nguoidung">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Người Dùng
-                        </a>
-                        <a class="nav-link" href="admin.php?taikhoan">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Tài Khoản
-                        </a>
-                        <a class="nav-link" href="admin.php?sanpham">
+                        <?php
+                        if (coQuyenTruyCap('nguoidung', $cacMaChucNangTruyCap, $quyenChucNang)) {
+                            echo '<a class="nav-link" href="admin.php?nguoidung">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Người Dùng
+                            </a>';
+                        }
+                        ?>
+                        <?php
+                        if (coQuyenTruyCap('taikhoan', $cacMaChucNangTruyCap, $quyenChucNang)) {
+                            echo '<a class="nav-link" href="admin.php?taikhoan">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Tài Khoản
+                            </a>';
+                        }
+                        ?>
+                        <?php
+                        if (coQuyenTruyCap('sanpham', $cacMaChucNangTruyCap, $quyenChucNang)) {
+                            echo '<a class="nav-link" href="admin.php?sanpham">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Sản Phẩm
-                        </a>
-                        <a class="nav-link" href="admin.php?theloai">
+                        </a>';
+                        }
+                        ?>
+                        <?php
+                        if (coQuyenTruyCap('theloai', $cacMaChucNangTruyCap, $quyenChucNang)) {
+                            echo '<a class="nav-link" href="admin.php?theloai">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Thể Loại
-                        </a>
-                        <a class="nav-link" href="admin.php?phieunhap">
+                        </a>';
+                        }
+                        ?>
+                        <?php
+                        if (coQuyenTruyCap('phieunhap', $cacMaChucNangTruyCap, $quyenChucNang)) {
+                            echo '<a class="nav-link" href="admin.php?phieunhap">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Phiếu Nhập
-                        </a>
-                        <a class="nav-link" href="admin.php?hoadon">
+                        </a>';
+                        }
+                        ?>
+                        <?php
+                        if (coQuyenTruyCap('hoadon', $cacMaChucNangTruyCap, $quyenChucNang)) {
+                            echo '<a class="nav-link" href="admin.php?hoadon">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Hóa Đơn
-                        </a>
-                        <a class="nav-link" href="admin.php?nhacungcap">
+                        </a>';
+                        }
+                        ?>
+                        <?php
+                        if (coQuyenTruyCap('nhacungcap', $cacMaChucNangTruyCap, $quyenChucNang)) {
+                            echo '<a class="nav-link" href="admin.php?nhacungcap">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Nhà Cung Cấp
-                        </a>
-                        <a class="nav-link" href="admin.php?thongke">
+                        </a>';
+                        }
+                        ?>
+                        <?php
+                        if (coQuyenTruyCap('thongke', $cacMaChucNangTruyCap, $quyenChucNang)) {
+                            echo '<a class="nav-link" href="admin.php?thongke">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Thống kê
-                        </a>
-                        <a class="nav-link" href="admin.php?nhomquyen">
+                        </a>';
+                        }
+                        ?>
+                        <?php
+                        if (coQuyenTruyCap('nhomquyen', $cacMaChucNangTruyCap, $quyenChucNang)) {
+                            echo '<a class="nav-link" href="admin.php?nhomquyen">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Nhóm quyền
-                        </a>
+                        </a>';
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">

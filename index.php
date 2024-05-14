@@ -126,7 +126,9 @@ if (!isset($_SESSION['logged_in'])) {
     <script type="text/javascript" src="js/plugins.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-
+    <script>
+        console.log("Log in chưa "+<?php echo json_encode($_SESSION['logged_in']); ?>);
+    </script>
 </body>
 
 </html>

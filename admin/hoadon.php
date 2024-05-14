@@ -169,7 +169,7 @@ class HoaDon
         } else {
             echo "0 results";
         }
-        return $data ;
+        return $data;
     }
 
     public function getHDDG()
@@ -189,6 +189,31 @@ class HoaDon
         }
         $this->db->disconnect();
         return "";
+    }
+
+    public function searchHD($start, $end)
+    {
+        $sql = "SELECT MaHD, nd1.HoTen AS TenNhanVien, nd2.HoTen AS TenKhachHang, TongTien, hoadon.NgayTao, TrangThai
+        FROM hoadon
+        JOIN taikhoan tk1 ON hoadon.MaNV = tk1.MaTK
+        JOIN nguoidung nd1 ON tk1.Username = nd1.MaND
+        JOIN taikhoan tk2 ON hoadon.MaKH = tk2.MaTK
+        JOIN nguoidung nd2 ON tk2.Username = nd2.MaND
+        WHERE hoadon.NgayTao BETWEEN ? AND ?";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param('ss', $start, $end);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $data = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+        }
+        $stmt->close();
+        return $data;
     }
 }
 ?>

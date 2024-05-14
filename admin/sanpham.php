@@ -15,7 +15,7 @@ class SanPham
     {
         $sql = "INSERT INTO sanpham (TenSP,DonGia,MaTL,SoLuong,HinhAnh) VALUES (?,?,?,?,?)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("siiis", $ten,$gia, $tl, $sl, $hinhanh);
+        $stmt->bind_param("siiis", $ten, $gia, $tl, $sl, $hinhanh);
         $success = $stmt->execute();
         $stmt->close();
         $this->db->disconnect();
@@ -37,8 +37,8 @@ class SanPham
     {
         $sql = "UPDATE sanpham SET TenSP = ?, DonGia = ?, MaTL = ?, SoLuong = ?, HinhAnh = ? WHERE MaSP = ?";
         $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("siiisi", $ten,$gia, $tl, $sl, $hinhanh, $id);
-        $result=$stmt->execute();
+        $stmt->bind_param("siiisi", $ten, $gia, $tl, $sl, $hinhanh, $id);
+        $result = $stmt->execute();
         $stmt->close();
         $this->db->disconnect();
         return $result;
@@ -90,6 +90,33 @@ class SanPham
         $this->db->disconnect();
 
         return "";
+    }
+
+    public function thongKeSPBanChay($start, $end)
+    {
+        $sql = "SELECT sp.MaSP, sp.TenSP, SUM(cthd.SoLuong) AS total_quantity
+                FROM sanpham sp
+                JOIN chitiethoadon cthd ON sp.MaSP = cthd.MaSP
+                JOIN hoadon hd ON cthd.MaHD = hd.MaHD
+                WHERE hd.NgayTao BETWEEN ? AND ?
+                  AND hd.TrangThai = 'Đã giao'
+                GROUP BY sp.MaSP, sp.TenSP
+                ORDER BY total_quantity DESC  
+                LIMIT 5;";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param('ss', $start, $end);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $data = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+        }
+        $stmt->close();
+        return $data;
     }
 }
 ?>
