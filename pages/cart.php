@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="modal-footer border-top-0" style="display: flex;">
-                <button type="button" class="btn btn-success">Thanh toán</button>
+                <button type="button" class="btn btn-success" onclick="pay()">Thanh toán</button>
             </div>
         </div>
     </div>
@@ -41,7 +41,48 @@
     $('#cartModal').on('hidden.bs.modal', function() {
         $('.modal-backdrop').remove();
     });
+
+    function pay() {
+        let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+
+        var sessionValue = <?php echo json_encode(isset($_SESSION['logged_in']) ? $_SESSION['logged_in'] : false); ?>;
+
+        if (sessionValue) {
+            if (cart.length == 0) {
+                alert("Giỏ hàng của bạn đang trống.");
+            } else {
+                var username = <?php echo isset($_SESSION['Username']) ? json_encode($_SESSION['Username']) : "''"; ?>;
+                console.log(username);
+                $.ajax({
+                    url: "includes/pay.php",
+                    method: "POST",
+                    data: {
+                        cart: JSON.stringify(cart), // Chuyển đổi mảng cart thành chuỗi JSON và gửi nó
+                        username: username
+                    },
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            alert(response.message);
+                            // Clear the cart in localStorage
+                            localStorage.removeItem('cart');
+                            $('#cartModal').modal('hide');
+                            // window.location.href = response.redirect;
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Đơn hàng lỗi: " + error);
+                    }
+                });
+            }
+        } else {
+            alert("Bạn chưa đăng nhập.");
+        }
+    }
     </script>
+
 </div>
 <script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
