@@ -4,6 +4,7 @@ require_once("DatabaseConnection.php");
 require("pagination.class.php");
 
 $perPage = new PerPage();
+$perPage->perpage3();
 
 $paginationlink = "includes/search.php?page=";
 $page = 1;
@@ -51,19 +52,19 @@ $output .= '
             </div>
         </div>
         <div class="swiper product-watch-swiper">
-            <div class="swiper-wrapper" id="pagination">';
+            <div class="swiper-wrapper">';
 while ($row = $result->fetch_assoc()) {
 
-    $output .= "<div class='swiper-slide wi'>
+    $output .= "<div class='swiper-slide wi' style='width: 225px; margin-right: 20px;'>
                     <div class='product-card position-relative'>
                         <div class='image-holder'>
-                            <img src='./img/" . $row['HinhAnh'] . "' alt='product-item' class='img-fluid'>
+                            <img src='./img/" . $row['HinhAnh'] . "' alt='product-item' class='img-fluid' style='height: 300px; object-fit: contain; width: 100%;'>
                         </div>
                         <div class='cart-concern position-absolute'>
                             <div class='cart-button d-flex'>
-                                <a href='#' class='btn btn-medium btn-black'>Add to Cart<svg class='cart-outline'>
+                                <button onclick='addProductToCart(\"{$row['TenSP']}\", {$row['DonGia']}, \"{$row['HinhAnh']}\")' class='btn btn-medium btn-black'>Add to Cart<svg class='cart-outline'>
                                         <use xlink:href='#cart-outline'></use>
-                                    </svg></a>
+                                    </svg></button>
                             </div>
                         </div>
                         <div class='card-detail d-flex justify-content-between align-items-baseline pt-3'>
@@ -85,6 +86,8 @@ if (!empty($perpageresult)) {
 }
 
 echo $output;
+
+$db->disconnect();
 
 ?>
 

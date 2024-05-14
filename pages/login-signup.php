@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="form signup">
             <header>Signup</header>
-            <form id="signupForm" action="#" style="margin-top:10px">
+            <form id="signupForm" action="#" style="margin-top:40px">
                 <input style="height:40px" type="text" placeholder="Username" required />
                 <input style="height:40px" type="text" placeholder="Họ tên" required />
                 <input style="height:40px" type="text" placeholder="Số điện thoại" required />
@@ -15,7 +15,7 @@
         </div>
         <div class="form login">
             <header>Login</header>
-            <form id="loginForm" action="#" style="margin-top:10px">
+            <form id="loginForm" action="#" style="margin-top:20px">
                 <input style="height:40px" type="text" placeholder="Username" id='username' required />
                 <input style="height:40px" type="password" placeholder="Password" id='password' required />
 
@@ -39,15 +39,15 @@
             modal.style.display = "flex";
         }
         //đóng modal
-        window.onclick = function (event) {
+        window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
     </script>
     <script>
-        $(document).ready(function () {
-            $('#signupForm').submit(function (event) {
+        $(document).ready(function() {
+            $('#signupForm').submit(function(event) {
                 // Ngăn chặn việc gửi biểu mẫu một cách thông thường
                 event.preventDefault();
 
@@ -67,7 +67,7 @@
                     type: 'POST',
                     url: './admin/process_signuplogin.php', // Thay đổi đường dẫn tới tập tin xử lý form của bạn
                     data: formData,
-                    success: function (response) {
+                    success: function(response) {
                         if (response) {
                             alert('Đăng ký thành công');
                             wrapper.classList.add("active");
@@ -75,14 +75,14 @@
                             alert(response);
                         }
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         console.error(xhr.responseText);
                     }
                 });
             });
         });
-        $(document).ready(function () {
-            $('#loginForm').submit(function (event) {
+        $(document).ready(function() {
+            $('#loginForm').submit(function(event) {
                 // Ngăn chặn việc gửi biểu mẫu một cách thông thường
                 event.preventDefault();
 
@@ -99,14 +99,16 @@
                     url: './admin/process_signuplogin.php', // Thay đổi đường dẫn tới tập tin xử lý form của bạn
                     data: formData,
                     dataType: 'json',
-                    success: function (response) {
+                    success: function(response) {
                         if (response) {
-                        
-                            $.each(response, function (index, item) {
+
+                            $.each(response, function(index, item) {
                                 // Sử dụng dữ liệu từ mảng để thực hiện các hành động tương ứng
                                 if (item.trangthai) {
-                                    alert('Đăng nhập thành công <?php 
-                                        if(isset($_SESSION['Username'])){echo $_SESSION['Username'];}?>' );
+                                    alert('Đăng nhập thành công <?php
+                                                                if (isset($_SESSION['Username'])) {
+                                                                    echo $_SESSION['Username'];
+                                                                } ?>');
                                     window.location.href = item.redirect;
                                 } else {
                                     alert('Đăng nhập không thành công');
@@ -122,7 +124,6 @@
                 });
             });
         });
-
     </script>
     <script>
         // Tạo một đối tượng ngày hôm nay
