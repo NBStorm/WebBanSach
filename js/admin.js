@@ -217,6 +217,95 @@ function validatePhoneNumber(phoneNumber) {
 
 var urlParams = new URLSearchParams(window.location.search);
 if (urlParams.has('hoadon')) {
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Set the start date to 1/1/2023
+        const startDate = document.getElementById('start-date');
+        startDate.value = '2023-01-01';
+
+        // Set the end date to today's date
+        const endDate = document.getElementById('end-date');
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        endDate.value = `${year}-${month}-${day}`;
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const filterForm = document.getElementById('filter-form');
+
+        filterForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+
+            if (!startDate || !endDate) {
+                alert('Vui lòng chọn cả ngày bắt đầu và ngày kết thúc.');
+                return;
+            }
+
+            if (new Date(startDate) > new Date(endDate)) {
+                alert('Ngày kết thúc phải lớn hơn ngày bắt đầu.');
+                return;
+            }
+
+            const data = {
+                startDate: startDate,
+                endDate: endDate
+            };
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'khoangtghd.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+
+            xhr.onload = function () {
+                try {
+                    if (this.status >= 200 && this.status < 400) {
+                        const response = JSON.parse(this.responseText); // Phân tích đúng phản hồi JSON
+                        const tableBody = document.getElementById('hoadon-table-body');
+                        tableBody.innerHTML = '';
+
+                        if (response.length > 0) {
+                            response.forEach(function (hoaDon) {
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td>${hoaDon.MaHD}</td>
+                                    <td>${hoaDon.TenNhanVien}</td>
+                                    <td>${hoaDon.tenKhachHang}</td>
+                                    <td>${hoaDon.TongTien}</td>
+                                    <td>${hoaDon.NgayTao}</td>
+                                    <td>${hoaDon.TrangThai}</td>
+                                    <td style='text-align: center;'>
+                                        <a data-bs-target='#updateHoaDonModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
+                                        <span style='margin: 0 10px'></span>
+                                        <a data-bs-target='#deleteHoaDonModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    </td>
+                                `;
+                                tableBody.appendChild(row);
+                            });
+                        } else {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `<td colspan="7">Không tìm thấy hóa đơn nào trong khoảng thời gian này.</td>`;
+                            tableBody.appendChild(row);
+                        }
+                    } else {
+                        console.error('Có lỗi xảy ra từ máy chủ:', this.status, this.responseText);
+                    }
+                } catch (e) {
+                    console.error('Có lỗi xảy ra khi phân tích phản hồi JSON:', e, this.responseText);
+                }
+            };
+
+            xhr.onerror = function () {
+                console.error('Có lỗi xảy ra khi gửi yêu cầu.');
+            };
+
+            xhr.send(JSON.stringify(data));
+        });
+    });
+
+
     document.addEventListener("DOMContentLoaded", function () {
         var table = document.getElementById("tableSelectHD");
         var rows = table.getElementsByTagName("tr");
@@ -2070,31 +2159,31 @@ if (urlParams.has('nhomquyen')) {
                 });
         }
     });
-    
-        document.getElementById('formDeleteNQ').addEventListener('submit', function (event) {
-            event.preventDefault(); // Ngăn chặn gửi yêu cầu POST thông thường
-    
-            var id = document.getElementById('recordId').value;
-    
-            $.ajax({
-                url: 'nhomquyenxuly.php', // Đường dẫn tới file xử lý trên server
-                type: 'POST',
-                data: {
-                    recordId: id,
-                    action: 'xoa'
-                }, // Truyền dữ liệu trực tiếp vào data
-                success: function (response) {
-                    console.log(response)
-                    if (response) {
-                        alert("Xóa thành công")
-                        location.reload();
-                    } else {
-                        alert('Error: Unable to delete the record.');
-                    }
+
+    document.getElementById('formDeleteNQ').addEventListener('submit', function (event) {
+        event.preventDefault(); // Ngăn chặn gửi yêu cầu POST thông thường
+
+        var id = document.getElementById('recordId').value;
+
+        $.ajax({
+            url: 'nhomquyenxuly.php', // Đường dẫn tới file xử lý trên server
+            type: 'POST',
+            data: {
+                recordId: id,
+                action: 'xoa'
+            }, // Truyền dữ liệu trực tiếp vào data
+            success: function (response) {
+                console.log(response)
+                if (response) {
+                    alert("Xóa thành công")
+                    location.reload();
+                } else {
+                    alert('Error: Unable to delete the record.');
                 }
-            });
-    
+            }
         });
+
+    });
 
     document.getElementById('formUpdateNQ').addEventListener('submit', function (event) {
         event.preventDefault();

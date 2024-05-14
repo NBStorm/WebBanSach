@@ -1027,6 +1027,27 @@ if (isset($_GET['sanpham'])) {
             </div>
         </div>
         <div class='card mb-4'>
+            <form class='row w-full' id='filter-form' style='padding-top :10px;'>
+                <div class='col'>
+                    <div class='row g-2'>
+                        <div class='col-md-5' style='padding-left:20px;padding-top:6px;'>
+                            <div class='input-icon'>
+                                <input type='date' class='form-control ' placeholder='Select a date' id='start-date' name='tgBatDau'/>
+                            </div>
+                        </div>
+                        <div class='col-md-5' style='padding-left:20px;padding-top:6px;'>
+                            <div class='input-icon'>
+                                <input type='date' class='form-control ' placeholder='Select a date' id='end-date' name='tgKetThuc'/>
+                            </div>
+                        </div>
+                        <div class='col-md-2' style='padding:0 20px;padding-top:6px;'>
+                            <button type='submit' class='btn btn-primary'>Tìm kiếm</button>
+                        </div>  
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class='card mb-4'>
             <div class='card-header'>
                 <i class='fas fa-table me-1'></i>
                 Bảng hóa đơn
@@ -1044,7 +1065,7 @@ if (isset($_GET['sanpham'])) {
                             <th>Chức năng</th>
                         </tr>
                     </thead>
-                    <tbody>";
+                    <tbody id='hoadon-table-body'>";
                         $hoaDon = new HoaDon();
                         $hoaDonArray = $hoaDon->getAll();
                         $s='';
@@ -2510,16 +2531,44 @@ if (isset($_GET['sanpham'])) {
                     <div class='col-lg-6 grid-margin stretch-card'>
                         <div class='card'>
                             <div class='card-body'>
-                                <h4 class='card-title'>Theo từng ngày</h4>
-                                <canvas id='barChart'></canvas>
+                                <h4 class='card-title'>Sản phẩm bán chạy theo khoản thời gian</h4>
+                                <canvas id='productChart'></canvas>
                             </div>
                         </div>
                     </div>
                     <div class='col-lg-6 grid-margin stretch-card'>
                         <div class='card'>
                             <div class='card-body'>
-                                <h4 class='card-title'>Bảng theo dõi theo từng ngày</h4>
-                                    
+                                <div class='card-body'>
+                                    <form class='row w-full' id='filter-form'>
+                                        <div class='col' style='justify-items: center;align-items: center;display: flex;'>
+                                            <div class='col'>
+                                                <div class='input-icon'>
+                                                    <input type='date' class='form-control ' placeholder='Select a date' id='start-date' name='tgBatDau'/>
+                                                </div>
+                                            </div>
+                                            <div class='col'>
+                                                <div class='input-icon'>
+                                                    <input type='date' class='form-control ' placeholder='Select a date' id='end-date' name='tgKetThuc'/>
+                                                </div>
+                                            </div>
+                                            <div class='col-auto d-flex align-items-end'>
+                                                <button type='submit' class='btn btn-primary'>Lọc</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <table id='value'>
+                                    <thead>
+                                        <tr>
+                                            <th>Mã Sản phẩm</th>
+                                            <th>Tên Sản phẩm</th>
+                                            <th>Tổng số lượng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
