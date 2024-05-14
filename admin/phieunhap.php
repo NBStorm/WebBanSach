@@ -116,6 +116,24 @@ class PhieuNhap
         return "";
     }
 
+    public function getPN()
+    {
+        $sql = "SELECT *
+        FROM phieunhap";
+        $result = $this->db->query($sql);
+
+        if ($result->num_rows > 0) {
+            $phieunhapArray = array();
+
+            while ($row = $result->fetch_assoc()) {
+                $phieunhapArray[] = array('id' => $row['MaPN'], 'total' => $row['TongTien'], 'date' => $row['NgayTao']);
+            }
+            return $phieunhapArray;
+        }
+        $this->db->disconnect();
+        return "";
+    }
+
     public function getCTPN($id)
     {
         $sql = "SELECT sanpham.MaSP,TenSP,chitietphieunhap.SoLuong,chitietphieunhap.GiaNhap from chitietphieunhap,sanpham where  chitietphieunhap.MaSP=sanpham.MaSP and MaPN=" . $id;

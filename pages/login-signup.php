@@ -118,8 +118,8 @@
                             alert('Đăng nhập không thành công');
                         }
                     },
-                    error: function(xhr, status, error) {
-                        alert("false")
+                    error: function (xhr, status, error) {
+                        alert("Tài khoản mật khẩu không đúng")
                     }
                 });
             });
