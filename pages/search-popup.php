@@ -2,7 +2,8 @@
     <div class="search-popup-container">
 
         <form role="search" method="get" class="search-form" action="">
-            <input type="search" name="search-name" id="search-name" class="search-field" placeholder="Type and press enter" value="" name="s" />
+            <input type="search" name="search-name" id="search-name" class="search-field"
+                placeholder="Type and press enter" value="" name="s" />
             <button type="submit" class="search-submit"><svg class="search">
                     <use xlink:href="#search"></use>
                 </svg></button>
@@ -41,32 +42,31 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function() {
+$(document).ready(function() {
 
-        var action = "search";
+    var action = "search";
 
-        $("#search-name").keyup(function() {
-            var search_name = $("#search-name").val();
-            if (search_name != "") {
+    $("#search-name").keyup(function() {
+        var search_name = $("#search-name").val();
+        if (search_name != "") {
 
-                $.ajax({
-                    url: "includes/search.php",
-                    method: "POST",
-                    data: {
-                        action: action,
-                        search_name: search_name
-                    },
-                    success: function(data) {
-                        $("#rs-search").html(data);
-                        $(".wi").css({
-                            "width": "270px",
-                        });
-                        console.log(data);
-                    }
-                });
-            } else $("#rs-search").html("");
+            $.ajax({
+                url: "includes/search.php",
+                method: "POST",
+                data: {
+                    action: action,
+                    search_name: search_name
+                },
+                success: function(data) {
+                    $("#rs-search").html(data);
+                    $(".wi").css({
+                        "width": "270px",
+                    });
+                }
+            });
+        } else $("#rs-search").html("");
 
 
-        })
-    });
+    })
+});
 </script>
