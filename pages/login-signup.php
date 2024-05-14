@@ -117,7 +117,7 @@
                         }
                     },
                     error: function (xhr, status, error) {
-                        alert("false")
+                        alert("Tài khoản mật khẩu không đúng")
                     }
                 });
             });

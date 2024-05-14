@@ -2439,20 +2439,89 @@ if (isset($_GET['sanpham'])) {
             <div class='content-wrapper'>
                 <div class='row'>
                     <div class='col-lg-6 grid-margin stretch-card'>
-                    <div class='card'>
-                        <div class='card-body'>
-                        <h4 class='card-title'>Line chart</h4>
-                        <canvas id='lineChart'></canvas>
+                        <div class='card'>
+                            <div class='card-body'>
+                                <h4 class='card-title'>Thống kê theo từng tháng</h4>
+                                <canvas id='lineChart'></canvas>
+                            </div>
                         </div>
-                    </div>
                     </div>
                     <div class='col-lg-6 grid-margin stretch-card'>
-                    <div class='card'>
-                        <div class='card-body'>
-                        <h4 class='card-title'>Bar chart</h4>
-                        <canvas id='barChart'></canvas>
+                        <div class='card'>
+                            <div class='card-body'>
+                                <h4 class='card-title'>Bảng theo dõi theo từng tháng</h4>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Mã hóa đơn</th>
+                                            <th>Thành tiền</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Trạng thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>";
+                                        $hoaDon = new HoaDon();
+                                        $hoaDonArray = $hoaDon->getHDDG();
+                                        $s='';
+                                        foreach ($hoaDonArray as $item)
+                                        {
+                                            $s .= "<tr>
+                                                    <td>" . $item['id'] . "</td>
+                                                    <td>" . $item['tongtien'] . "</td>
+                                                    <td>" . $item['date'] . "</td>
+                                                    <td>" . $item['trangthai'] . "</td>
+                                                </tr>";
+                                        }
+                                        echo $s;
+
+                                    echo "
+                                    </tbody>
+                                </table>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Mã phiếu nhập</th>
+                                            <th>Thành tiền</th>
+                                            <th>Ngày tạo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>";
+                                        $phieuNhap = new PhieuNhap();
+                                        $phieuNhapArray = $phieuNhap->getPN();
+                                        $s='';
+                                        foreach ($phieuNhapArray as $item)
+                                        {
+                                            $s .= "<tr>
+                                                    <td>" . $item['id'] . "</td>
+                                                    <td>" . $item['total'] . "</td>
+                                                    <td>" . $item['date'] . "</td>
+                                                </tr>";
+                                        }
+                                        echo $s;
+
+                                    echo "
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                </div><br>
+                <div class='row'>
+                    <div class='col-lg-6 grid-margin stretch-card'>
+                        <div class='card'>
+                            <div class='card-body'>
+                                <h4 class='card-title'>Theo từng ngày</h4>
+                                <canvas id='barChart'></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='col-lg-6 grid-margin stretch-card'>
+                        <div class='card'>
+                            <div class='card-body'>
+                                <h4 class='card-title'>Bảng theo dõi theo từng ngày</h4>
+                                    
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class='row'>

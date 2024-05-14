@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['MaNQ'])) {
+    header("Location: khongcoquyen.php"); // Chuyển hướng đến trang "khongcoquyen.php"
+    exit;
+}
 if (isset($_SESSION['MaNQ']) && $_SESSION['MaNQ'] == 2) {
     header("Location: khongcoquyen.php"); // Chuyển hướng đến trang "khongcoquyen.php"
     exit;

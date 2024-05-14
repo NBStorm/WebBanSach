@@ -132,5 +132,63 @@ class HoaDon
         }
         return "";
     }
+
+    public function thongKeThang()
+    {
+        $sql = "SELECT 
+        thang,
+        SUM(tong_doanh_thu) AS tong_doanh_thu,
+        SUM(tong_von_nhap) AS tong_von_nhap
+    FROM
+        (SELECT 
+            DATE_FORMAT(hd.NgayTao, '%Y-%m') AS thang,
+            SUM(hd.TongTien) AS tong_doanh_thu,
+            0 AS tong_von_nhap
+        FROM
+            hoadon hd
+        WHERE hd.TrangThai = 'Đã giao'
+        GROUP BY thang
+        UNION ALL
+        SELECT 
+            DATE_FORMAT(pn.NgayTao, '%Y-%m') AS thang,
+            0 AS tong_doanh_thu,
+            SUM(pn.TongTien) AS tong_von_nhap
+        FROM
+            phieunhap pn
+        GROUP BY thang) AS tong
+    GROUP BY thang
+    ORDER BY thang;
+    ";
+        $result = $this->db->query($sql);
+
+        $data = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+        } else {
+            echo "0 results";
+        }
+        return $data ;
+    }
+
+    public function getHDDG()
+    {
+        $sql = "SELECT MaHD,TongTien,NgayTao,TrangThai
+        FROM hoadon
+        WHERE TrangThai='Đã giao'";
+        $result = $this->db->query($sql);
+
+        if ($result->num_rows > 0) {
+            $hoaDonArray = array();
+
+            while ($row = $result->fetch_assoc()) {
+                $hoaDonArray[] = array('id' => $row['MaHD'], 'tongtien' => $row['TongTien'], 'date' => $row['NgayTao'], 'trangthai' => $row['TrangThai']);
+            }
+            return $hoaDonArray;
+        }
+        $this->db->disconnect();
+        return "";
+    }
 }
 ?>
