@@ -1,4 +1,4 @@
-<section id="all-product" class="product-store padding-large position-relative">
+<section id="all-product" class="product-store position-relative no-padding-bottom">
     <?php
     include("./includes/loadproduct.php");
     ?>

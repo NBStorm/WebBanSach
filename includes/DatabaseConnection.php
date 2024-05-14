@@ -22,6 +22,7 @@ class DatabaseConnection
 
     public function disconnect()
     {
+        $this->conn->close();
         $this->conn = null;
     }
 
@@ -42,11 +43,22 @@ class DatabaseConnection
         }
 
         // Lấy ID vừa tạo
-        $lastInsertedId = $this->conn->insert_id;
-
-        return $lastInsertedId;
+        return $this->conn->insert_id;
     }
 
-}
+    // Thêm các phương thức giao dịch
+    public function begin_transaction()
+    {
+        $this->conn->begin_transaction();
+    }
 
-?>
+    public function commit()
+    {
+        $this->conn->commit();
+    }
+
+    public function rollback()
+    {
+        $this->conn->rollback();
+    }
+}
