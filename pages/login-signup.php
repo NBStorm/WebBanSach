@@ -105,10 +105,7 @@
                             $.each(response, function(index, item) {
                                 // Sử dụng dữ liệu từ mảng để thực hiện các hành động tương ứng
                                 if (item.trangthai) {
-                                    alert('Đăng nhập thành công <?php
-                                                                if (isset($_SESSION['Username'])) {
-                                                                    echo $_SESSION['Username'];
-                                                                } ?>');
+                                    alert('Đăng nhập thành công');
                                     window.location.href = item.redirect;
                                 } else {
                                     alert('Đăng nhập không thành công');
@@ -118,7 +115,7 @@
                             alert('Đăng nhập không thành công');
                         }
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         alert("Tài khoản mật khẩu không đúng")
                     }
                 });
