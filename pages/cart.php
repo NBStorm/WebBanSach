@@ -24,7 +24,7 @@
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-end">
-                    <h5>Tổng tiền: <span class="price text-success" id="load-total-cart">89$</span></h5>
+                    <h5>Tổng tiền: <span class="price text-success" id="load-total-cart"></span></h5>
                 </div>
             </div>
             <div class="modal-footer border-top-0" style="display: flex;">
@@ -45,20 +45,29 @@
     function pay() {
         let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
 
-        var sessionValue = <?php echo json_encode(isset($_SESSION['logged_in']) ? $_SESSION['logged_in'] : false); ?>;
+        var sessionValue = <?php echo isset($_SESSION['logged_in']) ? json_encode($_SESSION['logged_in']) : 'false'; ?>;
 
         if (sessionValue) {
             if (cart.length == 0) {
                 alert("Giỏ hàng của bạn đang trống.");
             } else {
                 var username = <?php echo isset($_SESSION['Username']) ? json_encode($_SESSION['Username']) : "''"; ?>;
-                console.log(username);
+                var now = new Date();
+                var year = now.getFullYear();
+                var month = String(now.getMonth() + 1).padStart(2, '0'); // Thêm số 0 phía trước nếu tháng < 10
+                var day = String(now.getDate()).padStart(2, '0'); // Thêm số 0 phía trước nếu ngày < 10
+                var currentDate = `${year}-${month}-${day}`;
+                // Lấy giá trị của phần tử span
+                let totalPrice = document.getElementById("load-total-cart").innerText;
+
                 $.ajax({
                     url: "includes/pay.php",
                     method: "POST",
                     data: {
                         cart: JSON.stringify(cart), // Chuyển đổi mảng cart thành chuỗi JSON và gửi nó
-                        username: username
+                        username: username,
+                        currentDate: currentDate,
+                        totalPrice: totalPrice
                     },
                     dataType: 'json',
                     success: function(response) {
@@ -73,8 +82,11 @@
                         }
                     },
                     error: function(xhr, status, error) {
-                        alert("Đơn hàng lỗi: " + error);
+                        console.log("Đơn hàng lỗi: ", xhr);
+                        console.log("Trạng thái: ", status);
+                        console.log("Lỗi: ", error);
                     }
+
                 });
             }
         } else {

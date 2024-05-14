@@ -121,9 +121,9 @@ class PhieuNhap
         $sql = "SELECT *
         FROM phieunhap";
         $result = $this->db->query($sql);
+        $phieunhapArray = array();
 
         if ($result->num_rows > 0) {
-            $phieunhapArray = array();
 
             while ($row = $result->fetch_assoc()) {
                 $phieunhapArray[] = array('id' => $row['MaPN'], 'total' => $row['TongTien'], 'date' => $row['NgayTao']);
@@ -131,7 +131,7 @@ class PhieuNhap
             return $phieunhapArray;
         }
         $this->db->disconnect();
-        return "";
+        return $phieunhapArray;
     }
 
     public function getCTPN($id)
@@ -150,4 +150,3 @@ class PhieuNhap
         return "";
     }
 }
-?>
