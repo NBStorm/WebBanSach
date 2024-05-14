@@ -11,7 +11,7 @@
                 <table class="table table-image">
                     <thead>
                         <tr>
-                            <th scope="col"></th>
+                            <th scope="col">Hình ảnh</th>
                             <th scope="col">Tên sản phẩm</th>
                             <th scope="col">Giá</th>
                             <th scope="col">Số Lượng</th>
@@ -19,25 +19,12 @@
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td class="w-25">
-                                <img src="./images/vans.png" class="img-fluid img-thumbnail" alt="Sheep">
-                            </td>
-                            <td>Vans Sk8-Hi MTE Shoes</td>
-                            <td>89$</td>
-                            <td class="qty"><input type="text" class="form-control" id="input1" value="2"></td>
-                            <td>178$</td>
-                            <td>
-                                <a href="#" class="btn btn-danger btn-sm">
-                                    <i class="fa fa-times"></i>
-                                </a>
-                            </td>
-                        </tr>
+                    <tbody id="load-product-cart">
+
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-end">
-                    <h5>Total: <span class="price text-success">89$</span></h5>
+                    <h5>Tổng tiền: <span class="price text-success" id="load-total-cart">89$</span></h5>
                 </div>
             </div>
             <div class="modal-footer border-top-0" style="display: flex;">
@@ -48,6 +35,7 @@
     <script>
     //mở modal
     function addModalCart() {
+        renderCart();
         $('#cartModal').modal('show');
     }
     $('#cartModal').on('hidden.bs.modal', function() {

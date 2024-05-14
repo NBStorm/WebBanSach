@@ -883,7 +883,6 @@ form
 /* 4. Product
 /*----------------------------------------------*/
 .product-store .product-card .cart-concern {
-    bottom: 75px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -891,9 +890,9 @@ form
     text-transform: uppercase;
     transition: all 0.3s ease-out;
     opacity: 0;
+    top: 100px;
 }
 .product-store .product-card:hover .cart-concern {
-    bottom: 90px;
     opacity: 1;
 }
 .product-card .cart-concern svg {

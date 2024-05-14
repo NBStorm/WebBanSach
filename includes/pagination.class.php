@@ -10,6 +10,11 @@ class PerPage
         $this->perpage = 4;
     }
 
+    function perpage3()
+    {
+        $this->perpage = 3; // Thiết lập kích thước trang là 3
+    }
+
     function perpage($count, $href)
     {
         $output = '';
@@ -78,7 +83,7 @@ class PerPage
             if ($_GET["page"] == 1)
                 $output = $output . '<span class="disabled"><<</span><span class="disabled"><</span>';
             else
-                $output = $output . '<a class="link" onclick="getresultSearch(\'' . $href . (1) . '\')" ><<</a><a class="link" onclick="getresult(\'' . $href . ($_GET["page"] - 1) . '\')" ><</a>';
+                $output = $output . '<a class="link" onclick="getresultSearch(\'' . $href . (1) . '\')" ><<</a><a class="link" onclick="getresultSearch(\'' . $href . ($_GET["page"] - 1) . '\')" ><</a>';
 
             if (($_GET["page"] - 3) > 0) {
                 if ($_GET["page"] == 1)
@@ -112,7 +117,7 @@ class PerPage
             }
 
             if ($_GET["page"] < $pages)
-                $output = $output . '<a  class="link" onclick="getresultSearch(\'' . $href . ($_GET["page"] + 1) . '\')" >></a><a  class="link" onclick="getresult(\'' . $href . ($pages) . '\')" >>></a>';
+                $output = $output . '<a  class="link" onclick="getresultSearch(\'' . $href . ($_GET["page"] + 1) . '\')" >></a><a  class="link" onclick="getresultSearch(\'' . $href . ($pages) . '\')" >>></a>';
 
             else {
                 $output = $output . '<span class="disabled">></span><span class="disabled">>></span>';

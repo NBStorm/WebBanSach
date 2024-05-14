@@ -36,9 +36,6 @@ $output .= '
     <div class="row">
         <div class="display-header d-flex justify-content-between pb-3">
             <h2 class="display-7 text-dark text-uppercase">Tất cả sách</h2>
-            <div class="btn-right">
-                <a href="shop.html" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
-            </div>
         </div>
         <div class="swiper product-watch-swiper">
             <div class="swiper-wrapper">';
@@ -46,16 +43,16 @@ $output .= '
 while ($row = $result->fetch_assoc()) {
     // $output .= '<div class="question"><input type="hidden" id="rowcount" name="rowcount" value="' . $result->num_rows . '" />' . $row["question"] . '</div>';
     // $output .= '<div class="answer">' . $row["answer"] . '</div>';
-    $output .= "<div class='swiper-slide wi'>
+    $output .= "<div class='swiper-slide wi' style='width: 225px; margin-right: 20px;'>
                 <div class='product-card position-relative'>
                     <div class='image-holder'>
-                        <img src='./img/" . $row['HinhAnh'] . "' alt='product-item' class='img-fluid'>
+                        <img src='./img/" . $row['HinhAnh'] . "' alt='product-item' class='img-fluid' style='height: 300px; object-fit: contain; width: 100%;'>
                     </div>
                     <div class='cart-concern position-absolute'>
                         <div class='cart-button d-flex'>
-                            <a href='#' class='btn btn-medium btn-black'>Add to Cart<svg class='cart-outline'>
+                            <button onclick='addProductToCart(\"{$row['MaSP']}\",\"{$row['TenSP']}\", {$row['DonGia']}, \"{$row['HinhAnh']}\")' class='btn btn-medium btn-black'>Add to Cart<svg class='cart-outline'>
                                     <use xlink:href='#cart-outline'></use>
-                                </svg></a>
+                                </svg></button>
                         </div>
                     </div>
                     <div class='card-detail d-flex justify-content-between align-items-baseline pt-3'>
