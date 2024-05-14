@@ -4,7 +4,9 @@
             <a class="navbar-brand" href="index.php">
                 <img src="images/main-logo.png" class="logo">
             </a>
-            <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <svg class="navbar-icon">
                     <use xlink:href="#navbar-icon"></use>
                 </svg>
@@ -14,10 +16,12 @@
                     <a class="navbar-brand" href="index.html">
                         <img src="images/main-logo.png" class="logo">
                     </a>
-                    <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
+                    <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas"
+                        aria-label="Close" data-bs-target="#bdNavbar"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <ul id="navbar" class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3">
+                    <ul id="navbar"
+                        class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3">
                         <li class="nav-item">
                             <a class="nav-link me-4 active" href="#billboard">Home</a>
                         </li>
@@ -37,7 +41,8 @@
                             <a class="nav-link me-4" href="#latest-blog">Blog</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link me-4 dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Pages</a>
+                            <a class="nav-link me-4 dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#"
+                                role="button" aria-expanded="false">Pages</a>
                             <ul class="dropdown-menu">
                                 <li>
                                     <a href="about.html" class="dropdown-item">About</a>
@@ -89,7 +94,7 @@
                                                     <button onclick='addModalPurchasedOder()' class='dropdown-item'>Đơn hàng đã mua</button>
                                                 </li>
                                                 <li>
-                                                    <a href='./admin/logout.php' class='dropdown-item' id='logout-link'>Logout</a>
+                                                    <button onclick='logOut()' class='dropdown-item' id='logout-link'>Logout</button>
                                                 </li>
                                             </ul>
                                         </li>

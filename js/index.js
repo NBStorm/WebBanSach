@@ -83,3 +83,8 @@ function updateQuantity(ma, soLuong) {
     }
 }
 
+function logOut() {
+    localStorage.removeItem('cart');
+    window.location.href = './admin/logout.php';
+}
+
