@@ -1,6 +1,6 @@
 <section id="all-product" class="product-store position-relative no-padding-bottom">
     <?php
-    include("./includes/loadproduct.php");
+    include("./includes/loadAllProduct.php");
     ?>
 
     <!-- <div class="swiper-pagination position-absolute text-center"></div> -->

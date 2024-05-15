@@ -1,7 +1,6 @@
 <?php
 
 require_once("DatabaseConnection.php");
-require_once "hoadon.php";
 
 header('Content-Type: application/json');
 

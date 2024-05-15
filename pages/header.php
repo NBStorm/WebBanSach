@@ -28,7 +28,7 @@
                             <a class="nav-link me-4" href="#all-product">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link me-4" href="#smart-watches">Watches</a>
+                            <a class="nav-link me-4" href="#test">Watches</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link me-4" href="#yearly-sale">Sale</a>
@@ -86,7 +86,7 @@
                                                 role='button' aria-expanded='false'>Xin chào, " . $_SESSION['Username'] . "</a>
                                             <ul class='dropdown-menu'>
                                                 <li>
-                                                    <button class='dropdown-item' data-toggle='modal' data-target='#largeModal'>Đơn hàng đã mua</button>
+                                                    <button class='dropdown-item' data-toggle='modal' data-target='#modalOrders' onclick='loadContentModalOrders()'>Đơn hàng đã mua</button>
                                                 </li>
                                                 <li>
                                                     <button onclick='logOut()' class='dropdown-item' id='logout-link'>Đăng xuất</button>

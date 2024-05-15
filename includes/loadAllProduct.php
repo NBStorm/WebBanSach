@@ -4,7 +4,7 @@ require_once("pagination.class.php");
 
 $perPage = new PerPage();
 $sql = "SELECT * FROM sanpham";
-$paginationlink = "includes/loadproduct.php?page=";
+$paginationlink = "includes/loadAllProduct.php?page=";
 $page = 1;
 
 if (!empty($_GET["page"]) && is_numeric($_GET["page"])) {
@@ -57,7 +57,7 @@ while ($row = $result->fetch_assoc()) {
                     </div>
                     <div class='card-detail d-flex justify-content-between align-items-baseline pt-3'>
                         <h3 class='card-title text-uppercase'>
-                            <a onclick='addModalDetailsProduct(\"{$row['MaSP']}\",\"{$row['TenSP']}\", {$row['DonGia']}, \"{$row['HinhAnh']}\")' href='#!'>{$row['TenSP']}</a>
+                            <a data-target='#modalDetailsProduct' data-toggle='modal' onclick='addModalDetailsProduct(\"{$row['MaSP']}\",\"{$row['TenSP']}\", {$row['DonGia']}, \"{$row['HinhAnh']}\")' href='#!'>{$row['TenSP']}</a>
                         </h3>
                         <span class='item-price text-primary'>{$row['DonGia']}</span>
                     </div>
@@ -74,9 +74,10 @@ if (!empty($perpageresult)) {
     // echo '</br><div id="pagelink">' . $perpageresult . '</div>';
 }
 
+$db->disconnect(); // Đóng kết nối CSDL
+
 echo $output;
 
-$db->disconnect(); // Đóng kết nối CSDL
 ?>
 <script>
     function getresult(url) {
