@@ -17,9 +17,7 @@
                         <div class="swiper-slide text-center d-flex justify-content-center">
                             <div class="review-item col-md-10">
                                 <i class="icon icon-review"></i>
-                                <blockquote>“Tempus oncu enim pellen tesque este pretium in neque, elit morbi
-                                    sagittis lorem habi mattis Pellen tesque pretium feugiat vel morbi suspen dise
-                                    sagittis lorem habi tasse morbi.”</blockquote>
+                                <blockquote>“Cuốn sách này tuyệt vời với cốt truyện gây cấn và nhân vật sống động. Đây là một trải nghiệm đáng đọc với những bất ngờ và kết thúc đầy ấn tượng.”</blockquote>
                                 <div class="rating">
                                     <svg class="star star-fill">
                                         <use xlink:href="#star-fill"></use>
@@ -45,9 +43,7 @@
                         <div class="swiper-slide text-center d-flex justify-content-center">
                             <div class="review-item col-md-10">
                                 <i class="icon icon-review"></i>
-                                <blockquote>“A blog is a digital publication that can complement a website or exist
-                                    independently. A blog may include articles, short posts, listicles,
-                                    infographics, videos, and other digital content.”</blockquote>
+                                <blockquote>“Một blog là một xuất bản phẩm số có thể bổ sung cho một trang web hoặc tồn tại độc lập. Một blog có thể bao gồm các bài viết, bài đăng ngắn, danh sách, đồ họa thông tin, video và nội dung số khác.”</blockquote>
                                 <div class="rating">
                                     <svg class="star star-fill">
                                         <use xlink:href="#star-fill"></use>

@@ -3,46 +3,40 @@
 
         <div role="search" class="search-form">
             <input type="search" name="search-name" id="search-name" class="search-field"
-                placeholder="Type and press enter" value="" name="s" />
+                placeholder="Nhập và nhấn enter" value="" name="s" />
             <button type="submit" class="search-submit"><svg class="search">
                     <use xlink:href="#search"></use>
                 </svg></button>
         </div>
-        <div class="d-flex justify-content-center" style="margin-top: 20px;">
-            <span>Giá:</span>
-            <label for="lowestPrice">Từ</label>
-            <input id="lowestPrice" type="number">
-            <label for="highestPrice"> đến </label>
-            <input id="highestPrice" type="number">
-            <a class="nav-link me-4 dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#" role="button"
-                aria-expanded="false" style="width: 100px;">Thể loại</a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a class="dropdown-item">About</a>
-                </li>
-                <li>
-                    <a href="blog.html" class="dropdown-item">Blog</a>
-                </li>
-                <li>
-                    <a href="shop.html" class="dropdown-item">Shop</a>
-                </li>
-                <li>
-                    <a href="cart.html" class="dropdown-item">Cart</a>
-                </li>
-                <li>
-                    <a href="checkout.html" class="dropdown-item">Checkout</a>
-                </li>
-                <li>
-                    <a href="single-post.html" class="dropdown-item">Single Post</a>
-                </li>
-                <li>
-                    <a href="single-product.html" class="dropdown-item">Single Product</a>
-                </li>
-                <li>
-                    <a href="contact.html" class="dropdown-item">Contact</a>
-                </li>
-            </ul>
-        </div>
+
+        <div class="container mt-5">
+        <form>
+            <div class="row g-3 align-items-center">
+                <div class="col-auto">
+                    <label for="priceFrom" class="col-form-label">Giá từ</label>
+                    <input type="number" id="priceFrom" class="form-control" placeholder="Nhập giá từ">
+                </div>
+                <div class="col-auto">
+                    <label for="priceTo" class="col-form-label">Giá đến</label>
+                    <input type="number" id="priceTo" class="form-control" placeholder="Nhập giá đến">
+                </div>
+                <div class="col-auto">
+                    <label for="bookCategory" class="col-form-label">Thể loại</label>
+                    <select id="bookCategory" class="form-select">
+                        <option value="" selected>Chọn thể loại</option>
+                        <option value="1">Tiểu thuyết</option>
+                        <option value="2">Khoa học</option>
+                        <option value="3">Văn học</option>
+                        <option value="4">Lịch sử</option>
+                        <option value="5">Kinh tế</option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                </div>
+            </div>
+        </form>
+    </div>
 
 
         <!-- <h5 class="cat-list-title">Browse Categories</h5>

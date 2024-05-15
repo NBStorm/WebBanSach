@@ -5,8 +5,8 @@
                 class="subscribe-content bg-dark d-flex flex-wrap justify-content-center align-items-center padding-medium">
                 <div class="col-md-6 col-sm-12">
                     <div class="display-header pe-3">
-                        <h2 class="display-7 text-uppercase text-light">Subscribe Us Now</h2>
-                        <p>Get latest news, updates and deals directly mailed to your inbox.</p>
+                        <h2 class="display-7 text-uppercase text-light">Đăng ký ngay bây giờ</h2>
+                        <p>Nhận tin tức mới nhất, cập nhật và ưu đãi được gửi trực tiếp vào hộp thư đến của bạn.</p>
                     </div>
                 </div>
                 <div class="col-md-5 col-sm-12">
@@ -15,7 +15,7 @@
                             <input class="form-control btn-rounded-none" type="email" name="EMAIL"
                                 placeholder="Your email address here" required="">
                             <button class="btn btn-medium btn-primary text-uppercase btn-rounded-none" type="submit"
-                                name="subscribe">Subscribe</button>
+                                name="subscribe">Đăng ký</button>
                         </div>
                     </form>
                 </div>
