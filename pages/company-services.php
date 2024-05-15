@@ -9,7 +9,7 @@
                         </svg>
                     </div>
                     <div class="icon-box-content">
-                        <h3 class="card-title text-uppercase text-dark">Free delivery</h3>
+                        <h3 class="card-title text-uppercase text-dark">Giao hàng miễn phí</h3>
                         <p>Consectetur adipi elit lorem ipsum dolor sit amet.</p>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                         </svg>
                     </div>
                     <div class="icon-box-content">
-                        <h3 class="card-title text-uppercase text-dark">Quality guarantee</h3>
+                        <h3 class="card-title text-uppercase text-dark">Bảo đảm chất lượng</h3>
                         <p>Dolor sit amet orem ipsu mcons ectetur adipi elit.</p>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                         </svg>
                     </div>
                     <div class="icon-box-content">
-                        <h3 class="card-title text-uppercase text-dark">Daily offers</h3>
+                        <h3 class="card-title text-uppercase text-dark">Các ưu đãi hàng ngày</h3>
                         <p>Amet consectetur adipi elit loreme ipsum dolor sit.</p>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                         </svg>
                     </div>
                     <div class="icon-box-content">
-                        <h3 class="card-title text-uppercase text-dark">100% secure payment</h3>
+                        <h3 class="card-title text-uppercase text-dark">Thanh toán an toàn 100%</h3>
                         <p>Rem Lopsum dolor sit amet, consectetur adipi elit.</p>
                     </div>
                 </div>
