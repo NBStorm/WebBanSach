@@ -235,7 +235,7 @@ function coQuyenSua($chucNang, $cacMaChucNangTruyCap, $quyenChucNang, $crud)
         <div id="layoutSidenav_content">
             <?php
             include ("load-interface.php")
-                ?>
+            ?>
         </div>
 
     </div>
@@ -794,6 +794,11 @@ function coQuyenSua($chucNang, $cacMaChucNangTruyCap, $quyenChucNang, $crud)
         console.log(<?php echo json_encode($_SESSION['logged_in']); ?>);
         console.log(<?php echo json_encode($_SESSION['Username']); ?>);
         console.log(<?php echo json_encode($_SESSION['MaNQ']); ?>);
+        console.log(<?php echo json_encode($_SESSION['MaTK']); ?>);
+
+        <?php
+            echo "document.getElementById('namenv').value = '" . addslashes($_SESSION['MaTK']) . "';";
+        ?>
     </script>
 </body>
 

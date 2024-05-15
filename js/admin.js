@@ -967,9 +967,10 @@ if (urlParams.has('phieunhap')) {
                 this.classList.add("selected");
                 // Hiển thị thông tin
                 var cells = this.getElementsByTagName("td");
+                var gianhap = parseInt(cells[2].innerText) - 10;
                 document.getElementById('idsp').value = cells[0].innerText;
                 document.getElementById('tensp').value = cells[1].innerText;
-                document.getElementById('giasp').value = cells[2].innerText;
+                document.getElementById('giasp').value = gianhap;
             });
         }
     });
@@ -988,9 +989,10 @@ if (urlParams.has('phieunhap')) {
                 this.classList.add("selected");
                 // Hiển thị thông tin
                 var cells = this.getElementsByTagName("td");
+                var gianhap = parseInt(cells[2].innerText) - 10;
                 document.getElementById('idsp_update').value = cells[0].innerText;
                 document.getElementById('tensp_update').value = cells[1].innerText;
-                document.getElementById('giasp_update').value = cells[2].innerText;
+                document.getElementById('giasp_update').value = gianhap;
             });
         }
     });
@@ -1193,6 +1195,7 @@ if (urlParams.has('phieunhap')) {
 
         // Gán thời gian hiện tại cho trường nhập liệu "Ngày tạo"
         document.getElementById('ngaytao').value = currentDate;
+
     });
 
     // Hàm để tính tổng tiền
@@ -2349,4 +2352,33 @@ if (urlParams.has('nhomquyen')) {
     })
 }
 
+function togglePermission(checkbox) {
+    var checkboxId = checkbox.id;
+
+    // Trích xuất tiền tố từ ID của checkbox
+    var prefix = checkboxId.slice(5, 8);
+
+    var cbThem = document.getElementById('cbThem'+prefix);
+    var cbSua = document.getElementById('cbSua'+prefix);
+    var cbXoa = document.getElementById('cbXoa'+prefix);
+    console.log(document.getElementById('cbThem'+prefix))
+
+    // Kiểm tra xem checkbox được chọn có phải là 'cbXemTK' không
+    if (checkboxId === 'cbXem'+prefix) {
+        // Nếu 'cbXemTK' được chọn, bật 'cbThemTK', 'cbSuaTK', và 'cbXoaTK'
+        if (checkbox.checked) {
+            cbThem.disabled = false;
+            cbSua.disabled = false;
+            cbXoa.disabled = false;
+            cbThem.checked = false;
+            cbSua.checked = false;
+            cbXoa.checked = false;
+        } else {
+            // Nếu 'cbXemTK' không được chọn, tắt 'cbThemTK', 'cbSuaTK', và 'cbXoaTK'
+            cbThem.disabled = true;
+            cbSua.disabled = true;
+            cbXoa.disabled = true;
+        }
+    }
+}
 

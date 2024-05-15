@@ -2129,145 +2129,145 @@ if (isset($_GET['sanpham'])) {
                                 <div id='right' style='width: 78%; display: flex; flex-direction: column;'>
                                     <div style='display: flex;justify-content: space-between'>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXemTK' class='cbXemTK'>
+                                            <input type='checkbox' id='cbXemTK' class='cbXemTK' onchange='togglePermission(this)'>
                                             Xem
                                         </label>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbThemTK' class='cbThemTK'>
+                                            <input type='checkbox' id='cbThemTK' class='cbThemTK' disabled>
                                             Thêm
                                         </label>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbSuaTK' class='cbSuaTK'>
+                                            <input type='checkbox' id='cbSuaTK' class='cbSuaTK' disabled>
                                             Sửa
                                         </label>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXoaTK' class='cbXoaTK'>
+                                            <input type='checkbox' id='cbXoaTK' class='cbXoaTK' disabled>
                                             Xóa
                                         </label>
                                     </div>
                                     <div style='display: flex;justify-content: space-between'>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXemNQ' class='cbXemNQ'>
+                                            <input type='checkbox' id='cbXemNQ' class='cbXemNQ' onchange='togglePermission(this)'>
                                             Xem
                                         </label>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbThemNQ' class='cbThemNQ'>
+                                            <input type='checkbox' id='cbThemNQ' class='cbThemNQ' disabled>
                                             Thêm
                                         </label>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbSuaNQ' class='cbSuaNQ'>
+                                            <input type='checkbox' id='cbSuaNQ' class='cbSuaNQ' disabled>
                                             Sửa
                                         </label>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXoaNQ' class='cbXoaNQ'>
+                                            <input type='checkbox' id='cbXoaNQ' class='cbXoaNQ' disabled>
                                             Xóa
                                         </label>
                                     </div>
                                     <div style='display: flex;justify-content: space-between' id='sanpham'>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXemSP' class='cbXemSP'>
+                                            <input type='checkbox' id='cbXemSP' class='cbXemSP' onchange='togglePermission(this)'>
                                             Xem
                                         </label>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbThemSP' class='cbThemSP'>
+                                            <input type='checkbox' id='cbThemSP' class='cbThemSP' disabled>
                                             Thêm
                                         </label>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbSuaSP' class='cbSuaSP'>
+                                            <input type='checkbox' id='cbSuaSP' class='cbSuaSP' disabled>
                                             Sửa
                                         </label>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXoaSP' class='cbXoaSP'>
+                                            <input type='checkbox' id='cbXoaSP' class='cbXoaSP' disabled>
                                             Xóa
                                         </label>
                                     </div>
                                     <div style='display: flex;justify-content: space-between'>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXemPN' class='cbXemPN'>
+                                            <input type='checkbox' id='cbXemPN' class='cbXemPN' onchange='togglePermission(this)'>
                                             Xem
                                         </label>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbThemPN' class='cbThemPN'>
+                                            <input type='checkbox' id='cbThemPN' class='cbThemPN' disabled>
                                             Thêm
                                         </label>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbSuaPN' class='cbSuaPN'>
+                                            <input type='checkbox' id='cbSuaPN' class='cbSuaPN' disabled>
                                             Sửa
                                         </label>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXoaPN' class='cbXoaPN'>
+                                            <input type='checkbox' id='cbXoaPN' class='cbXoaPN' disabled>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between' disabled>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXemHD' class='cbXemHD' onchange='togglePermission(this)'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbThemHD' class='cbThemHD' disabled>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbSuaHD' class='cbSuaHD' disabled>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXoaHD' class='cbXoaHD' disabled>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between' disabled>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXemNCC' class='cbXemNCC' onchange='togglePermission(this)'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbThemNCC' class='cbThemNCC' disabled>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbSuaNCC' class='cbSuaNCC' disabled>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXoaNCC' class='cbXoaNCC' disabled>
+                                            Xóa
+                                        </label>
+                                    </div>
+                                    <div style='display: flex;justify-content: space-between' disabled>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXemND' class='cbXemND' onchange='togglePermission(this)'>
+                                            Xem
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbThemND' class='cbThemND' disabled>
+                                            Thêm
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbSuaND' class='cbSuaND' disabled>
+                                            Sửa
+                                        </label>
+                                        <label class='checkbox-label'>
+                                            <input type='checkbox' id='cbXoaND' class='cbXoaND' disabled>
                                             Xóa
                                         </label>
                                     </div>
                                     <div style='display: flex;justify-content: space-between'>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXemHD' class='cbXemHD'>
+                                            <input type='checkbox' id='cbXemTL' class='cbXemTL' onchange='togglePermission(this)'>
                                             Xem
                                         </label>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbThemHD' class='cbThemHD'>
+                                            <input type='checkbox' id='cbThemTL' class='cbThemTL' disabled >
                                             Thêm
                                         </label>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbSuaHD' class='cbSuaHD'>
+                                            <input type='checkbox' id='cbSuaTL' class='cbSuaTL' disabled>
                                             Sửa
                                         </label>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXoaHD' class='cbXoaHD'>
-                                            Xóa
-                                        </label>
-                                    </div>
-                                    <div style='display: flex;justify-content: space-between'>
-                                        <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXemNCC' class='cbXemNCC'>
-                                            Xem
-                                        </label>
-                                        <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbThemNCC' class='cbThemNCC'>
-                                            Thêm
-                                        </label>
-                                        <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbSuaNCC' class='cbSuaNCC'>
-                                            Sửa
-                                        </label>
-                                        <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXoaNCC' class='cbXoaNCC'>
-                                            Xóa
-                                        </label>
-                                    </div>
-                                    <div style='display: flex;justify-content: space-between'>
-                                        <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXemND' class='cbXemND'>
-                                            Xem
-                                        </label>
-                                        <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbThemND' class='cbThemND'>
-                                            Thêm
-                                        </label>
-                                        <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbSuaND' class='cbSuaND'>
-                                            Sửa
-                                        </label>
-                                        <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXoaND' class='cbXoaND'>
-                                            Xóa
-                                        </label>
-                                    </div>
-                                    <div style='display: flex;justify-content: space-between'>
-                                        <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXemTL' class='cbXemTL'>
-                                            Xem
-                                        </label>
-                                        <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbThemTL' class='cbThemTL'>
-                                            Thêm
-                                        </label>
-                                        <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbSuaTL' class='cbSuaTL'>
-                                            Sửa
-                                        </label>
-                                        <label class='checkbox-label'>
-                                            <input type='checkbox' id='cbXoaTL' class='cbXoaTL'>
+                                            <input type='checkbox' id='cbXoaTL' class='cbXoaTL'disabled>
                                             Xóa
                                         </label>
                                     </div>
@@ -2353,7 +2353,7 @@ if (isset($_GET['sanpham'])) {
                                 <div id='right' style='width: 78%; display: flex; flex-direction: column;'>
                                     <div style='display: flex;justify-content: space-between'>
                                         <label class='checkbox-label'>
-                                            <input type='checkbox' id='ucbXemTK' class='ucbXemTK'>
+                                            <input type='checkbox' id='ucbXemTK' class='ucbXemTK' onchange='togglePermissionplus(this)>
                                             Xem
                                         </label>
                                         <label class='checkbox-label'>

@@ -14,13 +14,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $sdt = $_POST['SoDienThoai'];
             $email = $_POST['Email'];
 
-            $result = $nguoiDung->themNguoiDung($ten, $sdt, $email,$id); // Gọi hàm themTheLoai và lưu trạng thái kết quả vào biến $result
-            if ($result) {
-                echo true; // Trả về kết quả true nếu thêm thành công
-            } else {
-                echo false; // Trả về kết quả false nếu thêm không thành công
+            $nguoiDungArray = $nguoiDung->getAll();
+            $found = false;
+            foreach ($nguoiDungArray as $item) {
+                if ($item['id'] == $id) {
+                    echo "Mã này đã có người dùng";
+                    $found = true;
+                    break;
+                }
             }
-
+            if (!$found) {
+                $result = $nguoiDung->themNguoiDung($ten, $sdt, $email,$id); // Gọi hàm themTheLoai và lưu trạng thái kết quả vào biến $result
+                if ($result) {
+                    echo true; // Trả về kết quả true nếu thêm thành công
+                } else {
+                    echo false; // Trả về kết quả false nếu thêm không thành công
+                }
+            }
             break;
 
         case 'xoa':

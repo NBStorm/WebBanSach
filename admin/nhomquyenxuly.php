@@ -12,20 +12,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $id = $_POST['MaNQ'];
             $ten = $_POST['TenNQ'];
             $ctquyen = json_decode($_POST['chitietquyen'], true);
-            
-            $result = $nhomQuyen->themNhomQuyen($ten,$ctquyen); // Gọi hàm themTheLoai và lưu trạng thái kết quả vào biến $result
-            if ($result) {
-                echo true; // Trả về kết quả true nếu thêm thành công
-            } else {
-                echo false; // Trả về kết quả false nếu thêm không thành công
+
+            $nhomQuyenArray = $nhomQuyen->getAll();
+            $found = false;
+            foreach ($nhomQuyenArray as $item) {
+                if ($item['ten'] == $ten) {
+                    echo "Tên nhóm đã xuất hiện";
+                    $found = true;
+                    break;
+                }
             }
+            if (!$found) {
+                $result = $nhomQuyen->themNhomQuyen($ten, $ctquyen); // Gọi hàm themTheLoai và lưu trạng thái kết quả vào biến $result
+                if ($result) {
+                    echo true; // Trả về kết quả true nếu thêm thành công
+                } else {
+                    echo false; // Trả về kết quả false nếu thêm không thành công
+                }
+            }
+
             break;
 
         case 'xoa':
             $id = $_POST['recordId'];
-            
+
             $result = $nhomQuyen->xoaNhomQuyen((int) $id);
-            if ($result===true) {
+            if ($result === true) {
                 echo $result;
             } else {
                 echo $result;
@@ -36,14 +48,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $id = $_POST['MaNQ'];
             $ten = $_POST['TenNQ'];
             $ctquyen = json_decode($_POST['chitietquyen'], true);
-            
-            $result = $nhomQuyen->suaNhomQuyen($id ,$ten, $ctquyen); // Gọi hàm themTheLoai và lưu trạng thái kết quả vào biến $result
-            if ($result) {
-                echo true; // Trả về kết quả true nếu thêm thành công
-            } else {
-                echo false; // Trả về kết quả false nếu thêm không thành công
-            }
 
+            $nhomQuyenArray = $nhomQuyen->getAll();
+            $found = false;
+            foreach ($nhomQuyenArray as $item) {
+                if ($item['ten'] == $ten && ($item['id'] != $id)) {
+                    echo "Tên nhóm quyền đã xuất hiện";
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                $result = $nhomQuyen->suaNhomQuyen($id, $ten, $ctquyen); // Gọi hàm themTheLoai và lưu trạng thái kết quả vào biến $result
+                if ($result) {
+                    echo true; // Trả về kết quả true nếu thêm thành công
+                } else {
+                    echo false; // Trả về kết quả false nếu thêm không thành công
+                }
+
+            }
             break;
     }
 } else {

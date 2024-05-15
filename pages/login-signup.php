@@ -5,7 +5,7 @@
             <form id="signupForm" action="#" style="margin-top:40px">
                 <input style="height:40px" type="text" placeholder="Username" required />
                 <input style="height:40px" type="text" placeholder="Họ tên" required />
-                <input style="height:40px" type="text" placeholder="Số điện thoại" required />
+                <input style="height:40px" type="number" placeholder="Số điện thoại" required />
                 <input style="height:40px" type="email" placeholder="Email" required />
                 <input style="height:40px" type="password" placeholder="Password" required />
                 <input style="height:40px" type="hidden" id="ngay" name="ngay" placeholder="Ngày" />

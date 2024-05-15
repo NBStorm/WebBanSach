@@ -110,6 +110,7 @@ class TaiKhoan
             if ($row = $result->fetch_assoc()) {
                 $_SESSION['MaNQ'] = $row['MaNQ']; // Lưu quyền người dùng vào session (nếu cần)
                 $_SESSION['Username'] = $row['Username'];
+                $_SESSION['MaTK'] = $row['MaTK'];
             }
 
             $response = array();
