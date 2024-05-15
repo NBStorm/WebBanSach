@@ -66,7 +66,7 @@ if (urlParams.has('theloai')) {
                     alert("Xóa thành công")
                     location.reload();
                 } else {
-                    alert('Error: Unable to delete the record.');
+                    alert('Thể loại này không thể xóa');
                 }
             }
         });

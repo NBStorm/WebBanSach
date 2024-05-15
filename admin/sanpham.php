@@ -139,7 +139,8 @@ class SanPham
             JOIN hoadon hd ON cthd.MaHD = hd.MaHD
             WHERE hd.NgayTao BETWEEN ? AND ?
                   AND hd.TrangThai = 'Đã giao'
-            GROUP BY tl.TenTL";
+            GROUP BY tl.TenTL
+            ORDER BY SoLuongDaBan DESC;";
         }
         
 

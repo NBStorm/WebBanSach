@@ -13,7 +13,8 @@ $sql = "SELECT sp.MaSP, sp.TenSP, sp.DonGia, sp.HinhAnh, SUM(cthd.SoLuong) AS to
                 WHERE hd.NgayTao BETWEEN ? AND ?
                   AND hd.TrangThai = 'Đã giao'
                 GROUP BY sp.MaSP, sp.TenSP, sp.DonGia, sp.HinhAnh
-                ORDER BY total_quantity";
+                ORDER BY total_quantity
+                ";
 
 $paginationlink = "includes/loadSellingProduct.php?page=";
 $page = 1;
