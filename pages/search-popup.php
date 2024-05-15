@@ -1,13 +1,49 @@
 <div class="search-popup">
     <div class="search-popup-container">
 
-        <form role="search" method="get" class="search-form" action="">
+        <div role="search" class="search-form">
             <input type="search" name="search-name" id="search-name" class="search-field"
                 placeholder="Type and press enter" value="" name="s" />
             <button type="submit" class="search-submit"><svg class="search">
                     <use xlink:href="#search"></use>
                 </svg></button>
-        </form>
+        </div>
+        <div class="d-flex justify-content-center" style="margin-top: 20px;">
+            <span>Giá:</span>
+            <label for="lowestPrice">Từ</label>
+            <input id="lowestPrice" type="number">
+            <label for="highestPrice"> đến </label>
+            <input id="highestPrice" type="number">
+            <a class="nav-link me-4 dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#" role="button"
+                aria-expanded="false" style="width: 100px;">Thể loại</a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item">About</a>
+                </li>
+                <li>
+                    <a href="blog.html" class="dropdown-item">Blog</a>
+                </li>
+                <li>
+                    <a href="shop.html" class="dropdown-item">Shop</a>
+                </li>
+                <li>
+                    <a href="cart.html" class="dropdown-item">Cart</a>
+                </li>
+                <li>
+                    <a href="checkout.html" class="dropdown-item">Checkout</a>
+                </li>
+                <li>
+                    <a href="single-post.html" class="dropdown-item">Single Post</a>
+                </li>
+                <li>
+                    <a href="single-product.html" class="dropdown-item">Single Product</a>
+                </li>
+                <li>
+                    <a href="contact.html" class="dropdown-item">Contact</a>
+                </li>
+            </ul>
+        </div>
+
 
         <!-- <h5 class="cat-list-title">Browse Categories</h5>
 
@@ -44,8 +80,6 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-    var action = "search";
-
     $("#search-name").keyup(function() {
         var search_name = $("#search-name").val();
         if (search_name != "") {
@@ -54,7 +88,6 @@ $(document).ready(function() {
                 url: "includes/search.php",
                 method: "POST",
                 data: {
-                    action: action,
                     search_name: search_name
                 },
                 success: function(data) {

@@ -1,5 +1,5 @@
 <!-- Đơn hàng modal -->
-<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+<div class="modal fade" id="modalOrders" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,35 +9,17 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-striped">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">Thời gian</th>
-                            <th scope="col">Tổng sản phẩm</th>
+                            <!-- <th scope="col">Tổng sản phẩm</th> -->
                             <th scope="col">Tổng tiền</th>
                             <th scope="col">Trạng thái</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>01/05/2024 14:30</td>
-                            <td>3</td>
-                            <td>1,500,000 VND</td>
-                            <td>Đã giao</td>
-                        </tr>
-                        <tr>
-                            <td>25/04/2024 10:00</td>
-                            <td>5</td>
-                            <td>2,500,000 VND</td>
-                            <td>Đang xử lý</td>
-                        </tr>
-                        <tr>
-                            <td>20/04/2024 16:45</td>
-                            <td>2</td>
-                            <td>800,000 VND</td>
-                            <td>Đã hủy</td>
-                        </tr>
-                        <!-- Thêm các dòng đơn hàng khác tại đây -->
+                    <tbody id="loadContentModalOrders">
+
                     </tbody>
                 </table>
             </div>
@@ -48,21 +30,18 @@
     </div>
 </div>
 
-
-
-
 <!-- Thông tin chi tiết sản phẩm modal -->
-<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+<div class="modal fade" id="modalDetailsProduct" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Chi tiết thiết bị</h4>
+                <h4 class="modal-title" id="myModalLabel">Thông tin chi tiết sản phẩm</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <div class="row" id="loadContent">
                     <div class="col-md-4">
                         <img src="https://via.placeholder.com/150" alt="Book Image" class="img-fluid">
                     </div>
@@ -83,3 +62,40 @@
         </div>
     </div>
 </div>
+<script>
+    function loadContentModalOrders() {
+        var username = <?php echo isset($_SESSION['Username']) ? json_encode($_SESSION['Username']) : "''"; ?>;
+
+
+        $.ajax({
+            url: "includes/orders.php",
+            method: "POST",
+            data: {
+                username: username,
+            },
+            dataType: 'json',
+            success: function(data) {
+                if (data.status === 'error') {
+                    console.log(data.message);
+                } else {
+                    let tableContent = '';
+                    data.forEach(function(order) {
+                        tableContent += `<tr>
+                        <td>${order.NgayTao}</td>
+                        <td>${order.TongTien}</td>
+                        <td>${order.TrangThai}</td>
+                    </tr>`;
+                    });
+                    $("#loadContentModalOrders").html(tableContent);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.log("Đã xảy ra lỗi: ", error);
+                console.log(xhr);
+                console.log(status);
+            }
+        });
+
+
+    }
+</script>

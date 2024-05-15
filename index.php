@@ -132,7 +132,7 @@ if (!isset($_SESSION['logged_in'])) {
     include("pages/header.php");
     include("pages/billboard.php");
     include("pages/company-services.php");
-    // include ("pages/sale-products.php");
+    include("pages/selling-products.php");
     include("pages/products.php");
     include("pages/sale.php");
     include("pages/blog.php");

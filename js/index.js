@@ -21,6 +21,36 @@ function addProductToCart(ma, ten, gia, hinhanh) {
 
     // Cập nhật lại giỏ hàng trong localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
+    alert("Thêm sản phẩm vào giỏ hàng thành công");
+}
+
+function addProductToCart2(ma, ten, gia, hinhanh) {
+    let cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+
+    let quantity = document.getElementById(`quantity-${ma}`).value;
+    quantity = parseInt(quantity);
+
+    // Tìm sản phẩm trong giỏ hàng theo mã
+    let sanPhamTonTai = cart.find(sanPham => sanPham.ma === ma);
+
+    if (sanPhamTonTai) {
+        // Nếu sản phẩm đã tồn tại, tăng số lượng lên
+        sanPhamTonTai.soLuong += quantity;
+    } else {
+        // Nếu sản phẩm chưa tồn tại, thêm sản phẩm mới với số lượng là 1
+        const sanPhamMoi = {
+            ma: ma,
+            ten: ten,
+            gia: gia,
+            hinhAnh: hinhanh,
+            soLuong: quantity
+        };
+        cart.push(sanPhamMoi);
+    }
+
+    // Cập nhật lại giỏ hàng trong localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert("Thêm sản phẩm vào giỏ hàng thành công");
 }
 
 function renderCart() {
@@ -87,6 +117,33 @@ function logOut() {
     localStorage.removeItem('cart');
     window.location.href = './admin/logout.php';
 }
+
+function addModalDetailsProduct(ma, ten, gia, hinhAnh) {
+
+    let content = `
+        <div class="col-md-4">
+            <img src="./img/${hinhAnh}" alt="Book Image" class="img-fluid">
+        </div>
+        <div class="col-md-8">
+            <h5>Tên sách: ${ten}</h5>
+            <p>Giá: ${gia} VND</p>
+            <div class="form-group">
+                <label for="quantity-${ma}">Số lượng:</label>
+                <input type="number" class="form-control" id="quantity-${ma}" value="1" min="1">
+            </div>
+            <button type="button" class="btn btn-success" onclick='addProductToCart2(${ma},\"${ten}\", ${gia}, \"${hinhAnh}\")'">Thêm vào giỏ hàng</button>
+        </div>`;
+
+    
+    document.getElementById('loadContent').innerHTML = content;
+    // document.getElementById('modalDetailsProduct').style.display = 'block';
+}
+
+
+
+
+
+
 
 
 
