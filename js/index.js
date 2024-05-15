@@ -139,6 +139,34 @@ function addModalDetailsProduct(ma, ten, gia, hinhAnh) {
     // document.getElementById('modalDetailsProduct').style.display = 'block';
 }
 
+var temp;
+
+document.querySelectorAll('.dropdown-item').forEach(item => {
+    item.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        var selectedValue = this.getAttribute('data-value');
+        temp = this.getAttribute('data-value');
+        console.log("Selected category value: " + selectedValue);
+
+        if(selectedValue != null) {
+            $.ajax({
+                url: "includes/loadCategoryProduct.php",
+                method: "POST",
+                data: {
+                    bookCategory: selectedValue,
+                },
+                success: function(data) {
+                    $("#category-product").html(data);
+                    $(".wi").css({
+                        "width": "270px",
+                    });
+                }
+            });
+        }
+
+    });
+});
 
 
 
