@@ -88,7 +88,7 @@ while ($row = $result->fetch_assoc()) {
                             </div>
                         </div>
                         <div class='card-detail d-flex justify-content-between align-items-baseline pt-3'>
-                            <h3 class='card-title text-uppercase'>
+                            <h3 class='card-title text-uppercase' style='width:215px'>
                                 <a data-toggle='modal' data-target='#modalDetailsProduct' onclick='addModalDetailsProduct(\"{$row['MaSP']}\",\"{$row['TenSP']}\", {$row['DonGia']}, \"{$row['HinhAnh']}\")' href='#!'>{$row['TenSP']}</a>
                             </h3>
                             <span class='item-price text-primary'>{$row['DonGia']}</span>
