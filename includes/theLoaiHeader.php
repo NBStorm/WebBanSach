@@ -13,7 +13,7 @@ $result = $statement->get_result();
 $output = "";
 
 while ($row = $result->fetch_assoc()) {
-    echo "<li><a class='dropdown-item' href='#' data-value='" . $row['MaTL'] . "'>" . $row['TenTL'] . "</a></li>";
+    echo "<li><a class='dropdown-item' href='#category-product' data-value='" . $row['MaTL'] . "' data-name='" . $row['TenTL'] . "'>" . $row['TenTL'] . "</a></li>";
 }
 
 $statement->close(); // Đóng statement
