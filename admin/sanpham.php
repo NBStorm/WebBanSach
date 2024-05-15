@@ -118,5 +118,44 @@ class SanPham
         $stmt->close();
         return $data;
     }
+
+    public function thongKe($thongKeTheo,$start, $end)
+    {
+        if($thongKeTheo == 1){
+            $sql = "SELECT sp.MaSP, sp.TenSP, tl.TenTL, SUM(cthd.SoLuong) AS total_quantity
+            FROM sanpham sp
+            JOIN chitiethoadon cthd ON sp.MaSP = cthd.MaSP
+            JOIN hoadon hd ON cthd.MaHD = hd.MaHD
+            JOIN theloai tl ON tl.MaTL = sp.MaTL
+            WHERE hd.NgayTao BETWEEN ? AND ?
+              AND hd.TrangThai = 'Đã giao'
+            GROUP BY sp.MaSP, sp.TenSP
+            ORDER BY total_quantity DESC;";
+        }else{
+            $sql = "SELECT tl.TenTL, SUM(cthd.SoLuong) AS SoLuongDaBan
+            FROM chitiethoadon cthd
+            JOIN sanpham sp ON cthd.MaSP = sp.MaSP
+            JOIN theloai tl ON sp.MaTL = tl.MaTL
+            JOIN hoadon hd ON cthd.MaHD = hd.MaHD
+            WHERE hd.NgayTao BETWEEN ? AND ?
+                  AND hd.TrangThai = 'Đã giao'
+            GROUP BY tl.TenTL";
+        }
+        
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param('ss', $start, $end);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $data = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $data[] = $row;
+            }
+        }
+        $stmt->close();
+        return $data;
+    }
 }
 ?>

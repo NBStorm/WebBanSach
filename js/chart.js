@@ -68,6 +68,20 @@ if (urlParams.has('thongke')) {
         endDate.value = `${year}-${month}-${day}`;
     });
 
+    document.addEventListener('DOMContentLoaded', (event) => {
+        // Set the start date to 1/1/2023
+        const startDate = document.getElementById('start-date-2');
+        startDate.value = '2023-01-01';
+
+        // Set the end date to today's date
+        const endDate = document.getElementById('end-date-2');
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        endDate.value = `${year}-${month}-${day}`;
+    });
+
     var productChart;
     $(document).ready(function () {
         $('#filter-form').on('submit', function (e) {
@@ -80,7 +94,7 @@ if (urlParams.has('thongke')) {
                 alert('Vui lòng chọn cả ngày bắt đầu và ngày kết thúc.');
                 return;
             }
-    
+
             if (new Date(startDate) > new Date(endDate)) {
                 alert('Ngày kết thúc phải lớn hơn ngày bắt đầu.');
                 return;
@@ -163,6 +177,199 @@ if (urlParams.has('thongke')) {
             });
         });
     });
+
+    //doughnut chart
+    var doughnutChart;
+    $(document).ready(function () {
+        $('#filter-form-2').on('submit', function (e) {
+            e.preventDefault();
+
+            let startDate = $('#start-date-2').val();
+            let endDate = $('#end-date-2').val();
+            let thongKeTheo = $('#thongKeTheo').val();
+
+            if (!startDate || !endDate) {
+                alert('Vui lòng chọn cả ngày bắt đầu và ngày kết thúc.');
+                return;
+            }
+
+            if (new Date(startDate) > new Date(endDate)) {
+                alert('Ngày kết thúc phải lớn hơn ngày bắt đầu.');
+                return;
+            }
+
+            if (thongKeTheo == 1) {
+                $.ajax({
+                    url: 'thongKeTheo.php',
+                    method: 'POST',
+                    dataType: 'json', // Ensure the response is parsed as JSON
+                    data: {
+                        startDate: startDate,
+                        endDate: endDate,
+                        thongKeTheo: thongKeTheo
+                    },
+                    success: function (response) {
+                        console.log(response); // Log the response for debugging
+                        // Ensure response is an array
+                        if (Array.isArray(response)) {
+                            let labels = [];
+                            let data = [];
+                            let tableContent = '';
+
+                            response.forEach(function (item) {
+                                labels.push(item.TenSP);
+                                data.push(item.total_quantity);
+
+                                tableContent += '<tr>';
+                                tableContent += '<td>' + item.MaSP + '</td>';
+                                tableContent += '<td>' + item.TenSP + '</td>';
+                                tableContent += '<td>' + item.TenTL + '</td>';
+                                tableContent += '<td>' + item.total_quantity + '</td>';
+                                tableContent += '</tr>';
+                            });
+                            if (doughnutChart) {
+                                doughnutChart.destroy();
+                            }
+                            var ctx = document.getElementById('doughnutChart').getContext('2d');
+                            doughnutChart = new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: 'Total Quantity Sold',
+                                        data: data,
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)',
+                                            'rgba(255, 205, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            // Add more colors depending on the number of data
+                                        ],
+                                        borderColor: [
+                                            'rgb(255, 99, 132)',
+                                            'rgb(255, 159, 64)',
+                                            'rgb(255, 205, 86)',
+                                            'rgb(75, 192, 192)',
+                                            'rgb(54, 162, 235)',
+                                            // Add more colors depending on the number of data
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    animation: {
+                                        animateScale: true,
+                                        animateRotate: true
+                                    }
+                                }
+                            });
+
+                            $('#value-2 tbody').html(tableContent);
+                        } else {
+                            console.error('Unexpected response format', response);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error('Error: ' + textStatus + ' - ' + errorThrown);
+                        console.error('Response text: ', jqXHR.responseText); // Add this line to log the response text
+                    }
+                });
+            } else {
+                $.ajax({
+                    url: 'thongKeTheo.php',
+                    method: 'POST',
+                    dataType: 'json', // Ensure the response is parsed as JSON
+                    data: {
+                        startDate: startDate,
+                        endDate: endDate,
+                        thongKeTheo: thongKeTheo
+                    },
+                    success: function (response) {
+                        console.log(response); // Log the response for debugging
+                        // Ensure response is an array
+                        if (Array.isArray(response)) {
+                            let labels = [];
+                            let data = [];
+                            let tableContent = '';
+
+                            var table = document.getElementById("value-2");
+
+                            // Truy cập phần tử thead
+                            var thead = table.querySelector("thead");
+
+                            // Thay đổi nội dung của thead
+                            thead.innerHTML = `
+                                                <tr>
+                                                    <th>Tên Thể Loại</th>
+                                                    <th>Số lượng đã bán</th>
+                                                </tr>
+                                            `;
+
+                            response.forEach(function (item) {
+                                labels.push(item.TenTL);
+                                data.push(item.SoLuongDaBan);
+
+                                tableContent += '<tr>';
+                                tableContent += '<td>' + item.TenTL + '</td>';
+                                tableContent += '<td>' + item.SoLuongDaBan + '</td>';
+                                tableContent += '</tr>';
+                            });
+                            if (doughnutChart) {
+                                doughnutChart.destroy();
+                            }
+                            var ctx = document.getElementById('doughnutChart').getContext('2d');
+                            doughnutChart = new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: labels,
+                                    datasets: [{
+                                        label: 'Total Quantity Sold',
+                                        data: data,
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)',
+                                            'rgba(255, 205, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            // Add more colors depending on the number of data
+                                        ],
+                                        borderColor: [
+                                            'rgb(255, 99, 132)',
+                                            'rgb(255, 159, 64)',
+                                            'rgb(255, 205, 86)',
+                                            'rgb(75, 192, 192)',
+                                            'rgb(54, 162, 235)',
+                                            // Add more colors depending on the number of data
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    animation: {
+                                        animateScale: true,
+                                        animateRotate: true
+                                    }
+                                }
+                            });
+
+                            $('#value-2 tbody').html(tableContent);
+                        } else {
+                            console.error('Unexpected response format', response);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error('Error: ' + textStatus + ' - ' + errorThrown);
+                        console.error('Response text: ', jqXHR.responseText); // Add this line to log the response text
+                    }
+                });
+            }
+
+        });
+    });
+    //end
 
     $(document).ready(function () {
         // Hàm để lấy dữ liệu mặc định từ máy chủ
@@ -266,5 +473,108 @@ if (urlParams.has('thongke')) {
         // Gọi hàm getDefaultData khi trang được tải
         getDefaultData();
     });
+    $(document).ready(function () {
+        // Hàm để lấy dữ liệu mặc định từ máy chủ
+        function getDefaultData() {
+            var startDate = '2023-01-01'; // Ngày bắt đầu mặc định
+            var endDate = getCurrentDate(); // Ngày kết thúc là ngày hiện tại
+            var thongKeTheo = 1;
+            $.ajax({
+                url: 'thongKeTheo.php',
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    startDate: startDate,
+                    endDate: endDate,
+                    thongKeTheo: thongKeTheo
+                },
+                success: function (response) {
+                    console.log(response); // Log the response for debugging
+                    // Vẽ biểu đồ với dữ liệu nhận được
+                    renderChartAndTable(response);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Error: ' + textStatus + ' - ' + errorThrown);
+                    console.error('Response text: ', jqXHR.responseText);
+                }
+            });
+        }
 
+        // Hàm để vẽ biểu đồ và cập nhật bảng
+        function renderChartAndTable(data) {
+            let labels = [];
+            let dataset = [];
+            let tableContent = ''; // Chuỗi HTML để cập nhật bảng
+
+            // Xử lý dữ liệu để vẽ biểu đồ và cập nhật bảng
+            data.forEach(function (item) {
+                labels.push(item.TenSP);
+                dataset.push(item.total_quantity);
+
+                // Tạo dòng mới trong bảng
+                tableContent += '<tr>';
+                tableContent += '<td>' + item.MaSP + '</td>';
+                tableContent += '<td>' + item.TenSP + '</td>';
+                tableContent += '<td>' + item.TenTL + '</td>';
+                tableContent += '<td>' + item.total_quantity + '</td>';
+                tableContent += '</tr>';
+            });
+
+            // Hủy bỏ biểu đồ cũ (nếu có)
+            if (doughnutChart) {
+                doughnutChart.destroy();
+            }
+
+            // Vẽ biểu đồ mới
+            var ctx = document.getElementById('doughnutChart').getContext('2d');
+            doughnutChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Total Quantity Sold',
+                        data: dataset,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            // Add more colors depending on the number of data
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            // Add more colors depending on the number of data
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            });
+
+            // Cập nhật nội dung của bảng
+            $('#value-2 tbody').html(tableContent);
+        }
+        function getCurrentDate() {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+            var yyyy = today.getFullYear();
+            return yyyy + '-' + mm + '-' + dd;
+        }
+
+        // Gọi hàm getDefaultData khi trang được tải
+        getDefaultData();
+    });
 }
+

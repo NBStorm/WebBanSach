@@ -30,19 +30,72 @@ if (isset($_SESSION['MaNQ'])) {
         'thongke' => 9
     );
 
-    if (!empty($quyenArray)) {
+    $crud = array(
+        'Xem' => 'Xem',
+        'Thêm' => 'Thêm',
+        'Xóa' => 'Xóa',
+        'Sửa' => 'Sửa'
+    );
 
+    if (!empty($quyenArray)) {
         foreach ($quyenArray as $quyen) {
-            $cacMaChucNangTruyCap[] = $quyen['idcn'];
+            $cacMaChucNangTruyCap[] = array('idcn' => $quyen['idcn'], 'hd' => $quyen['hd']);
         }
     } else {
         echo "Không có quyền chức năng nào được tìm thấy cho nhóm quyền có mã là $id";
     }
-
 }
+
 function coQuyenTruyCap($chucNang, $cacMaChucNangTruyCap, $quyenChucNang)
 {
-    return isset($quyenChucNang[$chucNang]) && in_array($quyenChucNang[$chucNang], $cacMaChucNangTruyCap);
+    $idcn = $quyenChucNang[$chucNang] ?? null;
+    if ($idcn !== null) {
+        foreach ($cacMaChucNangTruyCap as $quyen) {
+            if ($quyen['idcn'] == $idcn && $quyen['hd'] == 'Xem') {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function coQuyenThem($chucNang, $cacMaChucNangTruyCap, $quyenChucNang, $crud)
+{
+    $idcn = $quyenChucNang[$chucNang] ?? null;
+    if ($idcn !== null) {
+        foreach ($cacMaChucNangTruyCap as $quyen) {
+            if ($quyen['idcn'] == $idcn && $quyen['hd'] == $crud['Thêm']) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function coQuyenXoa($chucNang, $cacMaChucNangTruyCap, $quyenChucNang, $crud)
+{
+    $idcn = $quyenChucNang[$chucNang] ?? null;
+    if ($idcn !== null) {
+        foreach ($cacMaChucNangTruyCap as $quyen) {
+            if ($quyen['idcn'] == $idcn && $quyen['hd'] == $crud['Xóa']) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function coQuyenSua($chucNang, $cacMaChucNangTruyCap, $quyenChucNang, $crud)
+{
+    $idcn = $quyenChucNang[$chucNang] ?? null;
+    if ($idcn !== null) {
+        foreach ($cacMaChucNangTruyCap as $quyen) {
+            if ($quyen['idcn'] == $idcn && $quyen['hd'] == $crud['Sửa']) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 ?>
