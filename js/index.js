@@ -138,16 +138,16 @@ function addModalDetailsProduct(ma, ten, gia, hinhAnh) {
     document.getElementById('loadContent').innerHTML = content;
     // document.getElementById('modalDetailsProduct').style.display = 'block';
 }
-
-var temp;
+ 
+var selectedValue;
+var selectedName;
 
 document.querySelectorAll('.dropdown-item').forEach(item => {
     item.addEventListener('click', function(event) {
         event.preventDefault();
 
-        var selectedValue = this.getAttribute('data-value');
-        temp = this.getAttribute('data-value');
-        console.log("Selected category value: " + selectedValue);
+        selectedValue = this.getAttribute('data-value');
+        selectedName = this.getAttribute('data-name');
 
         if(selectedValue != null) {
             $.ajax({
@@ -155,12 +155,14 @@ document.querySelectorAll('.dropdown-item').forEach(item => {
                 method: "POST",
                 data: {
                     bookCategory: selectedValue,
+                    selectedName: selectedName
                 },
                 success: function(data) {
                     $("#category-product").html(data);
                     $(".wi").css({
                         "width": "270px",
                     });
+                    document.getElementById('category-product').scrollIntoView({ behavior: 'smooth' });
                 }
             });
         }

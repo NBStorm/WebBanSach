@@ -19,7 +19,8 @@ if ($start < 0) {
 $db = new DatabaseConnection();
 $db->connect(); // Mở kết nối CSDL
 
-$bookCategory = $_POST["bookCategory"] ?? $_GET["bookCategory"] ?? '';
+$bookCategory = $_POST["bookCategory"] ?? $_GET["bookCategory"] ?? '1';
+$selectedName = $_POST["selectedName"] ?? $_GET["selectedName"] ?? 'Tiểu thuyết';
 
 $params = [];
 $types = "";
@@ -51,10 +52,11 @@ $result = $statement->get_result();
 
 $output = "";
 $output .= '
+
 <div class="container">
     <div class="row">
         <div class="display-header d-flex justify-content-between pb-3">
-            <h2 class="display-7 text-dark text-uppercase">Loại sách</h2>
+            <h2 class="display-7 text-dark text-uppercase">Thể loại '  . $selectedName . '</h2>
             <div class="btn-right">
                 <a href="index.php" class="btn btn-medium btn-normal text-uppercase">Go to Shop</a>
             </div>
@@ -92,9 +94,9 @@ if (!empty($perpageresult)) {
     $output .= '<div class="pagination justify-content-center">' . $perpageresult . '</div>';
 }
 
-echo $output;
-
+$statement->close();
 $db->disconnect();
+echo $output;
 ?>
 
 <script>
@@ -105,7 +107,8 @@ $db->disconnect();
             url: url,
             type: "GET",
             data: {
-                bookCategory: temp
+                bookCategory: selectedValue,
+                selectedName: selectedName
             },
             success: function(data) {
                 $("#category-product").html(data); // Cập nhật toàn bộ nội dung trong container
