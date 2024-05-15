@@ -4,7 +4,9 @@
             <a class="navbar-brand" href="index.php">
                 <img src="img/main-logo.png" class="logo" style="width: 143px; height: 48px;">
             </a>
-            <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler d-flex d-lg-none order-3 p-2" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#bdNavbar" aria-controls="bdNavbar" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <svg class="navbar-icon">
                     <use xlink:href="#navbar-icon"></use>
                 </svg>
@@ -14,10 +16,12 @@
                     <a class="navbar-brand" href="index.php">
                         <img src="img/main-logo.png" class="logo">
                     </a>
-                    <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas" aria-label="Close" data-bs-target="#bdNavbar"></button>
+                    <button type="button" class="btn-close btn-close-black" data-bs-dismiss="offcanvas"
+                        aria-label="Close" data-bs-target="#bdNavbar"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <ul id="navbar" class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3">
+                    <ul id="navbar"
+                        class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3">
                         <li class="nav-item">
                             <a class="nav-link me-4 active" href="#billboard">Trang chủ</a>
                         </li>
@@ -35,35 +39,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link me-4" href="#latest-blog">Blog</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link me-4 dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Trang</a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="about.html" class="dropdown-item">Về chúng tôi</a>
-                                </li>
-                                <li>
-                                    <a href="blog.html" class="dropdown-item">Blog</a>
-                                </li>
-                                <li>
-                                    <a href="shop.html" class="dropdown-item">Cửa hàng</a>
-                                </li>
-                                <li>
-                                    <a href="cart.html" class="dropdown-item">Giỏ hàng</a>
-                                </li>
-                                <li>
-                                    <a href="checkout.html" class="dropdown-item">Thanh toán</a>
-                                </li>
-                                <li>
-                                    <a href="single-post.html" class="dropdown-item">Bài viết đơn</a>
-                                </li>
-                                <li>
-                                    <a href="single-product.html" class="dropdown-item">Sản phẩm đơn</a>
-                                </li>
-                                <li>
-                                    <a href="contact.html" class="dropdown-item">Liên hệ</a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="nav-item">
                             <div class="user-items ps-5">
