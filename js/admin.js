@@ -214,6 +214,10 @@ function validatePhoneNumber(phoneNumber) {
     const regex = /^0\d{9}$/;
     return regex.test(phoneNumber);
 }
+function validateEmail(email) {
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return regex.test(email);
+}
 
 var urlParams = new URLSearchParams(window.location.search);
 if (urlParams.has('hoadon')) {
@@ -1588,6 +1592,10 @@ if (urlParams.has('nguoidung')) {
                 alert('Số điện thoại không hợp lệ');
                 return;
             }
+            if (!validateEmail(email)) {
+                alert('Email hợp lệ');
+                return;
+            }
             var formData = new FormData();
             formData.append('MaND', id);
             formData.append('HoTen', ten);
@@ -1650,7 +1658,10 @@ if (urlParams.has('nguoidung')) {
                 alert('Số điện thoại không hợp lệ');
                 return;
             }
-
+            if (!validateEmail(email)) {
+                alert('Email không hợp lệ');
+                return;
+            }
             var formData = new FormData();
             formData.append('MaND', id);
             formData.append('HoTen', ten);

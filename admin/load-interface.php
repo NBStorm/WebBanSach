@@ -15,8 +15,9 @@ if (isset($_GET['sanpham'])) {
         <ol class='breadcrumb mb-4'>
             <li class='breadcrumb-item'><a href='admin.php'>Dashboard</a></li>
             <li class='breadcrumb-item active'>Sản Phẩm</li>
-        </ol>
-        <div class='container'>
+        </ol>";
+        if (coQuyenThem('sanpham', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+            echo "<div class='container'>
             <div class='row'>
                 <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px'>
                     <button type='button' class='btn btn-success' data-bs-toggle='modal'
@@ -26,7 +27,9 @@ if (isset($_GET['sanpham'])) {
                     </button>
                 </div>  
             </div>
-        </div>
+        </div>";
+        }
+        echo "
         <div class='card mb-4'>
             <div class='card-header'>
                 <i class='fas fa-table me-1'></i>
@@ -57,11 +60,16 @@ if (isset($_GET['sanpham'])) {
                                     <td>" . $item['dongia'] . "</td>
                                     <td>" . $item['soluong'] . "</td>
                                     <td>" . $item['tentl'] . "</td>
-                                    <td><img class='product-image' src='../img/".$item['hinhanh']."' width='100px' height='100px'></td>
-                                    <td style='text-align: center;'>
-                                        <a data-bs-target='#updateSanPhamModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
-                                        <span style='margin: 0 10px'></span>
-                                        <a data-bs-target='#deleteSanPhamModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    <td><img class='product-image' src='../img/" . $item['hinhanh'] . "' width='100px' height='100px'></td>
+                                    <td style='text-align: center;'>";
+                                        if (coQuyenSua('sanpham', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                            $s .= "<a data-bs-target='#updateSanPhamModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>";
+                                        }
+                                        $s .= "<span style='margin: 0 10px'></span>";
+                                        if (coQuyenXoa('sanpham', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                            $s .= "<a data-bs-target='#deleteSanPhamModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>";
+                                        }
+                            $s .= "
                                     </td>
                                 </tr>";
                         }
@@ -255,18 +263,21 @@ if (isset($_GET['sanpham'])) {
         <ol class='breadcrumb mb-4'>
             <li class='breadcrumb-item'><a href='admin.php'>Dashboard</a></li>
             <li class='breadcrumb-item active'>Thể Loại</li>
-        </ol>
-        <div class='container'>
+        </ol>";
+        if (coQuyenThem('theloai', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+            echo "<div class='container'>
             <div class='row'>
                 <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px'>
                     <button type='button' class='btn btn-success' data-bs-toggle='modal'
                         data-bs-target='#addTheLoaiModal'>
                     <i class='fa-solid fa-circle-plus'></i>
-                        Thêm thể loại mới
+                        Thêm thể loại mới   
                     </button>
                 </div>  
             </div>
-        </div>
+        </div>";
+        }
+        echo "
         <div class='card mb-4'>
             <div class='card-header'>
                 <i class='fas fa-table me-1'></i>
@@ -290,10 +301,15 @@ if (isset($_GET['sanpham'])) {
                             $s .= "<tr>
                                     <td width=12% style='text-align: center;'>" . $item['id'] . "</td>
                                     <td>" . $item['ten'] . "</td>
-                                    <td style='text-align: center;'>
-                                        <a data-bs-target='#updateTheLoaiModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
-                                        <span style='margin: 0 10px'></span>
-                                        <a data-bs-target='#deleteTheLoaiModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    <td style='text-align: center;'>";
+                                    if (coQuyenSua('theloai', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                        $s .= "<a data-bs-target='#updateTheLoaiModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>";
+                                    }
+                                    $s .= "<span style='margin: 0 10px'></span>";
+                                    if (coQuyenXoa('theloai', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                        $s .= "<a data-bs-target='#deleteTheLoaiModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>";
+                                    }
+                            $s .= "
                                     </td>
                                 </tr>";
                         }
@@ -411,8 +427,9 @@ if (isset($_GET['sanpham'])) {
         <ol class='breadcrumb mb-4'>
             <li class='breadcrumb-item'><a href='admin.php'>Dashboard</a></li>
             <li class='breadcrumb-item active'>Người Dùng</li>
-        </ol>
-        <div class='container'>
+        </ol>";
+        if (coQuyenThem('nguoidung', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+            echo "<div class='container'>
             <div class='row'>
                 <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px'>
                     <button type='button' class='btn btn-success' data-bs-toggle='modal'
@@ -422,7 +439,9 @@ if (isset($_GET['sanpham'])) {
                     </button>
                 </div>  
             </div>
-        </div>
+        </div>";
+        }
+        echo "
         <div class='card mb-4'>
             <div class='card-header'>
                 <i class='fas fa-table me-1'></i>
@@ -450,13 +469,18 @@ if (isset($_GET['sanpham'])) {
                                     <td>" . $item['ten'] . "</td>
                                     <td>" . $item['sdt'] . "</td>
                                     <td>" . $item['email'] . "</td>
-                                    <td style='text-align: center;'>
-                                        <a data-bs-target='#updateNguoiDungModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
-                                        <span style='margin: 0 10px'></span>
-                                        <a data-bs-target='#deleteNguoiDungModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    <td style='text-align: center;'>";
+                                    if (coQuyenSua('nguoidung', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                        $s .= "<a data-bs-target='#updateNguoiDungModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>";
+                                    }
+                                    $s .= "<span style='margin: 0 10px'></span>";
+                                    if (coQuyenXoa('nguoidung', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                        $s .= "<a data-bs-target='#deleteNguoiDungModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>";
+                                    }
+                            $s .= "
                                     </td>
                                 </tr>";
-                        }
+                        }    
                         echo $s;
                     echo "</tbody>
                     <tfoot>
@@ -599,8 +623,9 @@ if (isset($_GET['sanpham'])) {
         <ol class='breadcrumb mb-4'>
             <li class='breadcrumb-item'><a href='admin.php'>Dashboard</a></li>
             <li class='breadcrumb-item active'>Tài Khoản</li>
-        </ol>
-        <div class='container'>
+        </ol>";
+        if (coQuyenThem('taikhoan', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+            echo "<div class='container'>
             <div class='row'>
                 <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px'>
                     <button type='button' class='btn btn-success' data-bs-toggle='modal'
@@ -610,7 +635,10 @@ if (isset($_GET['sanpham'])) {
                     </button>
                 </div>  
             </div>
-        </div>
+        </div>";
+        }
+        echo "
+        
         <div class='card mb-4'>
             <div class='card-header'>
                 <i class='fas fa-table me-1'></i>
@@ -640,13 +668,18 @@ if (isset($_GET['sanpham'])) {
                                     <td>" . $item['pass'] . "</td>
                                     <td>" . $item['nnq'] . "</td>
                                     <td>" . $item['date'] . "</td>
-                                    <td style='text-align: center;'>
-                                        <a data-bs-target='#updateTaiKhoanModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
-                                        <span style='margin: 0 10px'></span>
-                                        <a data-bs-target='#deleteTaiKhoanModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    <td style='text-align: center;'>";
+                                    if (coQuyenSua('taikhoan', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                        $s .= "<a data-bs-target='#updateTaiKhoanModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>";
+                                    }
+                                    $s .= "<span style='margin: 0 10px'></span>";
+                                    if (coQuyenXoa('taikhoan', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                        $s .= "<a data-bs-target='#deleteTaiKhoanModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>";
+                                    }
+                            $s .= "
                                     </td>
                                 </tr>";
-                        }
+                        }    
                         echo $s;
                     echo "</tbody>
                     <tfoot>
@@ -827,8 +860,9 @@ if (isset($_GET['sanpham'])) {
         <ol class='breadcrumb mb-4'>
             <li class='breadcrumb-item'><a href='admin.php'>Dashboard</a></li>
             <li class='breadcrumb-item active'>Nhà Cung Cấp</li>
-        </ol>
-        <div class='container'>
+        </ol>";
+        if (coQuyenThem('nhacungcap', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+            echo "<div class='container'>
             <div class='row'>
                 <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px'>
                     <button type='button' class='btn btn-success' data-bs-toggle='modal'
@@ -838,7 +872,10 @@ if (isset($_GET['sanpham'])) {
                     </button>
                 </div>  
             </div>
-        </div>
+        </div>";
+        }
+        echo "
+        
         <div class='card mb-4'>
             <div class='card-header'>
                 <i class='fas fa-table me-1'></i>
@@ -866,13 +903,18 @@ if (isset($_GET['sanpham'])) {
                                     <td width=20%>" . $item['ten'] . "</td>
                                     <td width=3% style='text-align: left;'>" . $item['sdt'] . "</td>
                                     <td width=10% style='overflow: hidden;text-overflow: ellipsis;'>" . $item['diachi'] . "</td>
-                                    <td style='text-align: center;'>
-                                        <a data-bs-target='#updateNhaCCModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
-                                        <span style='margin: 0 10px'></span>
-                                        <a data-bs-target='#deleteNhaCCModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    <td style='text-align: center;'>";
+                                    if (coQuyenSua('nhacungcap', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                        $s .= "<a data-bs-target='#updateNhaCCModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>";
+                                    }
+                                    $s .= "<span style='margin: 0 10px'></span>";
+                                    if (coQuyenXoa('nhacungcap', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                        $s .= "<a data-bs-target='#deleteNhaCCModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>";
+                                    }
+                            $s .= "
                                     </td>
                                 </tr>";
-                        }
+                        }     
                         echo $s;
                     echo "</tbody>
                     <tfoot>
@@ -1014,8 +1056,9 @@ if (isset($_GET['sanpham'])) {
         <ol class='breadcrumb mb-4'>
             <li class='breadcrumb-item'><a href='admin.php'>Dashboard</a></li>
             <li class='breadcrumb-item active'>Hóa Đơn</li>
-        </ol>
-        <div class='container'>
+        </ol>";
+        if (coQuyenThem('hoadon', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+            echo "<div class='container'>
             <div class='row'>
                 <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px'>
                     <button type='button' class='btn btn-success' data-bs-toggle='modal'
@@ -1025,7 +1068,10 @@ if (isset($_GET['sanpham'])) {
                     </button>
                 </div>  
             </div>
-        </div>
+        </div>";
+        }
+        echo "
+        
         <div class='card mb-4'>
             <form class='row w-full' id='filter-form' style='padding-top :10px;'>
                 <div class='col'>
@@ -1078,13 +1124,18 @@ if (isset($_GET['sanpham'])) {
                                     <td>" . $item['date'] . "</td>
                                     <td>" . $item['total'] . "</td>
                                     <td>" . $item['trangthai'] . "</td>
-                                    <td style='text-align: center;'>
-                                        <a data-bs-target='#updateHoaDonModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
-                                        <span style='margin: 0 10px'></span>
-                                        <a data-bs-target='#deleteHoaDonModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    <td style='text-align: center;'>";
+                                    if (coQuyenSua('hoadon', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                        $s .= "<a data-bs-target='#updateHoaDonModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>";
+                                    }
+                                    $s .= "<span style='margin: 0 10px'></span>";
+                                    if (coQuyenXoa('hoadon', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                        $s .= "<a data-bs-target='#deleteHoaDonModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>";
+                                    }
+                            $s .= "
                                     </td>
                                 </tr>";
-                        }
+                        }             
                         echo $s;
 
                     echo "</tbody>
@@ -1512,8 +1563,9 @@ if (isset($_GET['sanpham'])) {
         <ol class='breadcrumb mb-4'>
             <li class='breadcrumb-item'><a href='admin.php'>Dashboard</a></li>
             <li class='breadcrumb-item active'>Phiếu nhập</li>
-        </ol>
-        <div class='container'>
+        </ol>";
+        if (coQuyenThem('phieunhap', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+            echo "<div class='container'>
             <div class='row'>
                 <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px'>
                     <button type='button' class='btn btn-success' data-bs-toggle='modal'
@@ -1523,7 +1575,10 @@ if (isset($_GET['sanpham'])) {
                     </button>
                 </div>  
             </div>
-        </div>
+        </div>";
+        }
+        echo "
+        
         <div class='card mb-4'>
             <div class='card-header'>
                 <i class='fas fa-table me-1'></i>
@@ -1553,10 +1608,15 @@ if (isset($_GET['sanpham'])) {
                                     <td>" . $item['tenncc'] . "</td>
                                     <td>" . $item['total'] . "</td>
                                     <td>" . $item['date'] . "</td>
-                                    <td style='text-align: center;'>
-                                        <a data-bs-target='#updatePhieuNhapModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
-                                        <span style='margin: 0 10px'></span>
-                                        <a data-bs-target='#deletePhieuNhapModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    <td style='text-align: center;'>";
+                                    if (coQuyenSua('phieunhap', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                        $s .= "<a data-bs-target='#updatePhieuNhapModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>";
+                                    }
+                                    $s .= "<span style='margin: 0 10px'></span>";
+                                    if (coQuyenXoa('phieunhap', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                        $s .= "<a data-bs-target='#deletePhieuNhapModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>";
+                                    }
+                            $s .= "
                                     </td>
                                 </tr>";
                         }
@@ -1965,8 +2025,9 @@ if (isset($_GET['sanpham'])) {
         <ol class='breadcrumb mb-4'>
             <li class='breadcrumb-item'><a href='admin.php'>Dashboard</a></li>
             <li class='breadcrumb-item active'>Nhóm quyền</li>
-        </ol>
-        <div class='container'>
+        </ol>";
+        if (coQuyenThem('nhomquyen', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+            echo "<div class='container'>
             <div class='row'>
                 <div class='col-md-auto ms-auto' style='padding-right:0px;padding-bottom:10px'>
                     <button type='button' class='btn btn-success' data-bs-toggle='modal'
@@ -1976,7 +2037,10 @@ if (isset($_GET['sanpham'])) {
                     </button>
                 </div>  
             </div>
-        </div>
+        </div>";
+        }
+        echo "
+        
         <div class='card mb-4'>
             <div class='card-header'>
                 <i class='fas fa-table me-1'></i>
@@ -2000,10 +2064,15 @@ if (isset($_GET['sanpham'])) {
                             $s .= "<tr>
                                     <td width=15% style='text-align: center;'>" . $item['id'] . "</td>
                                     <td>" . $item['ten'] . "</td>
-                                    <td style='text-align: center;'>
-                                        <a data-bs-target='#updateNhomQuyenModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>
-                                        <span style='margin: 0 10px'></span>
-                                        <a data-bs-target='#deleteNhomQuyenModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>
+                                    <td style='text-align: center;'>";
+                                    if (coQuyenSua('nhomquyen', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                        $s .= "<a data-bs-target='#updateNhomQuyenModal' class='update' data-bs-toggle='modal'><i class='fa-solid fa-pen'></i></a>";
+                                    }
+                                    $s .= "<span style='margin: 0 10px'></span>";
+                                    if (coQuyenXoa('nhomquyen', $cacMaChucNangTruyCap, $quyenChucNang, $crud)) {
+                                        $s .= " <a data-bs-target='#deleteNhomQuyenModal' class='delete' data-bs-toggle='modal'><i class='fa-solid fa-trash' style='color: #ed0c0c;'></i></a>";
+                                    }
+                            $s .= "
                                     </td>
                                 </tr>";
                         }
@@ -2577,21 +2646,56 @@ if (isset($_GET['sanpham'])) {
                     <div class='col-lg-6 grid-margin stretch-card'>
                         <div class='card'>
                             <div class='card-body'>
-                            <h4 class='card-title'>Area chart</h4>
-                            <canvas id='areaChart'></canvas>
+                            <h4 class='card-title'> </h4>
+                            <canvas id='doughnutChart'></canvas>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class='row'>
-                    <div class='col-lg-6 grid-margin grid-margin-lg-0 stretch-card'>
+                    <div class='col-lg-6 grid-margin stretch-card'>
                         <div class='card'>
-                            <div class='card-body'>
-                            <h4 class='card-title'>Scatter chart</h4>
-                            <canvas id='scatterChart'></canvas>
+                            <div class='card-body' style='padding-bottom:0px'>
+                                <form class='row w-full' id='filter-form-2'>
+                                    <div class='col' style='justify-items: center;align-items: center;display: flex;'>
+                                        <div class='col'>
+                                            <div class='input-icon'>
+                                                <select class='form-select' aria-label='Default select example' id='thongKeTheo'>
+                                                    <option value='1'>Sản phẩm</option>
+                                                    <option value='0'>Thể loại</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class='col'>
+                                            <div class='input-icon'>
+                                                <input type='date' class='form-control ' placeholder='Select a date' id='start-date-2' name='tgBatDau'/>
+                                            </div>
+                                        </div>
+                                        <div class='col'>
+                                            <div class='input-icon'>
+                                                <input type='date' class='form-control ' placeholder='Select a date' id='end-date-2' name='tgKetThuc'/>
+                                            </div>
+                                        </div>
+                                        <div class='col-auto d-flex align-items-end'>
+                                            <button type='submit' class='btn btn-primary'>Lọc</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </div>
-                    </div>
+                            <div class='card-body' style='padding-top :0px'>
+                                <table id='value-2'>
+                                    <thead>
+                                        <tr>
+                                            <th>Mã Sản phẩm</th>
+                                            <th>Tên Sản phẩm</th>
+                                            <th>Thể loại</th>
+                                            <th>Tổng số lượng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>   
+                    </div>                 
                 </div>
             </div>
         </div>

@@ -39,15 +39,15 @@
             modal.style.display = "flex";
         }
         //đóng modal
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
     </script>
     <script>
-        $(document).ready(function() {
-            $('#signupForm').submit(function(event) {
+        $(document).ready(function () {
+            $('#signupForm').submit(function (event) {
                 // Ngăn chặn việc gửi biểu mẫu một cách thông thường
                 event.preventDefault();
 
@@ -61,13 +61,20 @@
                     date: $('input[type="hidden"][placeholder="Ngày"]').val(),
                     action: 'signup'
                 };
-
+                if (!validatePhoneNumber(sdt)) {
+                    alert('Số điện thoại không hợp lệ');
+                    return;
+                }
+                if (!validateEmail(email)) {
+                    alert('Email không hợp lệ');
+                    return;
+                }
                 // Gửi dữ liệu qua AJAX
                 $.ajax({
                     type: 'POST',
                     url: './admin/process_signuplogin.php', // Thay đổi đường dẫn tới tập tin xử lý form của bạn
                     data: formData,
-                    success: function(response) {
+                    success: function (response) {
                         if (response) {
                             alert('Đăng ký thành công');
                             wrapper.classList.add("active");
@@ -75,14 +82,22 @@
                             alert(response);
                         }
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.error(xhr.responseText);
                     }
                 });
             });
         });
-        $(document).ready(function() {
-            $('#loginForm').submit(function(event) {
+        function validatePhoneNumber(phoneNumber) {
+            const regex = /^0\d{9}$/;
+            return regex.test(phoneNumber);
+        }
+        function validateEmail(email) {
+            const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return regex.test(email);
+        }
+        $(document).ready(function () {
+            $('#loginForm').submit(function (event) {
                 // Ngăn chặn việc gửi biểu mẫu một cách thông thường
                 event.preventDefault();
 
@@ -99,10 +114,10 @@
                     url: './admin/process_signuplogin.php', // Thay đổi đường dẫn tới tập tin xử lý form của bạn
                     data: formData,
                     dataType: 'json',
-                    success: function(response) {
+                    success: function (response) {
                         if (response) {
 
-                            $.each(response, function(index, item) {
+                            $.each(response, function (index, item) {
                                 // Sử dụng dữ liệu từ mảng để thực hiện các hành động tương ứng
                                 if (item.trangthai) {
                                     alert('Đăng nhập thành công');
@@ -115,7 +130,7 @@
                             alert('Đăng nhập không thành công');
                         }
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         alert("Tài khoản mật khẩu không đúng")
                     }
                 });
