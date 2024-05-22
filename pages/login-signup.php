@@ -5,8 +5,8 @@
             <form id="signupForm" action="#" style="margin-top:40px">
                 <input style="height:40px" type="text" placeholder="Username" required />
                 <input style="height:40px" type="text" placeholder="Họ tên" required />
-                <input style="height:40px" type="number" placeholder="Số điện thoại" required />
-                <input style="height:40px" type="email" placeholder="Email" required />
+                <input style="height:40px" type="number" placeholder="Số điện thoại" required id="phone"/>
+                <input style="height:40px" type="email" placeholder="Email" required id="email"/>
                 <input style="height:40px" type="password" placeholder="Password" required />
                 <input style="height:40px" type="hidden" id="ngay" name="ngay" placeholder="Ngày" />
 
@@ -39,35 +39,46 @@
             modal.style.display = "flex";
         }
         //đóng modal
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
     </script>
     <script>
-        $(document).ready(function() {
-            $('#signupForm').submit(function(event) {
+        $(document).ready(function () {
+            $('#signupForm').submit(function (event) {
                 // Ngăn chặn việc gửi biểu mẫu một cách thông thường
                 event.preventDefault();
 
+                var phone = document.getElementById('phone').value;
+                var email = document.getElementById('email').value;
                 // Thu thập dữ liệu từ biểu mẫu
+                
+
+                if (!validatePhoneNumber(phone)) {
+                    alert('Số điện thoại không hợp lệ');
+                    return;
+                }
+                if (!validateEmail(email)) {
+                    alert('Email không hợp lệ');
+                    return;
+                }
                 var formData = {
                     username: $('input[type="text"][placeholder="Username"]').val(),
                     fullName: $('input[type="text"][placeholder="Họ tên"]').val(),
-                    phone: $('input[type="text"][placeholder="Số điện thoại"]').val(),
-                    email: $('input[type="email"][placeholder="Email"]').val(),
+                    phone: phone,
+                    email: email,
                     password: $('input[type="password"][placeholder="Password"]').val(),
                     date: $('input[type="hidden"][placeholder="Ngày"]').val(),
                     action: 'signup'
                 };
-
                 // Gửi dữ liệu qua AJAX
                 $.ajax({
                     type: 'POST',
                     url: './admin/process_signuplogin.php', // Thay đổi đường dẫn tới tập tin xử lý form của bạn
                     data: formData,
-                    success: function(response) {
+                    success: function (response) {
                         if (response) {
                             alert('Đăng ký thành công');
                             wrapper.classList.add("active");
@@ -75,14 +86,14 @@
                             alert(response);
                         }
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.error(xhr.responseText);
                     }
                 });
             });
         });
-        $(document).ready(function() {
-            $('#loginForm').submit(function(event) {
+        $(document).ready(function () {
+            $('#loginForm').submit(function (event) {
                 // Ngăn chặn việc gửi biểu mẫu một cách thông thường
                 event.preventDefault();
 
@@ -99,10 +110,10 @@
                     url: './admin/process_signuplogin.php', // Thay đổi đường dẫn tới tập tin xử lý form của bạn
                     data: formData,
                     dataType: 'json',
-                    success: function(response) {
+                    success: function (response) {
                         if (response) {
 
-                            $.each(response, function(index, item) {
+                            $.each(response, function (index, item) {
                                 // Sử dụng dữ liệu từ mảng để thực hiện các hành động tương ứng
                                 if (item.trangthai) {
                                     alert('Đăng nhập thành công');
@@ -115,12 +126,20 @@
                             alert('Đăng nhập không thành công');
                         }
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         alert("Tài khoản mật khẩu không đúng")
                     }
                 });
             });
         });
+        function validatePhoneNumber(phoneNumber) {
+            const regex = /^0\d{9}$/;
+            return regex.test(phoneNumber);
+        }
+        function validateEmail(email) {
+            const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return regex.test(email);
+        }
     </script>
     <script>
         // Tạo một đối tượng ngày hôm nay
